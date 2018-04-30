@@ -1,7 +1,10 @@
 <template>
   <div id="app">
     <img src="./assets/logo.png">
-    <CampaignList>
+    <CampaignList
+      v-for="campaign in campaigns"
+      v-bind:name="campaign.name"
+      v-bind:description="campaign.description">
 
     </CampaignList>
     <router-view/>
@@ -9,12 +12,44 @@
 </template>
 
 <script>
-  import CampaignList from './components/CampaignList.vue';
+  import CampaignList from '@/components/CampaignList.vue';
+
+  import Campaigns from '@/models/campaigns';
+
+  const campaigns = new Campaigns({
+    baseUrl: 'http://localhost:9000'
+  });
 
 export default {
   name: 'App',
   components: {
     CampaignList
+  },
+  data: function () {
+    return {
+      campaigns: [
+        {
+          name: 'campaign 1a',
+          description: 'blop'
+        },
+        {
+          name: 'campaign 2b',
+          description: 'blip'
+        }
+      ]
+    }
+  },
+  created: function () {
+    this.getCampaigns();
+  },
+  methods: {
+    async getCampaigns() {
+      let response = await campaigns.get();
+
+      response = require('util').inspect(response)
+
+      console.info(`Found response: ${response}`);
+    }
   }
 };
 </script>

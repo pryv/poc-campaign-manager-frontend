@@ -1,14 +1,13 @@
 <template>
-    <p>{{ name }} campaign</p>
+    <div class="campaignList">
+        <p>name: {{ name }}</p>
+        <p>description: {{ description }}</p>
+    </div>
 </template>
 
 <script>
   module.exports = {
     name: 'CampaignList',
-    data: function () {
-      return {
-        name: 'Allergy exposition'
-      }
-    }
+    props: ['name', 'description']
   }
 </script>
