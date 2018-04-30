@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <img src="./assets/logo.png">
+    <img src="https://pryv.com/wp-content/themes/pryv/assets/images/logo-pryv.png">
     <CampaignList
       v-for="campaign in campaigns"
       v-bind:name="campaign.name"
