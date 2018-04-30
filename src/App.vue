@@ -1,14 +1,22 @@
 <template>
   <div id="app">
     <img src="./assets/logo.png">
+    <CampaignList>
+
+    </CampaignList>
     <router-view/>
   </div>
 </template>
 
 <script>
+  import CampaignList from './components/CampaignList.vue';
+
 export default {
-  name: 'App'
-}
+  name: 'App',
+  components: {
+    CampaignList
+  }
+};
 </script>
 
 <style>
