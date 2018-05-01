@@ -1,30 +1,16 @@
 # app-web-campaign-management
 
-> VueJS web app for Pryv campaign management
+VueJS web app for Pryv campaign management
 
-## Build Setup
+*Prerequisites*: Node v8+, Yarn v1+
 
-``` bash
-# install dependencies
-npm install
+## Usage
 
-# serve with hot reload at localhost:8080
-npm run dev
+- Download dependencies: `yarn install`
 
-# build for production with minification
-npm run build
+- Serve with hot reload at localhost:8080: `yarn run dev`
 
-# build for production and view the bundle analyzer report
-npm run build --report
+- Build for production with minification: `yarn run build`
 
-# run unit tests
-npm run unit
+- Build for production and view the bundle analyzer report: `yarn run build --report`
 
-# run e2e tests
-npm run e2e
-
-# run all tests
-npm test
-```
-
-For a detailed explanation on how things work, check out the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
