@@ -2,6 +2,8 @@
   <div id="app">
     <img src="https://pryv.com/wp-content/themes/pryv/assets/images/logo-pryv.png">
 
+
+      <h2>Campaigns</h2>
     <table>
         <thead>
             <tr>
