@@ -44,14 +44,19 @@ export default {
   },
   methods: {
     async getCampaigns() {
-      let response = await campaigns.get();
+      const response = await campaigns.get();
 
-      response = require('util').inspect(response)
 
-      console.info(`Found response: ${response}`);
+      console.info(`Found response: ${inspect(response.body)}`);
+
+      this.campaigns = response.body.campaigns;
     }
   }
 };
+
+function inspect(item) {
+  require('util').inspect(item, {showHidden: false, depth: null})
+}
 </script>
 
 <style>
