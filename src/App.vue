@@ -1,12 +1,25 @@
 <template>
   <div id="app">
     <img src="https://pryv.com/wp-content/themes/pryv/assets/images/logo-pryv.png">
-    <CampaignList
-      v-for="campaign in campaigns" :key="campaign.title"
-      v-bind:title="campaign.title"
-      v-bind:description="campaign.description">
 
-    </CampaignList>
+    <table>
+        <thead>
+            <tr>
+                <th v-for="property in campaignProperties">
+                    {{ property }}
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr v-for="campaign in campaigns">
+                <td v-for="key in campaignProperties">
+                    {{ campaign[key] }}
+                </td>
+            </tr>
+        </tbody>
+
+    </table>
+
     <router-view/>
   </div>
 </template>
@@ -36,6 +49,13 @@ export default {
           title: 'campaign 2b',
           description: 'blip'
         }
+      ],
+      campaignProperties: [
+        'title',
+        'description',
+        'created',
+        'createdBy',
+        'permissions'
       ]
     }
   },
@@ -45,7 +65,6 @@ export default {
   methods: {
     async getCampaigns() {
       const response = await campaigns.get();
-
 
       console.info(`Found response: ${inspect(response.body)}`);
 
