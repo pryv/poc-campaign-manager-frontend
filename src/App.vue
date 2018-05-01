@@ -2,7 +2,7 @@
   <div id="app">
     <img src="https://pryv.com/wp-content/themes/pryv/assets/images/logo-pryv.png">
     <CampaignList
-      v-for="campaign in campaigns"
+      v-for="campaign in campaigns" :key="campaign.title"
       v-bind:title="campaign.title"
       v-bind:description="campaign.description">
 
