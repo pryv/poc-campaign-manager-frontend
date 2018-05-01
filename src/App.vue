@@ -3,7 +3,7 @@
     <img src="https://pryv.com/wp-content/themes/pryv/assets/images/logo-pryv.png">
     <CampaignList
       v-for="campaign in campaigns"
-      v-bind:name="campaign.name"
+      v-bind:title="campaign.title"
       v-bind:description="campaign.description">
 
     </CampaignList>
@@ -29,11 +29,11 @@ export default {
     return {
       campaigns: [
         {
-          name: 'campaign 1a',
+          title: 'campaign 1a',
           description: 'blop'
         },
         {
-          name: 'campaign 2b',
+          title: 'campaign 2b',
           description: 'blip'
         }
       ]
