@@ -32,7 +32,7 @@
   import Campaigns from '@/models/campaigns';
 
   const campaigns = new Campaigns({
-    baseUrl: 'http://localhost:9000'
+    username: 'bob'
   });
 
 export default {
@@ -55,9 +55,9 @@ export default {
       campaignProperties: [
         'title',
         'description',
+        'permissions',
         'created',
-        'createdBy',
-        'permissions'
+        'pryvAppId'
       ]
     }
   },
