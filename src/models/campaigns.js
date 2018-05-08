@@ -36,6 +36,20 @@ class Campaigns {
     return superagent.get(url)
       .query(query);
   }
+
+  create (query: {
+    campaign: {
+      title: string,
+      description: string,
+      pryvAppId: string,
+      permissions: Array<mixed>
+    }
+  }): Promise<any> {
+    const url = this.makeUrl('/campaigns');
+    console.info('doing campaign.create call to', url);
+    return superagent.post(url)
+      .send(query.campaign);
+  }
 }
 
 export default Campaigns;
