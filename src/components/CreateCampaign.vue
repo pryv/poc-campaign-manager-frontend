@@ -49,7 +49,7 @@
     },
     methods: {
       back() {
-        console.log('cancelin')
+        this.$router.replace('/account/' + this.user.username);
       },
       async create() {
         console.log('creatin');
