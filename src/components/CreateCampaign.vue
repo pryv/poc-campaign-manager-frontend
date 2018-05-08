@@ -69,13 +69,13 @@
           response = await this.campaignsModel.create({
             campaign: campaignToCreate
           });
-          console.log('campaign created succesfully', response.status, response.body)
+          console.log('campaign created succesfully', response.status, response.body);
+          this.$router.replace('/account/' + this.user.username);
         } catch (e) {
           const errorBody = e.response.body;
           console.log('got error creating campaign', errorBody);
           alert(JSON.stringify(errorBody))
         }
-
       },
       save() {
         console.log('savin')
