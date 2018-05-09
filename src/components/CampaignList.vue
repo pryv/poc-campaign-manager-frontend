@@ -10,6 +10,9 @@
                 <th v-for="property in campaignProperties">
                     {{ property }}
                 </th>
+                <th>
+                    Invitation
+                </th>
             </tr>
             </thead>
             <tbody>
@@ -17,12 +20,14 @@
                 <td v-for="key in campaignProperties">
                     {{ campaign[key] }}
                 </td>
+                <td>
+                    <button v-on:click="createInvitation(campaign.id, campaign.title)">Create Invitation</button>
+                </td>
             </tr>
             </tbody>
 
         </table>
         <div>
-            <!--<router-link to="/campaigns/new/" + user.username tag="button">New Campaign</router-link>-->
             <button v-on:click="openCreateCampaign">New Campaign</button>
         </div>
     </div>
@@ -50,6 +55,7 @@
         }),
         campaigns: [
           {
+            id: 'dId',
             title: 'dTitle',
             description: 'dDescription',
             created: 1010101,
@@ -76,6 +82,16 @@
       this.getCampaigns();
     },
     methods: {
+      createInvitation(campaignId, campaignTitle) {
+        this.$router.push({
+          path: '/invitations/new',
+          query: {
+            username: this.user.username,
+            campaignId: campaignId,
+            campaignTitle: campaignTitle
+          }
+        });
+      },
       async getCampaigns() {
         console.log('loadin campaigns for', this.$route.params);
 
