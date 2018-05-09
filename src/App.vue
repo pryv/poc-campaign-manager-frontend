@@ -5,8 +5,7 @@
         <router-view>
         </router-view>
 
-        <router-link v-bind:to="'/account'">Campaigns</router-link>
-        <router-link v-bind:to="'/hello'">Home</router-link>
+        <router-link v-bind:to="'/account'">Account</router-link>
     </div>
 </template>
 
