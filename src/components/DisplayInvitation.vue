@@ -1,13 +1,34 @@
 <template>
     <div id="DisplayInvitation">
         <h2>Invitation to campaign</h2>
+        <table>
+            <tr>
+                <td>Title:</td>
+                <td>{{ campaign.title }}</td>
+            </tr>
+            <tr>
+                <td>Description:</td>
+                <td>{{ campaign.description }}</td>
+            </tr>
+            <tr>
+                <td>Permissions:</td>
+                <td>{{ campaign.permissions }}</td>
+            </tr>
+            <tr>
+                <td>Pryv App Id:</td>
+                <td>{{ campaign.pryvAppId }}</td>
+            </tr>
+            <tr>
+                <td>Created:</td>
+                <td>{{ createdReadable }}</td>
+            </tr>
+            <tr>
+                <td>Requester:</td>
+                <td>{{ requester.username }}</td>
+            </tr>
+        </table>
+
         <br>
-        Title: {{ campaign.title }}<br>
-        Description: {{ campaign.description }}<br>
-        Permissions: {{ campaign.permissions }}<br>
-        Pryv App Id: {{ campaign.pryvAppId }}<br>
-        Created: {{ createdReadable }}<br>
-        Requester: {{ requester.username }}<br>
 
         <button>Pryv Sign in button</button>
     </div>
@@ -25,7 +46,7 @@
           token: 'TODO'
         }),
         requester: {
-          username: 'empty'
+          username: 'blop'
         },
         campaign: {
           id: 'c1n3ok12o3kn12ok3',
@@ -34,8 +55,16 @@
           '\n\n' +
           'Study made by John Hopkins University',
           created: (Date.now() / 1000),
-          permissions: 'permissions array'
-        }
+          permissions: 'permissions array',
+          pryvAppId: 'riva-blood-pressure'
+        },
+        columns: [
+          'id',
+          'title',
+          'description',
+          'created',
+          'permissions'
+        ]
       }
     },
     computed: {
@@ -44,7 +73,7 @@
       }
     },
     created() {
-      this.requester.username = this.$route.query.requester;
+      this.requester.username = 'waleed';//this.$route.query.requester;
       this.campaign.id = this.$route.query.campaignId;
     },
     methods: {
