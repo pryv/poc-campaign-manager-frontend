@@ -1,6 +1,6 @@
 <template>
     <div id="DisplayInvitation">
-        <h2>Invitation to campaign</h2>
+        <h2>Campaign Invitation</h2>
         <table>
             <tr>
                 <td>Title:</td>
@@ -54,7 +54,7 @@
           description: 'The goal of this campaign is to review the blood pressure of patients aged 18-52 to improve their well-being.' +
           '\n\n' +
           'Study made by John Hopkins University',
-          created: (Date.now() / 1000),
+          created: Date.now(),
           permissions: 'permissions array',
           pryvAppId: 'riva-blood-pressure'
         },
@@ -69,7 +69,7 @@
     },
     computed: {
       createdReadable() {
-        return new Date(this.created * 1000).toString();
+        return new Date(this.campaign.created).toString();
       }
     },
     created() {
