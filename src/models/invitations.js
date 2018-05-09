@@ -15,7 +15,6 @@ class Invitations {
     username: string,
     campaignId: string
   }) {
-
     this.token = params.token;
     this.username = params.username;
     this.baseUrl = config.dev.host +
@@ -53,7 +52,6 @@ class Invitations {
         }
       });
   }
-
 }
 
 export default Invitations;
