@@ -73,7 +73,8 @@
           'description',
           'permissions',
           'created',
-          'pryvAppId'
+          'pryvAppId',
+          'link'
         ]
       }
     },
@@ -97,8 +98,12 @@
 
         const response = await this.campaignsModel.get();
         console.log('got campaigns?', response.body);
-
-        this.campaigns = response.body.campaigns;
+        const retrievedCampaigns = response.body.campaigns;
+        retrievedCampaigns.forEach((c) => {
+          c.link = '/campaigns/display/?invitationId=' + c.invitationId
+            + '&campaignId=' + c.id;
+        });
+        this.campaigns = retrievedCampaigns;
       },
       openCreateCampaign() {
         this.$router.push({

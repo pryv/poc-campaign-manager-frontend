@@ -9,11 +9,13 @@ class Invitations {
   token: string;
   campaignId: string;
   baseUrl: string;
+  invitationId:? string;
 
   constructor (params: {
     token: string,
     username: string,
-    campaignId: string
+    campaignId: string,
+    invitationId?: string,
   }) {
     this.token = params.token;
     this.username = params.username;
@@ -21,6 +23,7 @@ class Invitations {
       ':' + config.dev.port +
       '/' + this.username;
     this.campaignId = params.campaignId;
+    this.invitationId = params.invitationId;
     console.log('baseurl:', this.baseUrl);
   }
 

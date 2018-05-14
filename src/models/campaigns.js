@@ -37,6 +37,14 @@ class Campaigns {
       .query(query);
   }
 
+  getOne (query: {
+    campaignId: string
+  }): Promise<any> {
+    const url = this.makeUrl('/campaigns/' + query.campaignId);
+    console.info('doing campaigns.getOne call to', url);
+    return superagent.get(url);
+  }
+
   create (query: {
     campaign: {
       title: string,
