@@ -50,7 +50,6 @@
       return {
         invitationsModel: new Invitations({
           username: this.$route.query.username || 'bob',
-          campaignId: this.$route.query.campaignId,
           token: 'TODO'
         }),
         campaignsModel: new Campaigns({
@@ -95,46 +94,66 @@
         });
         console.info('retrieved', response.body);
         this.campaign = response.body.campaign;
-        const camp = response.body.campaign;
-        console.info('perms', response.body.campaign.permissions)
         this.loadButton();
       },
       loadButton() {
-        let credentials = null;
         const pryvDomain = 'pryv.me';
+        const that = this;
 
-        var settings = {
+        const settings = {
           requestingAppId: this.campaign.pryvAppId,
           requestedPermissions: this.campaign.permissions,
           spanButtonID: 'pryv-button',
           callbacks: {
             initialization: function () {
-
+                // unused
             },
             needSignin: function (popupUrl, pollUrl, pollRateMs) {
-              // ...
+                // unused
             },
-            signedIn: function (authData) {
-              credentials = authData;
-              this.invitations.create({
-                campaignId: this.campaign.id,
-                requester: this.requester.username,
-                requestee: this.requestee || null,
-                accessToken: credentials.auth,
-                status: 'created'
-              })
+            async signedIn (credentials) {
+              console.info('signed in', credentials);
+
+              try {
+                let response = await that.invitationsModel.create({
+                  campaignId: that.campaign.id,
+                  requestee: that.requestee || null,
+                  requesteePryvUsername: credentials.username,
+                  accessToken: credentials.auth,
+                  status: 'accepted',
+                });
+                console.info('creation successful', response.body);
+                alert('invitation created:' + JSON.stringify(response.body));
+              } catch (e) {
+                if (e.response) {
+                  console.log(e.response.body);
+                }
+                alert('error creating approval' + e);
+              }
             },
-            refused: function (code) {
-              this.invitations.create({
-                campaignId: this.campaign.id,
-                requester: this.requester.username,
-                requestee: this.requestee || null,
-                accessToken: null,
-                status: 'refused'
-              })
+            async refused(code) {
+              console.info('refused', code);
+
+              try {
+                let response = await that.invitationsModel.create({
+                  campaignId: that.campaign.id,
+                  requestee: that.requestee || null,
+                  requesteePryvUsername: that.requesteePryvUsername,
+                  accessToken: null,
+                  status: 'refused'
+                });
+                alert('invitation created:' + JSON.stringify(response.body));
+              } catch (e) {
+
+                if (e.response) {
+                  console.log(e.response.body);
+                }
+                console.info('error refusal', e);
+                alert('error creating refusal', e);
+              }
             },
             error: function (code, message) {
-
+                alert('error during auth. code=' + code + ', message:' + message);
             }
           }
         };
