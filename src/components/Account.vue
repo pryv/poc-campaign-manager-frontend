@@ -8,7 +8,7 @@
         <table>
             <thead>
             <tr>
-                <th v-for="property in campaignProperties">
+                <th v-for="property in campaignsColumns">
                     {{ property }}
                 </th>
                 <th>
@@ -18,18 +18,35 @@
             </thead>
             <tbody>
             <tr v-for="campaign in campaigns">
-                <td v-for="key in campaignProperties">
-                    {{ campaign[key] }}
+                <td>
+                    {{ campaign.title }}
                 </td>
                 <td>
-                    <button @click="createInvitation(campaign.id, campaign.title)">Create Invitation</button>
+                    {{ campaign.description }}
+                </td>
+                <td>
+                    {{ campaign.permissions }}
+                </td>
+                <td>
+                    {{ campaign.created }}
+                </td>
+                <td>
+                    {{ campaign.pryvAppId }}
+                </td>
+                <td>
+                    <a :href="'' + campaign.invitationLink">
+                        {{ campaign.invitationLink }}
+                    </a>
+                </td>
+                <td>
+                    <button @click="openInvitationCreate(campaign.id, campaign.title)">Create Invitation</button>
                 </td>
             </tr>
             </tbody>
 
         </table>
         <div>
-            <button @click="openCreateCampaign">New Campaign</button>
+            <button @click="openCampaignCreate">New Campaign</button>
         </div>
     </div>
 </template>
@@ -39,13 +56,6 @@
 
   export default {
     name: 'Account',
-    props: [
-      'title',
-      'description',
-      'created',
-      'permissions',
-      'pryvAppId'
-    ],
     data: function () {
       return {
         user: {
@@ -69,7 +79,7 @@
             pryvAppId: 'dPryv-App-Id'
           }
         ],
-        campaignProperties: [
+        campaignsColumns: [
           'title',
           'description',
           'permissions',
@@ -84,7 +94,7 @@
       this.getCampaigns();
     },
     methods: {
-      createInvitation(campaignId, campaignTitle) {
+      openInvitationCreate(campaignId, campaignTitle) {
         this.$router.push({
           path: '/invitations/new',
           query: {
@@ -106,7 +116,7 @@
         });
         this.campaigns = retrievedCampaigns;
       },
-      openCreateCampaign() {
+      openCampaignCreate() {
         this.$router.push({
           path: '/campaigns/new/' + this.user.username,
           query: {
