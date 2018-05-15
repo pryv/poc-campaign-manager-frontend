@@ -78,7 +78,7 @@
         }
       },
       save() {
-        console.log('savin')
+        console.log('savin');
         alert('not implemented yet');
       }
     }
