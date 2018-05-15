@@ -26,8 +26,7 @@ class Invitations {
   }
 
   async get (params: {
-    username: string,
-    campaignId: string,
+    requester: string,
     token: string
   }): Promise<any> {
     const url = this.makeUrl('/invitations');
