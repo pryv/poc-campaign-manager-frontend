@@ -2,6 +2,7 @@ import Vue from 'vue';
 import Router from 'vue-router';
 import Account from '@/components/Account';
 import CampaignCreate from '@/components/CampaignCreate';
+import CampaignDisplay from '@/components/CampaignDisplay';
 import InvitationCreate from '@/components/InvitationCreate';
 import InvitationDisplay from '@/components/InvitationDisplay';
 
@@ -28,6 +29,11 @@ export default new Router({
       path: '/invitations/view',
       name: 'InvitationDisplay',
       component: InvitationDisplay
+    },
+    {
+      path: '/campaigns/view',
+      name: 'CampaignDisplay',
+      component: CampaignDisplay
     }
   ],
   mode: 'history'

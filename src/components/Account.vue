@@ -17,7 +17,7 @@
             </tr>
             </thead>
             <tbody>
-            <tr v-for="campaign in campaigns">
+            <tr v-for="campaign in campaigns" @click="openCampaignDisplay(campaign.id)">
                 <td>
                     {{ campaign.title }}
                 </td>
@@ -123,6 +123,14 @@
             username: this.user.username
           }
         })
+      },
+      openCampaignDisplay(campaignId) {
+        this.$router.push({
+          path: '/campaigns/view/',
+          query: {
+            campaignId: campaignId
+          }
+        });
       }
     }
   };
