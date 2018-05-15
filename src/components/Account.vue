@@ -8,6 +8,9 @@
         <table>
             <thead>
             <tr>
+                <th>
+                    View
+                </th>
                 <th v-for="property in campaignsColumns">
                     {{ property }}
                 </th>
@@ -17,7 +20,8 @@
             </tr>
             </thead>
             <tbody>
-            <tr v-for="campaign in campaigns" @click="openCampaignDisplay(campaign.id)">
+            <tr v-for="campaign in campaigns">
+                <button @click="openCampaignDisplay(campaign.id)">View</button>
                 <td>
                     {{ campaign.title }}
                 </td>
