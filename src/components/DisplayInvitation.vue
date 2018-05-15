@@ -44,43 +44,6 @@
 
   import * as pryv from 'pryv';
 
-  var credentials = null;
-  var pryvDomain = 'pryv.me';
-  var requestedPermissions = [{
-    // Here we request full permissions on a custom stream;
-    // in practice, scope and permission level will vary depending on your needs
-    streamId: 'example-app-id',
-    defaultName: 'Example app',
-    level: 'manage'
-  }];
-
-  var settings = {
-    requestingAppId: 'example-app-id',
-    requestedPermissions: requestedPermissions,
-    spanButtonID: 'pryv-button',
-    callbacks: {
-      initialization: function () {
-        // ...
-      },
-      needSignin: function (popupUrl, pollUrl, pollRateMs) {
-        // ...
-      },
-      signedIn: function (authData) {
-        credentials = authData;
-        // ...
-      },
-      refused: function (code) {
-        // ...
-      },
-      error: function (code, message) {
-        // ...
-      }
-    }
-  };
-
-  pryv.Auth.config.registerURL.host = 'reg.' + pryvDomain;
-  pryv.Auth.setup(settings);
-
   export default {
     name: 'DisplayInvitation',
     data () {
@@ -99,13 +62,11 @@
         },
         campaign: {
           id: this.$route.query.campaignId || 'c1n3ok12o3kn12ok3',
-          title: 'Blood Pressure',
-          description: 'The goal of this campaign is to review the blood pressure of patients aged 18-52 to improve their well-being.' +
-          '\n\n' +
-          'Study made by John Hopkins University',
+          title: 'empty',
+          description: 'empty',
           created: Date.now(),
-          permissions: 'permissions array',
-          pryvAppId: 'riva-blood-pressure'
+          permissions: 'empty',
+          pryvAppId: 'empty'
         },
         columns: [
           'id',
@@ -134,6 +95,52 @@
         });
         console.info('retrieved', response.body);
         this.campaign = response.body.campaign;
+        const camp = response.body.campaign;
+        console.info('perms', response.body.campaign.permissions)
+        this.loadButton();
+      },
+      loadButton() {
+        let credentials = null;
+        const pryvDomain = 'pryv.me';
+
+        var settings = {
+          requestingAppId: this.campaign.pryvAppId,
+          requestedPermissions: this.campaign.permissions,
+          spanButtonID: 'pryv-button',
+          callbacks: {
+            initialization: function () {
+
+            },
+            needSignin: function (popupUrl, pollUrl, pollRateMs) {
+              // ...
+            },
+            signedIn: function (authData) {
+              credentials = authData;
+              this.invitations.create({
+                campaignId: this.campaign.id,
+                requester: this.requester.username,
+                requestee: this.requestee || null,
+                accessToken: credentials.auth,
+                status: 'created'
+              })
+            },
+            refused: function (code) {
+              this.invitations.create({
+                campaignId: this.campaign.id,
+                requester: this.requester.username,
+                requestee: this.requestee || null,
+                accessToken: null,
+                status: 'refused'
+              })
+            },
+            error: function (code, message) {
+
+            }
+          }
+        };
+
+        pryv.Auth.config.registerURL.host = 'reg.' + pryvDomain;
+        pryv.Auth.setup(settings);
       }
     }
   };
