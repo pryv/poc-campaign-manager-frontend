@@ -1,9 +1,10 @@
 <template>
     <div id="campaignsList">
-        <h2>Campaigns</h2>
+        <h2>Account</h2>
         <div>
             username: {{ user.username }}
         </div>
+        <h3>Campaigns</h3>
         <table>
             <thead>
             <tr>
@@ -21,14 +22,14 @@
                     {{ campaign[key] }}
                 </td>
                 <td>
-                    <button v-on:click="createInvitation(campaign.id, campaign.title)">Create Invitation</button>
+                    <button @click="createInvitation(campaign.id, campaign.title)">Create Invitation</button>
                 </td>
             </tr>
             </tbody>
 
         </table>
         <div>
-            <button v-on:click="openCreateCampaign">New Campaign</button>
+            <button @click="openCreateCampaign">New Campaign</button>
         </div>
     </div>
 </template>
@@ -37,7 +38,7 @@
   import Campaigns from '@/models/campaigns';
 
   export default {
-    name: 'CampaignList',
+    name: 'Account',
     props: [
       'title',
       'description',
@@ -74,7 +75,7 @@
           'permissions',
           'created',
           'pryvAppId',
-          'link'
+          'invitationLink'
         ]
       }
     },
@@ -100,8 +101,8 @@
         console.log('got campaigns?', response.body);
         const retrievedCampaigns = response.body.campaigns;
         retrievedCampaigns.forEach((c) => {
-          c.link = '/campaigns/display/?invitationId=' + c.invitationId
-            + '&campaignId=' + c.id;
+          c.invitationLink = '/invitations/view/?campaignId=' + c.id;
+          c.created = new Date(c.created * 1000).toString()
         });
         this.campaigns = retrievedCampaigns;
       },

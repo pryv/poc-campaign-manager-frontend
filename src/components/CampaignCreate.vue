@@ -1,5 +1,5 @@
 <template>
-    <div id="CreateCampaign">
+    <div id="CampaignCreate">
         <h2>Create Campaign</h2>
         <br>
         Title:<br>
@@ -22,7 +22,7 @@
   import Campaigns from '@/models/campaigns';
 
   export default {
-    name: 'CreateCampaign',
+    name: 'CampaignCreate',
     data () {
       return {
         user: {
@@ -87,6 +87,6 @@
 
 <!-- styling for the component -->
 <style>
-    #CreateCampaign {
+    #CampaignCreate {
     }
 </style>

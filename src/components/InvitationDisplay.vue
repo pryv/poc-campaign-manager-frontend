@@ -1,5 +1,5 @@
 <template>
-    <div id="DisplayInvitation">
+    <div id="InvitationDisplay">
         <h2>Campaign Invitation</h2>
         <table>
             <tr>
@@ -45,7 +45,7 @@
   import * as pryv from 'pryv';
 
   export default {
-    name: 'DisplayInvitation',
+    name: 'InvitationDisplay',
     data () {
       return {
         invitationsModel: new Invitations({
@@ -148,7 +148,7 @@
 
 <!-- styling for the component -->
 <style>
-    #DisplayInvitation {
+    #InvitationDisplay {
         width:100%;
         height:100%;
     }

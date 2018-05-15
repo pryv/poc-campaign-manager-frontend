@@ -1,5 +1,5 @@
 <template>
-    <div id="CreateInvitation">
+    <div id="InvitationCreate">
         <h2>Create Invitation</h2>
         <br>
         User to invite to campaign {{ campaign.title }}:<br>
@@ -13,7 +13,7 @@
   import Invitations from '@/models/invitations';
 
   export default {
-    name: 'CreateInvitation',
+    name: 'InvitationCreate',
     data () {
       return {
         invitationsModel: new Invitations({
@@ -50,6 +50,6 @@
 
 <!-- styling for the component -->
 <style>
-    #CreateInvitation {
+    #InvitationCreate {
     }
 </style>

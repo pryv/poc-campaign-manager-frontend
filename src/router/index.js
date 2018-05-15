@@ -1,10 +1,9 @@
 import Vue from 'vue';
 import Router from 'vue-router';
-import CampaignList from '@/components/CampaignList';
-import CreateCampaign from '@/components/CreateCampaign';
-import CreateInvitation from '@/components/CreateInvitation';
-import DisplayInvitation from '@/components/DisplayInvitation';
-import Hello from '@/components/HelloWorld';
+import Account from '@/components/Account';
+import CampaignCreate from '@/components/CampaignCreate';
+import InvitationCreate from '@/components/InvitationCreate';
+import InvitationDisplay from '@/components/InvitationDisplay';
 
 Vue.use(Router);
 
@@ -12,27 +11,23 @@ export default new Router({
   routes: [
     {
       path: '/account/:username',
-      name: 'Campaigns',
-      component: CampaignList
+      name: 'Account',
+      component: Account
     },
     {
       path: '/campaigns/new/:username',
-      name: 'CreateCampaign',
-      component: CreateCampaign
+      name: 'CampaignCreate',
+      component: CampaignCreate
     },
     {
       path: '/invitations/new',
-      name: 'CreateInvitation',
-      component: CreateInvitation
+      name: 'InvitationCreate',
+      component: InvitationCreate
     },
     {
       path: '/invitations/view',
-      name: 'DisplayInvitation',
-      component: DisplayInvitation
-    },
-    {
-      path: '/hello/',
-      component: Hello
+      name: 'InvitationDisplay',
+      component: InvitationDisplay
     }
   ],
   mode: 'history'
