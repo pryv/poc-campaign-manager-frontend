@@ -11,12 +11,12 @@ Vue.use(Router);
 export default new Router({
   routes: [
     {
-      path: '/account/:username',
+      path: '/account',
       name: 'Account',
       component: Account
     },
     {
-      path: '/campaigns/new/:username',
+      path: '/campaigns/new',
       name: 'CampaignCreate',
       component: CampaignCreate
     },

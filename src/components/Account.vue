@@ -128,31 +128,17 @@
     data: function () {
       return {
         user: {
-          username: this.$route.params.username || 'empty',
-          id: 'dnaowndoawkn'
+          username: this.$route.query.username || 'empty',
+          id: this.$route.query.id || 'empty'
         },
         usersModel: new Users(),
         campaignsModel: new Campaigns({
-          username: this.$route.params.username || 'bob'
+          username: this.$route.query.username || 'bob'
         }),
         invitationsModel: new Invitations({
-          username: this.$route.params.username || 'bob'
+          username: this.$route.query.username || 'bob'
         }),
-        campaigns: [
-          {
-            id: 'dId',
-            title: 'dTitle',
-            description: 'dDescription',
-            created: 1010101,
-            permissions: [
-              {
-                streamId: 'dDiary',
-                defaultNamE: 'dDiary',
-                level: 'dLevel'
-              }],
-            pryvAppId: 'dPryv-App-Id'
-          }
-        ],
+        campaigns: [],
         sentInvitations: [],
         receivedInvitations: [],
         campaignsColumns: [
@@ -182,7 +168,7 @@
       }
     },
     async created() {
-      this.user.username = this.$route.params.username;
+      this.user.username = this.$route.query.username;
       this.user.id = this.$route.query.id;
       this.getCampaigns()
         .then(this.getInvitations());
@@ -229,14 +215,15 @@
         console.log('retrieved campaigns:', response.body);
         const retrievedCampaigns = response.body.campaigns;
         retrievedCampaigns.forEach((c) => {
-          c.invitationLink = '/invitations/view/?campaignId=' + c.id;
+          c.invitationLink = '/invitations/view/?campaignId=' + c.id +
+            '&username=' + this.user.username;
           c.created = printDate(c.created);
         });
         this.campaigns = retrievedCampaigns;
       },
       openCampaignCreate() {
         this.$router.push({
-          path: '/campaigns/new/' + this.user.username,
+          path: '/campaigns/new/',
           query: {
             username: this.user.username
           }
@@ -246,7 +233,8 @@
         this.$router.push({
           path: '/campaigns/view/',
           query: {
-            campaignId: campaignId
+            campaignId: campaignId,
+            username: this.user.username
           }
         });
       }

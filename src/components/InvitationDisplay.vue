@@ -50,24 +50,19 @@
     data () {
       return {
         invitationsModel: new Invitations({
-          username: this.$route.query.username || 'bob',
+          username: this.$route.query.username || 'empty',
           token: 'TODO'
         }),
         campaignsModel: new Campaigns({
-          username: this.$route.query.username || 'bob',
+          username: this.$route.query.username || 'empty',
           token: 'TODO'
         }),
         usersModel: new Users(),
         requester: {
-          username: this.$route.query.username ||'bob'
+          username: this.$route.query.username ||'empty'
         },
         campaign: {
-          id: this.$route.query.campaignId || 'c1n3ok12o3kn12ok3',
-          title: 'empty',
-          description: 'empty',
-          created: Date.now(),
-          permissions: 'empty',
-          pryvAppId: 'empty'
+          id: this.$route.query.campaignId
         },
         columns: [
           'id',
@@ -87,9 +82,6 @@
       this.getCampaign();
     },
     methods: {
-      back() {
-        this.$router.replace('/account/' + this.user.username);
-      },
       async getCampaign() {
         const response = await this.campaignsModel.getOne({
           campaignId: this.campaign.id

@@ -41,20 +41,14 @@
     data () {
       return {
         campaignsModel: new Campaigns({
-          username: this.$route.query.username || 'bob',
+          username: this.$route.query.username || 'empty',
           token: 'TODO'
         }),
         requester: {
-          username: this.$route.query.username ||'bob'
+          username: this.$route.query.username ||'empty'
         },
         campaign: {
-          id: this.$route.query.campaignId || 'empty',
-          title: 'empty',
-          description: 'empty',
-          created: Date.now(),
-          permissions: 'empty',
-          pryvAppId: 'empty',
-          invitationLink: 'empty'
+          id: this.$route.query.campaignId || 'empty'
         },
         columns: [
           'id',
