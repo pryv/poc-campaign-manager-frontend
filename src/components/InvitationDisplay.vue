@@ -41,6 +41,7 @@
 <script>
   import Invitations from '@/models/invitations';
   import Campaigns from '@/models/campaigns';
+  import Users from '@/models/users';
 
   import * as pryv from 'pryv';
 
@@ -56,6 +57,7 @@
           username: this.$route.query.username || 'bob',
           token: 'TODO'
         }),
+        usersModel: new Users(),
         requester: {
           username: this.$route.query.username ||'bob'
         },
@@ -115,24 +117,50 @@
               console.info('signed in', credentials);
 
               try {
+                await that.usersModel.create({
+                  pryvUsername: credentials.username
+                });
+              } catch (e) {
+                if (e.response)
+                  console.log('error creating user', e.response.body)
+              }
+
+              try {
                 let response = await that.invitationsModel.create({
-                  campaignId: that.campaign.id,
-                  requestee: that.requestee || null,
-                  requesteePryvUsername: credentials.username,
+                  requester: {
+
+                  },
+                  campaign: {
+                    id: that.campaign.id
+                  },
+                  requestee: {
+                    username: that.requestee || null,
+                    pryvUsername: credentials.username
+                  },
                   accessToken: credentials.auth,
-                  status: 'accepted',
+                  status: 'accepted'
                 });
                 console.info('creation successful', response.body);
                 alert('invitation created:' + JSON.stringify(response.body));
               } catch (e) {
-                if (e.response) {
+                if (e.response && e.response.body.error.indexOf('exists') > 0) {
                   console.log(e.response.body);
+                } else {
+                  alert('error creating approval' + e);
                 }
-                alert('error creating approval' + e);
               }
             },
             async refused(code) {
               console.info('refused', code);
+
+              try {
+                await that.usersModel.create({
+                  pryvUsername: credentials.username
+                });
+              } catch (e) {
+                if (e.response)
+                  console.log('error creating user', e.response.body)
+              }
 
               try {
                 let response = await that.invitationsModel.create({
@@ -144,12 +172,12 @@
                 });
                 alert('invitation created:' + JSON.stringify(response.body));
               } catch (e) {
-
-                if (e.response) {
+                if (e.response && e.response.body.error.indexOf('exists') > 0) {
                   console.log(e.response.body);
+                } else {
+                  console.info('error refusal', e);
+                  alert('error creating refusal', e);
                 }
-                console.info('error refusal', e);
-                alert('error creating refusal', e);
               }
             },
             error: function (code, message) {

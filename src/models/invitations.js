@@ -35,6 +35,7 @@ class Invitations {
   }
 
   async create (params: {
+    requestee?: string,
     requesteePryvUsername: string,
     status: string,
     campaignId: string
@@ -42,11 +43,7 @@ class Invitations {
     const url = this.makeUrl('/invitations');
     console.info('doing invitations.create call to', url, 'with params', params);
     return superagent.post(url)
-      .send({
-        requesteePryvUsername: params.requesteePryvUsername,
-        campaignId: params.campaignId,
-        status: params.status
-      });
+      .send(params);
   }
 }
 
