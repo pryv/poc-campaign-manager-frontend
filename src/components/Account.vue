@@ -49,20 +49,56 @@
             </tbody>
 
         </table>
-        <h3>Invitations</h3>
+        <h3>sent Invitations</h3>
         <table>
             <thead>
-                <th v-for="property in invitationsColumns">
+                <th v-for="property in sentInvitationsColumns">
                     {{ property }}
                 </th>
             </thead>
             <tbody>
-            <tr v-for="invitation in invitations">
+            <tr v-for="invitation in sentInvitations">
                 <td>
-                    {{ invitation.campaignTitle }}
+                    {{ invitation.campaign.title }}
                 </td>
                 <td>
-                    {{ invitation.requesteePryvUsername }}
+                    {{ invitation.requestee.username }}
+                </td>
+                <td>
+                    {{ invitation.requestee.pryvUsername }}
+                </td>
+                <td>
+                    {{ invitation.status }}
+                </td>
+                <td>
+                    {{ invitation.accessToken }}
+                </td>
+                <td>
+                    {{ invitation.created }}
+                </td>
+                <td>
+                    {{ invitation.modified }}
+                </td>
+            </tr>
+            </tbody>
+        </table>
+
+
+        </table>
+        <h3>received Invitations</h3>
+        <table>
+            <thead>
+            <th v-for="property in receivedInvitationsColumns">
+                {{ property }}
+            </th>
+            </thead>
+            <tbody>
+            <tr v-for="invitation in receivedInvitations">
+                <td>
+                    {{ invitation.campaign.title }}
+                </td>
+                <td>
+                    {{ invitation.requester.username }}
                 </td>
                 <td>
                     {{ invitation.status }}
@@ -85,14 +121,17 @@
 <script>
   import Campaigns from '@/models/campaigns';
   import Invitations from '@/models/invitations';
+  import Users from '@/models/users';
 
   export default {
     name: 'Account',
     data: function () {
       return {
         user: {
-          username: this.$route.params.username || 'empty'
+          username: this.$route.params.username || 'empty',
+          id: 'dnaowndoawkn'
         },
+        usersModel: new Users(),
         campaignsModel: new Campaigns({
           username: this.$route.params.username || 'bob'
         }),
@@ -114,10 +153,8 @@
             pryvAppId: 'dPryv-App-Id'
           }
         ],
-        invitations: [
-          {
-          }
-        ],
+        sentInvitations: [],
+        receivedInvitations: [],
         campaignsColumns: [
           'title',
           'description',
@@ -126,17 +163,27 @@
           'pryvAppId',
           'invitationLink'
         ],
-        invitationsColumns: [
+        sentInvitationsColumns: [
           'campaign',
+          'username',
           'Pryv username',
+          'status',
+          'access token',
+          'created',
+          'modified'
+        ],
+        receivedInvitationsColumns: [
+          'campaign',
+          'requester',
           'status',
           'created',
           'modified'
         ]
       }
     },
-    created() {
+    async created() {
       this.user.username = this.$route.params.username;
+      this.user.id = this.$route.query.id;
       this.getCampaigns()
         .then(this.getInvitations());
     },
@@ -156,16 +203,21 @@
           const response = await this.invitationsModel.get();
           console.info('retrieved invitations', response.body.invitations);
           const invitations = response.body.invitations;
+          this.receivedInvitations = [];
+          this.sentInvitations = [];
           invitations.forEach((i) => {
-            this.campaigns.forEach((c) => {
-                if (i.campaignId === c.id) {
-                  i.campaignTitle = c.title;
-                }
-            });
             i.created = printDate(i.created);
             i.modified = printDate(i.modified);
+
+            console.log('checking inv for requester', i.requester.id, 'comparin with',this.user.id)
+            if (i.requester.id === this.user.id) {
+              console.log('pushed in sent');
+              this.sentInvitations.push(i);
+            } else {
+              console.log('pushed in receieved');
+              this.receivedInvitations.push(i);
+            }
           });
-          this.invitations = response.body.invitations;
         } catch (e) {
           console.error('error while retrieving invitations', e);
         }
