@@ -49,7 +49,7 @@
     },
     methods: {
       back() {
-        this.$router.replace('/account/' + this.user.username);
+        this.$router.back();
       },
       async create() {
         console.log('creatin');

@@ -25,7 +25,7 @@
         </table>
 
         <br>
-
+        <button v-on:click="back">Back</button>
     </div>
 
 
@@ -71,7 +71,7 @@
     },
     methods: {
       back() {
-        this.$router.replace('/account/' + this.user.username);
+        this.$router.back();
       },
       async getCampaign() {
         const response = await this.campaignsModel.getOne({
