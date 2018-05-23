@@ -1,6 +1,6 @@
 <template>
     <div id="app">
-        <img src="https://pryv.com/wp-content/themes/pryv/assets/images/logo-pryv.png">
+        <img src="./assets/logo-128.png">
 
         <router-view>
         </router-view>
