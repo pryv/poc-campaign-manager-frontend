@@ -47,8 +47,12 @@
                 </td>
             </tr>
             </tbody>
-
         </table>
+
+        <div>
+            <button @click="openCampaignCreate">New Campaign</button>
+        </div>
+
         <h3>sent Invitations</h3>
         <table>
             <thead>
@@ -112,9 +116,6 @@
             </tr>
             </tbody>
         </table>
-        <div>
-            <button @click="openCampaignCreate">New Campaign</button>
-        </div>
     </div>
 </template>
 
