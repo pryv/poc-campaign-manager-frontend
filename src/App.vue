@@ -1,11 +1,11 @@
 <template>
     <div id="app">
         <img src="./assets/logo-128.png">
+        <h1>Pryv Campaign Manager</h1>
 
         <router-view>
         </router-view>
 
-        <router-link v-bind:to="'/account'">Account</router-link>
     </div>
 </template>
 
