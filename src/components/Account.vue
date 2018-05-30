@@ -98,6 +98,7 @@
             </thead>
             <tbody>
             <tr v-for="invitation in receivedInvitations">
+                <button @click="openInvitationDisplay(invitation)">View</button>
                 <td>
                     {{ invitation.campaign.title }}
                 </td>
@@ -134,10 +135,10 @@
         },
         usersModel: new Users(),
         campaignsModel: new Campaigns({
-          username: this.$route.query.username || 'bob'
+          username: this.$route.query.username || 'empty'
         }),
         invitationsModel: new Invitations({
-          username: this.$route.query.username || 'bob'
+          username: this.$route.query.username || 'empty'
         }),
         campaigns: [],
         sentInvitations: [],
@@ -160,6 +161,7 @@
           'modified'
         ],
         receivedInvitationsColumns: [
+          'view',
           'campaign',
           'requester',
           'status',
@@ -217,7 +219,7 @@
         const retrievedCampaigns = response.body.campaigns;
         retrievedCampaigns.forEach((c) => {
           c.invitationLink = '/invitations/view/?campaignId=' + c.id +
-            '&username=' + this.user.username;
+            '&requester=' + this.user.username;
           c.created = printDate(c.created);
         });
         this.campaigns = retrievedCampaigns;
@@ -236,6 +238,16 @@
           query: {
             campaignId: campaignId,
             username: this.user.username
+          }
+        });
+      },
+      openInvitationDisplay(invitation) {
+        this.$router.push({
+          path: '/invitations/view',
+          query: {
+            campaignId: invitation.campaign.id,
+            requester: invitation.requester.username,
+            requestee: this.user.username
           }
         });
       }
