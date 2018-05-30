@@ -18,6 +18,18 @@ class Campaigns {
     return username ? this.baseUrl + '/' + username : this.baseUrl;
   }
 
+  signIn (params: {
+    username: string,
+    password: string
+  }): Promise<any> {
+    const url = config.dev.host +
+      ':' + config.dev.port + '/signin';
+    console.info('doing users.signin call to', url);
+    return superagent
+      .post(url)
+      .send(params);
+  }
+
   create (payload: {
     username: string,
     pryvUsername: string
