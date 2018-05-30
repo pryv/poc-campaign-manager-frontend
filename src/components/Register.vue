@@ -41,12 +41,32 @@
           return alert('passwords do not match!');
         }
         try {
-          this.usersModel.create({
-            username: this.username,
-            password: this.password
+          const response = await this.usersModel.create({
+            username: this.user.username,
+            password: this.user.password
+          });
+          console.log('got user creation response', response.body);
+          let user = response.body.user;
+          const signinResponse = await this.usersModel.signIn({
+            username: this.user.username,
+            password: this.user.password
+          });
+          console.log('got sign in response', response.body);
+          user = response.body.user;
+          this.$router.push({
+            path: '/account',
+            query: {
+              id: user.id,
+              username: user.username
+            }
           });
         } catch (e) {
-
+          if (e.response) {
+            console.error(e.response.body);
+            alert(JSON.stringify(e.response.body));
+          } else {
+            console.error(e);
+          }
         }
       }
     }
