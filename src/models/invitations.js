@@ -17,19 +17,19 @@ class Invitations {
     this.username = params.username;
     this.baseUrl = config.dev.host +
       ':' + config.dev.port +
-      '/' + this.username;
-    console.log('baseurl:', this.baseUrl);
+      '/' + this.username + '/invitations';
   }
 
-  makeUrl (path: string): string {
-    return this.baseUrl + path;
+  makeUrl (path?: string): string {
+    console.log('what is dis', path);
+    return path ? this.baseUrl + '/' + path : this.baseUrl;
   }
 
   async get (params: {
     requester: string,
     token: string
   }): Promise<any> {
-    const url = this.makeUrl('/invitations');
+    const url = this.makeUrl();
     console.info('doing invitations.get call to ', url);
     return superagent.get(url);
   }
@@ -40,10 +40,23 @@ class Invitations {
     status: string,
     campaignId: string
   }): Promise<any> {
-    const url = this.makeUrl('/invitations');
+    const url = this.makeUrl();
     console.info('doing invitations.create call to', url, 'with params', params);
     return superagent.post(url)
       .send(params);
+  }
+
+  update (params: {
+    invitation: Object
+  }): Promise<mixed> {
+    const url = this.makeUrl(params.invitation.id);
+    console.info('doing invitations.update call to', url, 'with params', params);
+    return superagent
+      .put(url)
+      .send({
+        status: params.invitation.status,
+        accessToken: params.invitation.accessToken
+      });
   }
 }
 

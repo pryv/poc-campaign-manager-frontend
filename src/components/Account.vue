@@ -246,6 +246,7 @@
           path: '/invitations/view',
           query: {
             campaignId: invitation.campaign.id,
+            invitationId: invitation.id,
             requester: invitation.requester.username,
             requestee: this.user.username
           }
