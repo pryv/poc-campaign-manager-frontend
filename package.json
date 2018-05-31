@@ -5,7 +5,8 @@
   "author": "Ilia Kebets <ilia@pryv.com>",
   "private": true,
   "scripts": {
-    "dev": "webpack-dev-server --host vuedevhost --inline --progress --config build/webpack.dev.conf.js",
+    "dev": "webpack-dev-server --inline --progress --config build/webpack.dev.conf.js",
+    "dev2": "webpack-dev-server --host vuedevhost --inline --progress --config build/webpack.dev.conf.js",
     "start": "npm run dev",
     "unit": "cross-env BABEL_ENV=test karma start test/unit/karma.conf.js --single-run",
     "e2e": "node test/e2e/runner.js",
