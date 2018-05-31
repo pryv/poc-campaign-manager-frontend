@@ -29,7 +29,7 @@
           username: 'empty'
         },
         campaignsModel: new Campaigns({
-          username: this.$route.params.username || 'bob'
+          username: this.$route.query.username || 'empty'
         }),
         campaign: {
           title: '',
