@@ -75,6 +75,9 @@
                     {{ invitation.status }}
                 </td>
                 <td>
+                    {{ invitation.permissions }}
+                </td>
+                <td>
                     {{ invitation.accessToken }}
                 </td>
                 <td>
@@ -107,6 +110,9 @@
                 </td>
                 <td>
                     {{ invitation.status }}
+                </td>
+                <td>
+                    {{ invitation.permissions }}
                 </td>
                 <td>
                     {{ invitation.created }}
@@ -152,21 +158,23 @@
           'invitationLink'
         ],
         sentInvitationsColumns: [
-          'campaign',
-          'username',
+          'Campaign',
+          'Username',
           'Pryv username',
-          'status',
-          'access token',
-          'created',
-          'modified'
+          'Status',
+          'Permissions',
+          'Access Token',
+          'Created',
+          'Modified'
         ],
         receivedInvitationsColumns: [
-          'view',
-          'campaign',
-          'requester',
-          'status',
-          'created',
-          'modified'
+          'View',
+          'Campaign',
+          'Requester',
+          'Status',
+          'Permissions',
+          'Created',
+          'Modified'
         ]
       }
     },
@@ -197,7 +205,7 @@
           invitations.forEach((i) => {
             i.created = printDate(i.created);
             i.modified = printDate(i.modified);
-
+            i.permissions = i.campaign.permissions;
             console.log('checking inv for requester', i.requester.id, 'comparin with',this.user.id)
             if (i.requester.id === this.user.id) {
               console.log('pushed in sent');
@@ -254,6 +262,7 @@
       }
     }
   };
+
 
   function printDate(timestamp) {
     return new Date(timestamp * 1000).toString();
