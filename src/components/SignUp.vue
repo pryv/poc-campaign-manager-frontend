@@ -1,6 +1,6 @@
 <template>
-    <div id="Register">
-        <h1>Register</h1>
+    <div id="SignUp">
+        <h2>Sign up</h2>
         Username:
         <input v-model="user.username" placeholder="enter username">
         <br>
@@ -10,7 +10,9 @@
         Confirm password:
         <input type="password" v-model="user.confirmPassword" placeholder="enter password">
         <br>
-        <button v-on:click="back">Back</button><button v-on:click="register">Register</button>
+        <button v-on:click="signUp">Create Account</button>
+        <br>
+        Already have an account? <a href="/signin">Sign in</a>
     </div>
 </template>
 
@@ -18,7 +20,7 @@
   import Users from '@/models/users';
 
   export default {
-    name: 'Register',
+    name: 'SignUp',
     data () {
       return {
         usersModel: new Users(),
@@ -35,8 +37,7 @@
       back() {
         this.$router.back();
       },
-      async register() {
-        console.log('clic')
+      async signUp() {
         if (this.user.password !== this.user.confirmPassword) {
           return alert('passwords do not match!');
         }
@@ -75,6 +76,6 @@
 
 <!-- styling for the component -->
 <style>
-    #Register {
+    #SignUp {
     }
 </style>

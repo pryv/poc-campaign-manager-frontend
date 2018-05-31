@@ -9,7 +9,7 @@
         <br>
         <button v-on:click="signIn">Sign in</button>
         <br>
-        Not a user yet? register <a href="/register">here</a>.
+        Not a user yet? Sign up <a href="/signup">here</a>.
     </div>
 </template>
 
@@ -35,7 +35,6 @@
         this.$router.back();
       },
       async signIn() {
-        console.log('clic')
         try {
           const response = await this.usersModel.signIn({
             username: this.user.username,

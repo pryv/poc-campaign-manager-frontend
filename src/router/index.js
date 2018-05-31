@@ -1,6 +1,6 @@
 import Vue from 'vue';
 import Router from 'vue-router';
-import Register from '@/components/Register';
+import SignUp from '@/components/SignUp';
 import SignIn from '@/components/SignIn';
 import Account from '@/components/Account';
 import CampaignCreate from '@/components/CampaignCreate';
@@ -13,9 +13,9 @@ Vue.use(Router);
 export default new Router({
   routes: [
     {
-      path: '/register',
-      name: 'Register',
-      component: Register
+      path: '/signup',
+      name: 'SignUp',
+      component: SignUp
     },
     {
       path: '/signin',
