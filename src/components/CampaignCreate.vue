@@ -12,7 +12,7 @@
         <textarea rows="5" v-model="campaign.permissions"></textarea>
         <br>
         pryv app Id (optional):<br>
-        <input type="text" name="campaign.pryvAppId" placeholder="enter Pryv app Id">
+        <input type="text" v-model="campaign.pryvAppId" placeholder="enter Pryv app Id">
         <br><br>
         <button v-on:click="back">Back</button><button v-on:click="save">Save</button><button v-on:click="create">Create</button>
     </div>
