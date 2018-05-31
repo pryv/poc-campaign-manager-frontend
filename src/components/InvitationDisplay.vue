@@ -91,8 +91,9 @@
         return new Date(this.campaign.created * 1000).toString();
       }
     },
-    created() {
-      this.getCampaign();
+    async created() {
+      await this.getCampaign();
+      this.loadButton();
     },
     methods: {
       async getCampaign() {
@@ -101,110 +102,10 @@
         });
         console.info('retrieved', response.body);
         this.campaign = response.body.campaign;
-        this.loadButton();
       },
       loadButton() {
         const pryvDomain = 'pryv.me';
-        const that = this;
-
-        const settings = {
-          requestingAppId: this.campaign.pryvAppId,
-          requestedPermissions: this.campaign.permissions,
-          spanButtonID: 'pryv-button',
-          callbacks: {
-            initialization: function () {
-                // unused
-            },
-            needSignin: function (popupUrl, pollUrl, pollRateMs) {
-                // unused
-            },
-            async signedIn (credentials) {
-              console.info('signed in', credentials);
-
-              try {
-                await that.usersModel.create({
-                  pryvUsername: credentials.username
-                });
-              } catch (e) {
-                if (e.response)
-                  console.log('error creating user', e.response.body)
-              }
-
-              if (that.isTargeted) {
-                try {
-                  await that.usersModel.update({
-                    username: that.requestee.username,
-                    pryvUsername: credentials.username
-                  });
-                } catch (e) {
-                  if (e.response)
-                    console.log('error updating user', e.response.body)
-                }
-              }
-
-              try {
-
-                if (that.isTargeted) {
-                  let response = await that.invitationsModel.update({
-                    invitation: {
-                      id: that.invitation.id,
-                      status: 'accepted',
-                      accessToken: credentials.auth,
-                    }
-                  });
-                  console.info('update succesful', response.body);
-                  alert('invitation updated:' + JSON.stringify(response.body));
-                } else {
-                  let response = await that.invitationsModel.create({
-                    requester: that.requester,
-                    campaign: that.campaign,
-                    requestee: {
-                      username: that.requestee.username,
-                      pryvUsername: credentials.username
-                    },
-                    accessToken: credentials.auth,
-                    status: 'accepted'
-                  });
-                  console.info('creation successful', response.body);
-                  alert('invitation created:' + JSON.stringify(response.body));
-                }
-              } catch (e) {
-                if (e.response && e.response.body.error.indexOf('exists') > 0) {
-                  console.log(e.response.body);
-                } else {
-                  alert('error creating approval' + e);
-                }
-              }
-            },
-            async refused(code) {
-              console.info('refused', code);
-
-              if (that.isTargeted) {
-                try {
-                  let response = await that.invitationsModel.update({
-                    invitation: {
-                      id: that.invitation.id,
-                      status: 'refused'
-                    }
-                  });
-                  alert('invitation updated:' + JSON.stringify(response.body));
-                } catch (e) {
-                  if (e.response && e.response.body.error.indexOf('exists') > 0) {
-                    console.log(e.response.body);
-                  } else {
-                    console.info('error refusal', e);
-                    alert('error creating refusal', e);
-                  }
-                }
-              } else {
-                console.info('untargeted invitation refused. Nothing to see here.');
-              }
-            },
-            error: function (code, message) {
-                alert('error during auth. code=' + code + ', message:' + message);
-            }
-          }
-        };
+        const settings = loadSettings(this);
 
         pryv.Auth.config.registerURL.host = 'reg.' + pryvDomain;
         pryv.Auth.setup(settings);
@@ -214,6 +115,107 @@
       }
     }
   };
+
+  function loadSettings(that) {
+    return {
+      requestingAppId: that.campaign.pryvAppId,
+      requestedPermissions: that.campaign.permissions,
+      spanButtonID: 'pryv-button',
+      callbacks: {
+        initialization: function () {
+          // unused
+        },
+        needSignin: function (popupUrl, pollUrl, pollRateMs) {
+          // unused
+        },
+        async signedIn (credentials) {
+          console.info('signed in', credentials);
+
+          try {
+            await that.usersModel.create({
+              pryvUsername: credentials.username
+            });
+          } catch (e) {
+            if (e.response)
+              console.log('error creating user', e.response.body)
+          }
+
+          if (that.isTargeted) {
+            try {
+              await that.usersModel.update({
+                username: that.requestee.username,
+                pryvUsername: credentials.username
+              });
+            } catch (e) {
+              if (e.response)
+                console.log('error updating user', e.response.body)
+            }
+          }
+
+          try {
+
+            if (that.isTargeted) {
+              let response = await that.invitationsModel.update({
+                invitation: {
+                  id: that.invitation.id,
+                  status: 'accepted',
+                  accessToken: credentials.auth,
+                }
+              });
+              console.info('update succesful', response.body);
+              alert('invitation updated:' + JSON.stringify(response.body));
+            } else {
+              let response = await that.invitationsModel.create({
+                requester: that.requester,
+                campaign: that.campaign,
+                requestee: {
+                  username: that.requestee.username,
+                  pryvUsername: credentials.username
+                },
+                accessToken: credentials.auth,
+                status: 'accepted'
+              });
+              console.info('creation successful', response.body);
+              alert('invitation created:' + JSON.stringify(response.body));
+            }
+          } catch (e) {
+            if (e.response && e.response.body.error.indexOf('exists') > 0) {
+              console.log(e.response.body);
+            } else {
+              alert('error creating approval' + e);
+            }
+          }
+        },
+        async refused(code) {
+          return console.info('refused', code);
+
+          if (that.isTargeted) {
+            try {
+              let response = await that.invitationsModel.update({
+                invitation: {
+                  id: that.invitation.id,
+                  status: 'refused'
+                }
+              });
+              alert('invitation updated:' + JSON.stringify(response.body));
+            } catch (e) {
+              if (e.response && e.response.body.error.indexOf('exists') > 0) {
+                console.log(e.response.body);
+              } else {
+                console.info('error refusal', e);
+                alert('error creating refusal', e);
+              }
+            }
+          } else {
+            console.info('untargeted invitation refused. Nothing to see here.');
+          }
+        },
+        error: function (code, message) {
+          alert('error during auth. code=' + code + ', message:' + message);
+        }
+      }
+    };
+  }
 </script>
 
 <!-- styling for the component -->
