@@ -122,19 +122,24 @@
               console.info('signed in', credentials);
 
               try {
-                if (that.isTargeted) {
+                await that.usersModel.create({
+                  pryvUsername: credentials.username
+                });
+              } catch (e) {
+                if (e.response)
+                  console.log('error creating user', e.response.body)
+              }
+
+              if (that.isTargeted) {
+                try {
                   await that.usersModel.update({
                     username: that.requestee.username,
                     pryvUsername: credentials.username
                   });
-                } else {
-                  await that.usersModel.create({
-                    pryvUsername: credentials.username
-                  });
+                } catch (e) {
+                  if (e.response)
+                    console.log('error updating user', e.response.body)
                 }
-              } catch (e) {
-                if (e.response)
-                  console.log('error creating user', e.response.body)
               }
 
               try {
@@ -144,7 +149,7 @@
                     invitation: {
                       id: that.invitation.id,
                       status: 'accepted',
-                      accessToken: credentials.auth
+                      accessToken: credentials.auth,
                     }
                   });
                   console.info('update succesful', response.body);
