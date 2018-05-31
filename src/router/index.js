@@ -13,6 +13,10 @@ Vue.use(Router);
 export default new Router({
   routes: [
     {
+      path: '/',
+      redirect: 'signin'
+    },
+    {
       path: '/signup',
       name: 'SignUp',
       component: SignUp
