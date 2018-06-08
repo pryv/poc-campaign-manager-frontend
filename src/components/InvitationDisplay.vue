@@ -118,6 +118,7 @@
 
   function loadSettings(that) {
     return {
+      disableCookies: true,
       requestingAppId: that.campaign.pryvAppId,
       requestedPermissions: that.campaign.permissions,
       spanButtonID: 'pryv-button',
@@ -162,7 +163,7 @@
                   accessToken: credentials.auth,
                 }
               });
-              console.info('update succesful', response.body);
+              console.info('update successful', response.body);
               alert('invitation updated:' + JSON.stringify(response.body));
             } else {
               let response = await that.invitationsModel.create({
