@@ -1,13 +1,15 @@
 <template>
+<div id="account">
+    <h2>Account</h2>
+    <div>
+        username: {{ user.username }}
+        <div> {{ isLinkedToPryv }}</div>
+    </div>
+    <div>
+        <button @click="openLinkToPryv()">Link to my Pryv</button>
+    </div>
+
     <div id="campaignsList">
-        <h2>Account</h2>
-        <div>
-            username: {{ user.username }}
-            <div> {{ isLinkedToPryv }}</div>
-        </div>
-        <div>
-            <button @click="openLinkToPryv()">Link to my Pryv</button>
-        </div>
         <h3>Campaigns</h3>
         <table>
             <thead>
@@ -57,77 +59,78 @@
             <button @click="openCampaignCreate">New Campaign</button>
         </div>
 
-        <h3>sent Invitations</h3>
-        <table>
-            <thead>
-                <th v-for="property in sentInvitationsColumns">
-                    {{ property }}
-                </th>
-            </thead>
-            <tbody>
-            <tr v-for="invitation in sentInvitations">
-                <td>
-                    {{ invitation.campaign.title }}
-                </td>
-                <td>
-                    {{ invitation.requestee.username }}
-                </td>
-                <td>
-                    {{ invitation.requestee.pryvUsername }}
-                </td>
-                <td>
-                    {{ invitation.status }}
-                </td>
-                <td>
-                    {{ invitation.permissions }}
-                </td>
-                <td>
-                    {{ invitation.accessToken }}
-                </td>
-                <td>
-                    {{ invitation.created }}
-                </td>
-                <td>
-                    {{ invitation.modified }}
-                </td>
-            </tr>
-            </tbody>
-        </table>
+    </div>
 
-
-        </table>
-        <h3>received Invitations</h3>
-        <table>
-            <thead>
-            <th v-for="property in receivedInvitationsColumns">
+    <h3>sent Invitations</h3>
+    <table>
+        <thead>
+            <th v-for="property in sentInvitationsColumns">
                 {{ property }}
             </th>
-            </thead>
-            <tbody>
-            <tr v-for="invitation in receivedInvitations">
-                <button @click="openInvitationDisplay(invitation)">View</button>
-                <td>
-                    {{ invitation.campaign.title }}
-                </td>
-                <td>
-                    {{ invitation.requester.username }}
-                </td>
-                <td>
-                    {{ invitation.status }}
-                </td>
-                <td>
-                    {{ invitation.permissions }}
-                </td>
-                <td>
-                    {{ invitation.created }}
-                </td>
-                <td>
-                    {{ invitation.modified }}
-                </td>
-            </tr>
-            </tbody>
-        </table>
-    </div>
+        </thead>
+        <tbody>
+        <tr v-for="invitation in sentInvitations">
+            <td>
+                {{ invitation.campaign.title }}
+            </td>
+            <td>
+                {{ invitation.requestee.username }}
+            </td>
+            <td>
+                {{ invitation.requestee.pryvUsername }}
+            </td>
+            <td>
+                {{ invitation.status }}
+            </td>
+            <td>
+                {{ invitation.permissions }}
+            </td>
+            <td>
+                {{ invitation.accessToken }}
+            </td>
+            <td>
+                {{ invitation.created }}
+            </td>
+            <td>
+                {{ invitation.modified }}
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+
+    <h3>received Invitations</h3>
+    <table>
+        <thead>
+        <th v-for="property in receivedInvitationsColumns">
+            {{ property }}
+        </th>
+        </thead>
+        <tbody>
+        <tr v-for="invitation in receivedInvitations">
+            <button @click="openInvitationDisplay(invitation)">View</button>
+            <td>
+                {{ invitation.campaign.title }}
+            </td>
+            <td>
+                {{ invitation.requester.username }}
+            </td>
+            <td>
+                {{ invitation.status }}
+            </td>
+            <td>
+                {{ invitation.permissions }}
+            </td>
+            <td>
+                {{ invitation.created }}
+            </td>
+            <td>
+                {{ invitation.modified }}
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
 </template>
 
 <script>
