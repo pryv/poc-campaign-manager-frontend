@@ -42,7 +42,8 @@ class Campaigns {
 
   update (params: {
     username: string,
-    pryvUsername: string
+    pryvUsername: string,
+    pryvToken: string,
   }): Promise<mixed> {
     const url = this.makeUrl(params.username);
     console.info('doing users.update call to', url);

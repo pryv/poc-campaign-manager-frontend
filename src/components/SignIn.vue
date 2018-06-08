@@ -46,7 +46,10 @@
             path: '/account',
             query: {
               id: user.id,
-              username: user.username
+              username: user.username,
+              pryvUsername: user.pryvUsername,
+              pryvToken: user.pryvToken,
+              token: user.token,
             }
           });
         } catch (e) {

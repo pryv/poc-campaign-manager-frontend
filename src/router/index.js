@@ -3,6 +3,7 @@ import Router from 'vue-router';
 import SignUp from '@/components/SignUp';
 import SignIn from '@/components/SignIn';
 import Account from '@/components/Account';
+import LinkToPryv from '@/components/LinkToPryv';
 import CampaignCreate from '@/components/CampaignCreate';
 import CampaignDisplay from '@/components/CampaignDisplay';
 import InvitationCreate from '@/components/InvitationCreate';
@@ -30,6 +31,11 @@ export default new Router({
       path: '/account',
       name: 'Account',
       component: Account
+    },
+    {
+      path: '/pryv/link',
+      name: 'LinkToPryv',
+      component: LinkToPryv
     },
     {
       path: '/campaigns/new',

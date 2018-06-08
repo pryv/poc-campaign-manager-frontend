@@ -3,6 +3,10 @@
         <h2>Account</h2>
         <div>
             username: {{ user.username }}
+            <div> {{ isLinkedToPryv }}</div>
+        </div>
+        <div>
+            <button @click="openLinkToPryv()">Link to my Pryv</button>
         </div>
         <h3>Campaigns</h3>
         <table>
@@ -130,6 +134,7 @@
   import Campaigns from '@/models/campaigns';
   import Invitations from '@/models/invitations';
   import Users from '@/models/users';
+  import Pryv from '@/models/pryv';
 
   export default {
     name: 'Account',
@@ -137,8 +142,13 @@
       return {
         user: {
           username: this.$route.query.username || 'empty',
-          id: this.$route.query.id || 'empty'
+          id: this.$route.query.id || 'empty',
+          pryvUsername: this.$route.query.pryvUsername || null,
+          pryvToken: this.$route.query.pryvToken || null,
+          token: this.$route.query.token || null,
+          isLinkedToPryv: false
         },
+        pryvModel: new Pryv(),
         usersModel: new Users(),
         campaignsModel: new Campaigns({
           username: this.$route.query.username || 'empty'
@@ -179,12 +189,40 @@
       }
     },
     async created() {
-      this.user.username = this.$route.query.username;
-      this.user.id = this.$route.query.id;
-      this.getCampaigns()
-        .then(this.getInvitations());
+      await this.isAccountLinkedToPryv();
+      await this.getCampaigns();
+      await this.getInvitations();
+    },
+    computed: {
+      isLinkedToPryv() {
+        if (this.user.isLinkedToPryv) {
+          return 'Account is linked to Pryv.';
+        } else {
+          return null;
+        }
+      }
     },
     methods: {
+      async isAccountLinkedToPryv() {
+        if (! this.user.pryvToken) {
+          return false;
+        }
+
+        try {
+          const accessInfo = await this.pryvModel.isTokenValid({
+            username: this.user.username,
+            token: this.user.pryvToken
+          });
+          console.info('accessInfo retrieved', accessInfo);
+          this.user.isLinkedToPryv = true;
+        } catch (e) {
+          if (e.response && e.status && (e.status === 401)) {
+            this.user.isLinkedToPryv = false;
+          } else {
+            console.error('error retrieving access info', e);
+          }
+        }
+      },
       openInvitationCreate(campaignId, campaignTitle) {
         this.$router.push({
           path: '/invitations/new',
@@ -202,21 +240,52 @@
           const invitations = response.body.invitations;
           this.receivedInvitations = [];
           this.sentInvitations = [];
-          invitations.forEach((i) => {
+          invitations.forEach(async (i) => {
             i.created = printDate(i.created);
             i.modified = printDate(i.modified);
             i.permissions = i.campaign.permissions;
-            console.log('checking inv for requester', i.requester.id, 'comparin with',this.user.id)
-            if (i.requester.id === this.user.id) {
-              console.log('pushed in sent');
-              this.sentInvitations.push(i);
-            } else {
-              console.log('pushed in receieved');
-              this.receivedInvitations.push(i);
+
+            this.pushInSentOrReceived({ invitation: i});
+
+            if (i.status == 'accepted') {
+              this.checkInvitationToken({ invitation: i });
             }
           });
         } catch (e) {
           console.error('error while retrieving invitations', e);
+        }
+      },
+      pushInSentOrReceived (params: {
+        invitation: Object
+      }): void {
+        console.log('checking inv for requester', params.invitation.requester.id, 'comparin with',this.user.id,
+          'are they the same?', (params.invitation.requester.id === this.user.id));
+        if (params.invitation.requester.id === this.user.id) {
+          console.log('pushed in sent');
+          this.sentInvitations.push(params.invitation);
+        } else {
+          console.log('pushed in receieved');
+          this.receivedInvitations.push(params.invitation);
+        }
+      },
+      async checkInvitationToken(params: {
+        invitation: Object
+      }): void {
+        console.info('verifying invitation token for user', this.user.username, 'for campaign', params.invitation.campaign.title);
+        try {
+          const accessInfo = await this.pryvModel.isTokenValid({
+            username: params.invitation.requestee.pryvUsername,
+            token: params.invitation.accessToken
+          });
+          console.info('accessInfo retrieved', accessInfo);
+        } catch (e) {
+          if (e.response && e.status && (e.status === 401)) {
+            console.error('error retrieving access info', e.response.body);
+            params.invitation.status = 'hold';
+
+          } else {
+            console.error('error retrieving access info', e);
+          }
         }
       },
       async getCampaigns() {
@@ -259,6 +328,15 @@
             requestee: this.user.username
           }
         });
+      },
+      openLinkToPryv() {
+        this.$router.push({
+          path: '/pryv/link',
+          query: {
+            username: this.user.username,
+            id: this.user.id
+          }
+        })
       }
     }
   };
