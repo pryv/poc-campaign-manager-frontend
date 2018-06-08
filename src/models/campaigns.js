@@ -13,14 +13,11 @@ class Campaigns {
     token: string,
     username: string
   }) {
-    console.log('creating campaign model, config:', config);
-
     this.token = params.token;
     this.username = params.username;
     this.baseUrl = config.dev.host +
       ':' + config.dev.port +
       '/' + this.username;
-    console.log('baseurl:', this.baseUrl);
   }
 
   makeUrl (path: string): string {
@@ -32,7 +29,6 @@ class Campaigns {
     token: string
   }): Promise<any> {
     const url = this.makeUrl('/campaigns');
-    console.info('doing campaigns.get call to ', url);
     return superagent.get(url)
       .query(query);
   }
@@ -41,7 +37,6 @@ class Campaigns {
     campaignId: string
   }): Promise<any> {
     const url = this.makeUrl('/campaigns/' + query.campaignId);
-    console.info('doing campaigns.getOne call to', url);
     return superagent.get(url);
   }
 

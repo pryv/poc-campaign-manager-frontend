@@ -21,7 +21,6 @@ class Invitations {
   }
 
   makeUrl (path?: string): string {
-    console.log('what is dis', path);
     return path ? this.baseUrl + '/' + path : this.baseUrl;
   }
 
@@ -30,7 +29,6 @@ class Invitations {
     token: string
   }): Promise<any> {
     const url = this.makeUrl();
-    console.info('doing invitations.get call to ', url);
     return superagent.get(url);
   }
 
@@ -41,7 +39,6 @@ class Invitations {
     campaignId: string
   }): Promise<any> {
     const url = this.makeUrl();
-    console.info('doing invitations.create call to', url, 'with params', params);
     return superagent.post(url)
       .send(params);
   }

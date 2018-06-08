@@ -242,7 +242,7 @@
             username: this.user.username,
             token: this.user.pryvToken
           });
-          console.info('accessInfo retrieved', accessInfo);
+          console.info('pryv token valid', accessInfo);
           this.user.isLinkedToPryv = true;
         } catch (e) {
           if (e.response && e.status && (e.status === 401)) {
@@ -259,6 +259,7 @@
             token: this.user.pryvToken
           });
           this.followedSlices = slices;
+          console.info('retrieved slices', slices);
         } catch (e) {
           let errorData = null;
           if (e.response) {
@@ -271,8 +272,6 @@
 
       },
       async getCampaigns() {
-        console.log('loadin campaigns for', this.$route.params);
-
         const response = await this.campaignsModel.get();
         console.log('retrieved campaigns:', response.body);
         const retrievedCampaigns = response.body.campaigns;
@@ -331,7 +330,7 @@
         } catch (e) {
           if (e.response && e.status && (e.status === 401)) {
             params.invitation.status = 'hold';
-
+            console.info('token has been put on hold by the requestee');
           } else {
             console.error('error retrieving access info', e);
           }
