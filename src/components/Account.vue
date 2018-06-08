@@ -331,9 +331,25 @@
           if (e.response && e.status && (e.status === 401)) {
             params.invitation.status = 'hold';
             console.info('token has been put on hold by the requestee');
+            await this.updateInvitation({invitation: params.invitation});
           } else {
             console.error('error retrieving access info', e);
           }
+        }
+      },
+      async updateInvitation(params: {
+        invitation: Object
+      }): void {
+        try {
+          await this.invitationsModel.update(params);
+        } catch (e) {
+          let errorData = null;
+          if (e.response) {
+            errorData = e.reponse;
+          } else {
+            errorData = e;
+          }
+          console.error('error while updating invitation status', errorData);
         }
       },
       openLinkToPryv() {
