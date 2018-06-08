@@ -189,6 +189,7 @@
       }
     },
     async created() {
+      await this.getUserData();
       await this.isAccountLinkedToPryv();
       await this.getCampaigns();
       await this.getInvitations();
@@ -203,6 +204,27 @@
       }
     },
     methods: {
+      async getUserData() {
+        try {
+          const userResponse = await this.usersModel.getOne({
+            username: this.user.username,
+            token: this.user.token
+          });
+          console.info('retrieved user data', userResponse.body);
+          const user = userResponse.body.user;
+          this.user.id = user.id;
+          this.user.pryvUsername = user.pryvUsername;
+          this.user.pryvToken = user.pryvToken;
+        } catch (e) {
+          let errorData = null;
+          if (e.response) {
+            errorData = e.response;
+          } else {
+            errorData = e;
+          }
+          console.error('error while fetching account data', errorData);
+        }
+      },
       async isAccountLinkedToPryv() {
         if (! this.user.pryvToken) {
           return false;

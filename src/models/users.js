@@ -18,6 +18,15 @@ class Campaigns {
     return username ? this.baseUrl + '/' + username : this.baseUrl;
   }
 
+  getOne (params: {
+    username: string,
+    token: string
+  }): Promise<mixed> {
+    return superagent
+      .get(this.makeUrl(params.username))
+      .set('Authorization', params.token);
+  }
+
   signIn (params: {
     username: string,
     password: string
