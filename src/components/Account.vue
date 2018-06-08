@@ -159,6 +159,7 @@
         invitationsModel: new Invitations({
           username: this.$route.query.username || 'empty'
         }),
+        followedSlices: [],
         campaigns: [],
         sentInvitations: [],
         receivedInvitations: [],
@@ -194,6 +195,9 @@
     async created() {
       await this.getUserData();
       await this.isAccountLinkedToPryv();
+      if (this.user.isLinkedToPryv) {
+        await this.getFollowedSlices();
+      }
       await this.getCampaigns();
       await this.getInvitations();
     },
@@ -247,6 +251,24 @@
             console.error('error retrieving access info', e);
           }
         }
+      },
+      async getFollowedSlices() {
+        try {
+          const slices = await this.pryvModel.getFollowedSlices({
+            username: this.user.pryvUsername,
+            token: this.user.pryvToken
+          });
+          this.followedSlices = slices;
+        } catch (e) {
+          let errorData = null;
+          if (e.response) {
+            errorData = e.response;
+          } else {
+            errorData = e;
+          }
+          console.error('error while fetching followed slices', errorData);
+        }
+
       },
       async getCampaigns() {
         console.log('loadin campaigns for', this.$route.params);
@@ -305,7 +327,7 @@
             username: params.invitation.requestee.pryvUsername,
             token: params.invitation.accessToken
           });
-          console.info('accessInfo retrieved', accessInfo);
+          console.info('valid token', accessInfo);
         } catch (e) {
           if (e.response && e.status && (e.status === 401)) {
             params.invitation.status = 'hold';

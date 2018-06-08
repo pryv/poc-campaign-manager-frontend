@@ -38,6 +38,15 @@ class Pryv {
       .get('https://' + params.username + '.' + this.domain + '/access-info?auth=' + params.token);
     return accessInfoResponse.body;
   }
+
+  async getFollowedSlices (params: {
+    username: string,
+    token: string
+  }): Object {
+    const followedSlicesResponse = await superagent
+      .get('https://' + params.username + '.' + this.domain + '/followed-slices?auth=' + params.token);
+    return followedSlicesResponse.body.followedSlices;
+  }
 }
 
 export default Pryv;
