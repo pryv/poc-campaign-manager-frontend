@@ -248,15 +248,18 @@
           }
         }
       },
-      openInvitationCreate(campaignId, campaignTitle) {
-        this.$router.push({
-          path: '/invitations/new',
-          query: {
-            username: this.user.username,
-            campaignId: campaignId,
-            campaignTitle: campaignTitle
-          }
+      async getCampaigns() {
+        console.log('loadin campaigns for', this.$route.params);
+
+        const response = await this.campaignsModel.get();
+        console.log('retrieved campaigns:', response.body);
+        const retrievedCampaigns = response.body.campaigns;
+        retrievedCampaigns.forEach((c) => {
+          c.invitationLink = '/invitations/view/?campaignId=' + c.id +
+            '&requester=' + this.user.username;
+          c.created = printDate(c.created);
         });
+        this.campaigns = retrievedCampaigns;
       },
       async getInvitations() {
         try {
@@ -305,7 +308,6 @@
           console.info('accessInfo retrieved', accessInfo);
         } catch (e) {
           if (e.response && e.status && (e.status === 401)) {
-            console.error('error retrieving access info', e.response.body);
             params.invitation.status = 'hold';
 
           } else {
@@ -313,18 +315,14 @@
           }
         }
       },
-      async getCampaigns() {
-        console.log('loadin campaigns for', this.$route.params);
-
-        const response = await this.campaignsModel.get();
-        console.log('retrieved campaigns:', response.body);
-        const retrievedCampaigns = response.body.campaigns;
-        retrievedCampaigns.forEach((c) => {
-          c.invitationLink = '/invitations/view/?campaignId=' + c.id +
-            '&requester=' + this.user.username;
-          c.created = printDate(c.created);
-        });
-        this.campaigns = retrievedCampaigns;
+      openLinkToPryv() {
+        this.$router.push({
+          path: '/pryv/link',
+          query: {
+            username: this.user.username,
+            id: this.user.id
+          }
+        })
       },
       openCampaignCreate() {
         this.$router.push({
@@ -343,6 +341,16 @@
           }
         });
       },
+      openInvitationCreate(campaignId, campaignTitle) {
+        this.$router.push({
+          path: '/invitations/new',
+          query: {
+            username: this.user.username,
+            campaignId: campaignId,
+            campaignTitle: campaignTitle
+          }
+        });
+      },
       openInvitationDisplay(invitation) {
         this.$router.push({
           path: '/invitations/view',
@@ -353,15 +361,6 @@
             requestee: this.user.username
           }
         });
-      },
-      openLinkToPryv() {
-        this.$router.push({
-          path: '/pryv/link',
-          query: {
-            username: this.user.username,
-            id: this.user.id
-          }
-        })
       }
     }
   };
