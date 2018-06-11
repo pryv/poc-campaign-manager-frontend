@@ -279,7 +279,7 @@
           } else if ((i.status !== 'accepted') && (this.sliceExists(i))) {
             await this.deleteFollowedSlice(i);
           } else {
-            console.log('skippin invitation because either not accepted or already sliced', i)
+            // do nothing
           }
         });
       },
@@ -291,6 +291,7 @@
             invitation: invitation
           });
           this.followedSlices.push(createdSlice);
+          console.info('created slice', createdSlice);
         } catch (e) {
           let errorData = null;
           if (e.response) {
@@ -304,12 +305,13 @@
       async deleteFollowedSlice(invitation) {
         try {
           const sliceIndex = this.findSliceIndex(invitation);
-          const createdSlice = await this.pryvModel.deleteSlice({
+          const deletedSlice = await this.pryvModel.deleteSlice({
             username: this.user.username,
             token: this.user.pryvToken,
             slice: this.followedSlices[sliceIndex]
           });
           this.followedSlices = this.followedSlices.slice(sliceIndex, 1);
+          console.info('deleted slice', deletedSlice);
         } catch (e) {
           let errorData = null;
           if (e.response) {
