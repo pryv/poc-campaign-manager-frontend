@@ -194,12 +194,12 @@
     },
     async created() {
       await this.getUserData();
+      await this.getCampaigns();
+      await this.getInvitations();
       await this.isAccountLinkedToPryv();
       if (this.user.isLinkedToPryv) {
         await this.getFollowedSlices();
       }
-      await this.getCampaigns();
-      await this.getInvitations();
     },
     computed: {
       isLinkedToPryv() {
