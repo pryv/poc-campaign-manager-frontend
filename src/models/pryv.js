@@ -47,6 +47,31 @@ class Pryv {
       .get('https://' + params.username + '.' + this.domain + '/followed-slices?auth=' + params.token);
     return followedSlicesResponse.body.followedSlices;
   }
+
+  async createSlice (params: {
+    username: string,
+    token: string,
+    invitation: Object
+  }): Object {
+    const createSliceResponse = await superagent
+      .post('https://' + params.username + '.' + this.domain + '/followed-slices?auth=' + params.token)
+      .send({
+        accessToken: params.invitation.accessToken,
+        name: params.invitation.requestee.pryvUsername + '-' + params.invitation.campaign.title,
+        url: 'https://' + params.invitation.requestee.pryvUsername + '.' + this.domain + '/#/sharings/' + params.invitation.accessToken
+      });
+    return createSliceResponse.body.followedSlice;
+  }
+
+  async deleteSlice (params: {
+    username: string,
+    token: string,
+    slice: Object
+  }): Object {
+    const deleteSliceResponse = await superagent
+      .delete('https://' + params.username + '.' + this.domain + '/followed-slices/' + params.slice.id + '?auth=' + params.token);
+    return deleteSliceResponse.body.id;
+  }
 }
 
 export default Pryv;

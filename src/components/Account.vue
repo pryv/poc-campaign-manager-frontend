@@ -199,6 +199,7 @@
       await this.isAccountLinkedToPryv();
       if (this.user.isLinkedToPryv) {
         await this.getFollowedSlices();
+        await this.updateFollowedSlices();
       }
     },
     computed: {
@@ -270,6 +271,66 @@
           console.error('error while fetching followed slices', errorData);
         }
 
+      },
+      async updateFollowedSlices() {
+        this.sentInvitations.forEach(async (i) => {
+          if ((i.status === 'accepted') && (! this.sliceExists(i))) {
+            await this.createFollowedSlice(i);
+          } else if ((i.status !== 'accepted') && (this.sliceExists(i))) {
+            await this.deleteFollowedSlice(i);
+          } else {
+            console.log('skippin invitation because either not accepted or already sliced', i)
+          }
+        });
+      },
+      async createFollowedSlice(invitation) {
+        try {
+          const createdSlice = await this.pryvModel.createSlice({
+            username: this.user.username,
+            token: this.user.pryvToken,
+            invitation: invitation
+          });
+          this.followedSlices.push(createdSlice);
+        } catch (e) {
+          let errorData = null;
+          if (e.response) {
+            errorData = e.response;
+          } else {
+            errorData = e;
+          }
+          console.error('error while creating followed slice', errorData);
+        }
+      },
+      async deleteFollowedSlice(invitation) {
+        try {
+          const sliceIndex = this.findSliceIndex(invitation);
+          const createdSlice = await this.pryvModel.deleteSlice({
+            username: this.user.username,
+            token: this.user.pryvToken,
+            slice: this.followedSlices[sliceIndex]
+          });
+          this.followedSlices = this.followedSlices.slice(sliceIndex, 1);
+        } catch (e) {
+          let errorData = null;
+          if (e.response) {
+            errorData = e.response;
+          } else {
+            errorData = e;
+          }
+          console.error('error while creating followed slice', errorData);
+        }
+      },
+      sliceExists(invitation) {
+        return this.findSliceIndex(invitation) >= 0;
+      },
+      findSliceIndex(invitation) {
+        let index = -1;
+        this.followedSlices.forEach((slice, idx) => {
+          if (slice.accessToken === invitation.accessToken) {
+            return index = idx;
+          }
+        });
+        return index;
       },
       async getCampaigns() {
         const response = await this.campaignsModel.get();
