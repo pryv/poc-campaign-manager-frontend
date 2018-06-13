@@ -44,7 +44,6 @@ class Campaigns {
     campaign: {
       title: string,
       description: string,
-      pryvAppId: string,
       permissions: Array<mixed>
     }
   }): Promise<any> {

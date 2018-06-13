@@ -10,9 +10,6 @@
         <br>
         Permissions:<br>
         <textarea rows="5" v-model="campaign.permissions"></textarea>
-        <br>
-        pryv app Id (optional):<br>
-        <input type="text" v-model="campaign.pryvAppId" placeholder="enter Pryv app Id">
         <br><br>
         <button v-on:click="back">Back</button><button v-on:click="save">Save</button><button v-on:click="create">Create</button>
     </div>
@@ -55,8 +52,7 @@
         console.log('creatin');
         let campaignToCreate = {
           title: this.campaign.title,
-          description: this.campaign.description,
-          pryvAppId: this.campaign.pryvAppId
+          description: this.campaign.description
         };
         try {
           campaignToCreate.permissions = JSON.parse(this.campaign.permissions);
