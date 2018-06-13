@@ -44,7 +44,6 @@
             username: this.pryvUser.username,
             password: this.pryvUser.password,
           });
-          console.log('youhou', signInResponse)
           if (signInResponse.body.error) {
             return console.error('got error signin in to pryv' + signInResponse.error);
           }
