@@ -11,15 +11,17 @@
 
 <script>
   import Invitations from '@/models/invitations';
+  import Pryv from '@/models/pryv';
 
   export default {
     name: 'InvitationCreate',
     data () {
       return {
         invitationsModel: new Invitations({
-          username: this.$route.query.username || 'bob',
+          username: this.$route.query.username || null,
           token: 'TODO'
         }),
+        pryvModel: new Pryv(),
         requester: {
           username: this.$route.query.username || 'empty'
         },
@@ -43,6 +45,11 @@
       },
       async create() {
         try {
+          const usersExists = await this.pryvModel.userExists({username: this.requestee.username});
+          if (! usersExists) {
+            alert('user does not exist. Please enter a valid username.');
+            return;
+          }
           const response = await this.invitationsModel.create({
             requestee: {
               username: this.requestee.username

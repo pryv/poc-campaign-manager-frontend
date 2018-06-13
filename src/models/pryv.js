@@ -72,6 +72,30 @@ class Pryv {
       .delete('https://' + params.username + '.' + this.domain + '/followed-slices/' + params.slice.id + '?auth=' + params.token);
     return deleteSliceResponse.body.id;
   }
+
+  async userExists (params: {
+    username: string
+  }) {
+    try {
+      console.log('callin userExists');
+      await superagent
+        .post('https://reg.' + this.domain + '/' + params.username + '/server');
+    } catch (e) {
+      console.log('error while making exists call', e);
+      if (e.status === 404) {
+        return false;
+      }
+    }
+    return true;
+  }
+
+  async getUsernameFromEmail (params: {
+    email: string
+  }) {
+    const usernameResponse = await superagent
+      .get('https://reg.' + this.domain + '/' + params.email + '/uid');
+    return usernameResponse.body.uid;
+  }
 }
 
 export default Pryv;
