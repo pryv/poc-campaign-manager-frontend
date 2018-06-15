@@ -3,7 +3,7 @@
         <h2>Create Invitation</h2>
         <br>
         User to invite to campaign {{ campaign.title }}:<br>
-        <input v-model="requestee.username" placeholder="enter CM username">
+        <input v-model="requestee.pryvUsername" placeholder="enter Pryv username">
         <br>
         <button v-on:click="back">Back</button><button v-on:click="create">Create</button>
     </div>
@@ -11,12 +11,14 @@
 
 <script>
   import Invitations from '@/models/invitations';
+  import Users from '@/models/users';
   import Pryv from '@/models/pryv';
 
   export default {
     name: 'InvitationCreate',
     data () {
       return {
+        usersModel: new Users(),
         invitationsModel: new Invitations({
           username: this.$route.query.username || null,
           token: 'TODO'
@@ -30,7 +32,7 @@
           title: ''
         },
         requestee: {
-          username: ''
+          pryvUsername: ''
         }
       }
     },
@@ -45,14 +47,24 @@
       },
       async create() {
         try {
-          const usersExists = await this.pryvModel.userExists({username: this.requestee.username});
+          const usersExists = await this.pryvModel.userExists({username: this.requestee.pryvUsername});
           if (! usersExists) {
-            alert('user does not exist. Please enter a valid username.');
+            alert('Pryv user does not exist. Please enter a valid username.');
             return;
           }
+
+          try {
+            await this.usersModel.create({
+              pryvUsername: this.requestee.pryvUsername
+            });
+          } catch (e) {
+            if (e.response)
+              console.log('error creating user', e.response.body)
+          }
+
           const response = await this.invitationsModel.create({
             requestee: {
-              username: this.requestee.username
+              pryvUsername: this.requestee.pryvUsername
             },
             campaign: {
               id: this.campaign.id
