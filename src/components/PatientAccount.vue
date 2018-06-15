@@ -22,7 +22,7 @@
                     {{ access.campaignDescription }}
                 </td>
                 <td>
-                    we do not have it yet
+                    {{ access.requester }}
                 </td>
                 <td>
                     accepted
@@ -96,6 +96,7 @@
                 pryvAppId: access.name,
                 accessToken: access.token
               });
+              access.requester = accessCampaign.requester;
               access.campaignTitle = accessCampaign.title;
               access.campaignDescription = accessCampaign.description;
               access.created = printDate(access.created);
