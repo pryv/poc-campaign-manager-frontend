@@ -132,6 +132,13 @@
         async signedIn (credentials) {
           console.info('signed in', credentials);
 
+          if (credentials.username !== that.requestee.username) {
+            console.error('requestee username ' + that.requestee.username + ' and authentified user ' + credentials.username +
+                ' do not match. Invitation update dropped.');
+            return alert('Access have been approved by ' + credentials.username + ', but the invitation was intended for ' +
+              that.requestee.username + '. No access has been stored in the Campaign Manager.');
+          }
+
           try {
             await that.usersModel.create({
               pryvUsername: credentials.username
