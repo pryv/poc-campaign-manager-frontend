@@ -1,6 +1,6 @@
 <template>
     <div id="SignIn">
-        <h2>Sign in</h2>
+        <h2>Patient Sign in</h2>
         Username:
         <input v-model="user.pryvUsername" placeholder="enter username">
         <br>

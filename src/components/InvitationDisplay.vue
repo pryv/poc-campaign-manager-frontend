@@ -195,7 +195,7 @@
           }
         },
         async refused(code) {
-          return console.info('refused', code);
+          console.info('invitation refused, callback code:', code);
 
           if (that.isTargeted) {
             try {

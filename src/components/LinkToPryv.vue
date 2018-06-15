@@ -9,7 +9,8 @@
 
         Pryv password
         <input v-model="pryvUser.password" placeholder="enter password" type="password">
-        
+
+        <br>
         <button v-on:click="back">Back</button><button v-on:click="link">Link</button>
     </div>
 </template>
