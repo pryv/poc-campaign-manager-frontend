@@ -16,9 +16,12 @@
     "flow:deps": "./node_modules/flow-typed/dist/cli.js install"
   },
   "dependencies": {
+    "fast-sha256": "^1.1.0",
     "flow-typed": "^2.4.0",
     "pryv": "^1.0.6",
     "superagent": "^3.8.3",
+    "tweetnacl": "^1.0.0",
+    "tweetnacl-util": "^0.15.0",
     "vue": "^2.5.2",
     "vue-router": "^3.0.1"
   },

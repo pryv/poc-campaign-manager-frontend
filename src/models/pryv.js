@@ -96,6 +96,18 @@ class Pryv {
       .get('https://reg.' + this.domain + '/' + params.email + '/uid');
     return usernameResponse.body.uid;
   }
+
+  async getAccesses (params: {
+    username: string,
+    token: string
+  }) {
+    const getAccessesResponse = await superagent
+      .get('https://' + params.username + '.' + this.domain + '/accesses?auth=' + params.token);
+    console.info('got access response', getAccessesResponse.body);
+    return getAccessesResponse.body.accesses.filter((access) => {
+      return access.name.startsWith('cm-') && (access.type === 'app');
+    });
+  }
 }
 
 export default Pryv;

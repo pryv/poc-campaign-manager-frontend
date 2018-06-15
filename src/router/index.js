@@ -9,6 +9,9 @@ import CampaignDisplay from '@/components/CampaignDisplay';
 import InvitationCreate from '@/components/InvitationCreate';
 import InvitationDisplay from '@/components/InvitationDisplay';
 
+import PatientSignIn from '@/components/PatientSignIn';
+import PatientAccount from '@/components/PatientAccount';
+
 Vue.use(Router);
 
 export default new Router({
@@ -31,6 +34,16 @@ export default new Router({
       path: '/account',
       name: 'Account',
       component: Account
+    },
+    {
+      path: '/patientSignIn',
+      name: 'PatientSignIn',
+      component: PatientSignIn
+    },
+    {
+      path: '/patientAccount',
+      name: 'PatientAccount',
+      component: PatientAccount
     },
     {
       path: '/pryv/link',
