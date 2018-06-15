@@ -89,6 +89,11 @@
                 {{ invitation.accessToken }}
             </td>
             <td>
+                <a :href="'' + invitation.url">
+                    {{ invitation.url }}
+                </a>
+            </td>
+            <td>
                 {{ invitation.created }}
             </td>
             <td>
@@ -178,6 +183,7 @@
           'Status',
           'Permissions',
           'Access Token',
+          'Link',
           'Created',
           'Modified'
         ],
@@ -374,6 +380,9 @@
           'are they the same?', (params.invitation.requester.id === this.user.id));
         if (params.invitation.requester.id === this.user.id) {
           console.log('pushed in sent');
+          params.invitation.url = '/invitations/view/?campaignId=' + params.invitation.campaign.id +
+            '&invitationId=' + params.invitation.id + '&requester=' + this.user.username +
+            '&requestee=' + params.invitation.requestee.pryvUsername;
           this.sentInvitations.push(params.invitation);
         } else {
           console.log('pushed in receieved');
