@@ -18,7 +18,7 @@
   "dependencies": {
     "fast-sha256": "^1.1.0",
     "flow-typed": "^2.4.0",
-    "pryv": "^1.0.6",
+    "pryv": "^1.0.8",
     "superagent": "^3.8.3",
     "tweetnacl": "^1.0.0",
     "tweetnacl-util": "^0.15.0",

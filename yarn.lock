@@ -6167,9 +6167,9 @@ prr@~1.0.1:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/prr/-/prr-1.0.1.tgz#d3fc114ba06995a45ec6893f484ceb1d78f5f476"
 
-pryv@^1.0.6:
-  version "1.0.6"
-  resolved "https://registry.yarnpkg.com/pryv/-/pryv-1.0.6.tgz#43d43680049a1e062913990b0089cd76de61aa9d"
+pryv@^1.0.8:
+  version "1.0.8"
+  resolved "https://registry.yarnpkg.com/pryv/-/pryv-1.0.8.tgz#a89b4ccc8b0f52e4e7deedaa4d02a98902408750"
   dependencies:
     form-data "0.1.x"
     socket.io-client "2.1.0"
