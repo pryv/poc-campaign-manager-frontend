@@ -108,6 +108,17 @@ class Pryv {
       return access.name.startsWith('cm-') && (access.type === 'app');
     });
   }
+
+  async deleteAccess (params: {
+    username: string,
+    token: string,
+    accessId: string
+  }): Object {
+    const deleteAccessResponse = await superagent
+      .delete('https://' + params.username + '.' + this.domain + '/accesses/' + params.accessId + '?auth=' + params.token);
+    console.info('access deleted, response:', deleteAccessResponse.body);
+    return deleteAccessResponse.body.accessDeletion;
+  }
 }
 
 export default Pryv;

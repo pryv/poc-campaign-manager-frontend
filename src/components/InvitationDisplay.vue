@@ -32,13 +32,14 @@
         <button v-on:click="back">Back</button>
         <br><br>
 
-        By signing here, you consent to participate to the campaign.
-
-        <br>
-
-        <span id="pryv-button"></span><br>
-
-
+        <div v-if="hasCancelButton">
+            <button v-on:click="revoke">Revoke</button>
+        </div>
+        <div v-else>
+            By signing here, you consent to participate to the campaign.
+            <br>
+            <span id="pryv-button"></span><br>
+        </div>
     </div>
 
 
@@ -48,6 +49,7 @@
   import Invitations from '@/models/invitations';
   import Campaigns from '@/models/campaigns';
   import Users from '@/models/users';
+  import Pryv from '@/models/pryv';
 
   import * as pryv from 'pryv';
 
@@ -60,31 +62,27 @@
         },
         requestee: {
           username: this.$route.query.requestee || null,
+          pryvToken: this.$route.query.pryvToken || null,
         },
         campaign: {
           id: this.$route.query.campaignId,
         },
         invitation: {
           id: this.$route.query.invitationId || null,
-          status: this.$route.query.status || null,
+          accessId: this.$route.query.accessId || null,
         },
         isTargeted: this.$route.query.invitationId ? true : false,
+        hasCancelButton: this.$route.query.hasCancel || false,
         invitationsModel: new Invitations({
           username: this.$route.query.requester || null,
-          token: 'TODO'
+          token: 'TODO',
         }),
         campaignsModel: new Campaigns({
           username: this.$route.query.requester || null,
           token: 'TODO'
         }),
         usersModel: new Users(),
-        columns: [
-          'id',
-          'title',
-          'description',
-          'created',
-          'permissions'
-        ]
+        pryvModel: new Pryv(),
       }
     },
     computed: {
@@ -94,7 +92,9 @@
     },
     async created() {
       await this.getCampaign();
-      this.loadButton();
+      if (! this.hasCancelButton) {
+        this.loadButton();
+      }
     },
     methods: {
       async getCampaign() {
@@ -113,6 +113,23 @@
       },
       back() {
         this.$router.back();
+      },
+      async revoke() {
+        try {
+          await this.pryvModel.deleteAccess({
+            username: this.requestee.username,
+            token: this.requestee.pryvToken,
+            accessId: this.invitation.accessId,
+          });
+        } catch (e) {
+          let errorData = null;
+          if (e.response) {
+            errorData = e.response;
+          } else {
+            errorData = e;
+          }
+          console.error('error while revoking access', errorData);
+        }
       }
     }
   };

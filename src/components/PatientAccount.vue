@@ -120,9 +120,11 @@
           query: {
             campaignId: access.campaignId,
             invitationId: access.invitationId,
+            accessId: access.id,
             requester: access.requester,
             requestee: this.user.pryvUsername,
-            status: 'accepted'
+            hasCancel: true,
+            pryvToken: this.user.pryvToken,
           }
         });
       }
