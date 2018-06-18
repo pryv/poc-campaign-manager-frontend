@@ -14,7 +14,7 @@
             </thead>
             <tbody>
             <tr v-for="access in cmAccesses">
-                <button @click="">View</button>
+                <button @click="openAccess(access)">View</button>
                 <td>
                     {{ access.campaignTitle }}
                 </td>
@@ -96,10 +96,12 @@
                 pryvAppId: access.name,
                 accessToken: access.token
               });
+              access.campaignId = accessCampaign.id;
               access.requester = accessCampaign.requester;
               access.campaignTitle = accessCampaign.title;
               access.campaignDescription = accessCampaign.description;
               access.created = printDate(access.created);
+              access.invitationId = accessCampaign.invitationId;
             } catch (e) {
               let errorData = null;
               if (e.response) {
@@ -109,6 +111,19 @@
               }
               console.error('error while fetching accesses', errorData);
             }
+        });
+      },
+      openAccess(access) {
+        console.info('openin access', access);
+        this.$router.push({
+          path: '/invitations/view',
+          query: {
+            campaignId: access.campaignId,
+            invitationId: access.invitationId,
+            requester: access.requester,
+            requestee: this.user.pryvUsername,
+            status: 'accepted'
+          }
         });
       }
     }

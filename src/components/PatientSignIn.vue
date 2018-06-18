@@ -8,8 +8,6 @@
         <input type="password" v-model="user.pryvPassword" placeholder="enter password">
         <br>
         <button v-on:click="signIn">Sign in</button>
-        <br>
-        Not a user yet? Sign up <a href="https://sw.pryv.me/access/register.html">here</a>.
     </div>
 </template>
 

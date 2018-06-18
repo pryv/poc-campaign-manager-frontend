@@ -70,7 +70,7 @@ class Pryv {
   }): Object {
     const deleteSliceResponse = await superagent
       .delete('https://' + params.username + '.' + this.domain + '/followed-slices/' + params.slice.id + '?auth=' + params.token);
-    return deleteSliceResponse.body.id;
+    return deleteSliceResponse.body;
   }
 
   async userExists (params: {

@@ -65,7 +65,8 @@
           id: this.$route.query.campaignId,
         },
         invitation: {
-          id: this.$route.query.invitationId || null
+          id: this.$route.query.invitationId || null,
+          status: this.$route.query.status || null,
         },
         isTargeted: this.$route.query.invitationId ? true : false,
         invitationsModel: new Invitations({
