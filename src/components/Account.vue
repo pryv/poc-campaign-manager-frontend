@@ -10,50 +10,8 @@
     </div>
 
     <div id="campaignsList">
-        <h3>Campaigns</h3>
-        <table>
-            <thead>
-            <tr>
-                <th>
-                    View
-                </th>
-                <th v-for="property in campaignsColumns">
-                    {{ property }}
-                </th>
-                <th>
-                    Invitation
-                </th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr v-for="campaign in campaigns">
-                <button @click="openCampaignDisplay(campaign.id)">View</button>
-                <td>
-                    {{ campaign.title }}
-                </td>
-                <td>
-                    {{ campaign.description }}
-                </td>
-                <td>
-                    {{ campaign.permissions }}
-                </td>
-                <td>
-                    {{ campaign.created }}
-                </td>
-                <td>
-                    {{ campaign.pryvAppId }}
-                </td>
-                <td>
-                    <a :href="'' + campaign.invitationLink">
-                        {{ campaign.invitationLink }}
-                    </a>
-                </td>
-                <td>
-                    <button @click="openInvitationCreate(campaign.id, campaign.title)">Create Invitation</button>
-                </td>
-            </tr>
-            </tbody>
-        </table>
+
+        <CampaignsList :campaigns="campaigns" :user="user"></CampaignsList>
 
         <div>
             <button @click="openCampaignCreate">New Campaign</button>
@@ -103,12 +61,14 @@
   import Users from '@/models/users';
   import Pryv from '@/models/pryv';
 
+  import CampaignsList from './bits/CampaignsList';
   import SentInvitations from './bits/SentInvitations';
 
   export default {
     name: 'Account',
     components: {
-      SentInvitations
+      SentInvitations,
+      CampaignsList
     },
     data: function () {
       return {
@@ -132,25 +92,6 @@
         campaigns: [],
         sentInvitations: [],
         receivedInvitations: [],
-        campaignsColumns: [
-          'title',
-          'description',
-          'permissions',
-          'created',
-          'pryvAppId',
-          'invitationLink'
-        ],
-        sentInvitationsColumns: [
-          'Campaign',
-          'Username',
-          'Pryv username',
-          'Status',
-          'Permissions',
-          'Access Token',
-          'Link',
-          'Created',
-          'Modified'
-        ],
         receivedInvitationsColumns: [
           'View',
           'Campaign',
@@ -404,25 +345,6 @@
             username: this.user.username
           }
         })
-      },
-      openCampaignDisplay(campaignId) {
-        this.$router.push({
-          path: '/campaigns/view/',
-          query: {
-            campaignId: campaignId,
-            username: this.user.username
-          }
-        });
-      },
-      openInvitationCreate(campaignId, campaignTitle) {
-        this.$router.push({
-          path: '/invitations/new',
-          query: {
-            username: this.user.username,
-            campaignId: campaignId,
-            campaignTitle: campaignTitle
-          }
-        });
       },
       openInvitationDisplay(invitation) {
         this.$router.push({
