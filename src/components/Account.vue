@@ -21,37 +21,8 @@
 
     <SentInvitations :invitations="sentInvitations"></SentInvitations>
 
-    <h3>received Invitations</h3>
-    <table>
-        <thead>
-        <th v-for="property in receivedInvitationsColumns">
-            {{ property }}
-        </th>
-        </thead>
-        <tbody>
-        <tr v-for="invitation in receivedInvitations">
-            <button @click="openInvitationDisplay(invitation)">View</button>
-            <td>
-                {{ invitation.campaign.title }}
-            </td>
-            <td>
-                {{ invitation.requester.username }}
-            </td>
-            <td>
-                {{ invitation.status }}
-            </td>
-            <td>
-                {{ invitation.permissions }}
-            </td>
-            <td>
-                {{ invitation.created }}
-            </td>
-            <td>
-                {{ invitation.modified }}
-            </td>
-        </tr>
-        </tbody>
-    </table>
+    <ReceivedInvitations :invitations="receivedInvitations" :user="user"></ReceivedInvitations>
+
 </div>
 </template>
 
@@ -63,12 +34,14 @@
 
   import CampaignsList from './bits/CampaignsList';
   import SentInvitations from './bits/SentInvitations';
+  import ReceivedInvitations from './bits/ReceivedInvitations';
 
   export default {
     name: 'Account',
     components: {
+      CampaignsList,
       SentInvitations,
-      CampaignsList
+      ReceivedInvitations
     },
     data: function () {
       return {
@@ -91,16 +64,7 @@
         followedSlices: [],
         campaigns: [],
         sentInvitations: [],
-        receivedInvitations: [],
-        receivedInvitationsColumns: [
-          'View',
-          'Campaign',
-          'Requester',
-          'Status',
-          'Permissions',
-          'Created',
-          'Modified'
-        ]
+        receivedInvitations: []
       }
     },
     async created() {
@@ -345,17 +309,6 @@
             username: this.user.username
           }
         })
-      },
-      openInvitationDisplay(invitation) {
-        this.$router.push({
-          path: '/invitations/view',
-          query: {
-            campaignId: invitation.campaign.id,
-            invitationId: invitation.id,
-            requester: invitation.requester.username,
-            requestee: this.user.username
-          }
-        });
       }
     }
   };
