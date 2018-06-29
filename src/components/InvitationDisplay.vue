@@ -1,32 +1,7 @@
 <template>
     <div id="InvitationDisplay">
         <h2>Campaign Invitation</h2>
-        <table>
-            <tr>
-                <td>Requester:</td>
-                <td>{{ requester.username }}</td>
-            </tr>
-            <tr>
-                <td>Title:</td>
-                <td>{{ campaign.title }}</td>
-            </tr>
-            <tr>
-                <td>Description:</td>
-                <td>{{ campaign.description }}</td>
-            </tr>
-            <tr>
-                <td>Permissions:</td>
-                <td>{{ campaign.permissions }}</td>
-            </tr>
-            <tr>
-                <td>Pryv App Id:</td>
-                <td>{{ campaign.pryvAppId }}</td>
-            </tr>
-            <tr>
-                <td>Created:</td>
-                <td>{{ createdReadable }}</td>
-            </tr>
-        </table>
+        <Campaign :campaign="campaign"></Campaign>
 
         <br>
         <button v-on:click="back">Back</button>
@@ -51,10 +26,16 @@
   import Users from '@/models/users';
   import Pryv from '@/models/pryv';
 
+  import Campaign from './bits/Campaign';
+
   import * as pryv from 'pryv';
+  import _ from 'lodash';
 
   export default {
     name: 'InvitationDisplay',
+    components: {
+      Campaign
+    },
     data () {
       return {
         requester: {
@@ -102,7 +83,7 @@
           campaignId: this.campaign.id
         });
         console.info('retrieved', response.body);
-        this.campaign = response.body.campaign;
+        this.campaign = _.extend(response.body.campaign, {requester: this.requester });
       },
       loadButton() {
         const pryvDomain = 'pryv.me';

@@ -1,28 +1,8 @@
 <template>
     <div id="CampaignDisplay">
+
         <h2>Campaign</h2>
-        <table>
-            <tr>
-                <td>Title:</td>
-                <td>{{ campaign.title }}</td>
-            </tr>
-            <tr>
-                <td>Description:</td>
-                <td>{{ campaign.description }}</td>
-            </tr>
-            <tr>
-                <td>Permissions:</td>
-                <td>{{ campaign.permissions }}</td>
-            </tr>
-            <tr>
-                <td>Pryv App Id:</td>
-                <td>{{ campaign.pryvAppId }}</td>
-            </tr>
-            <tr>
-                <td>Created:</td>
-                <td>{{ createdReadable }}</td>
-            </tr>
-        </table>
+        <Campaign :campaign="campaign"></Campaign>
 
         <br>
         <button v-on:click="back">Back</button>
@@ -34,10 +14,15 @@
 <script>
   import Campaigns from '@/models/campaigns';
 
+  import Campaign from './bits/Campaign';
+
   import * as pryv from 'pryv';
 
   export default {
     name: 'CampaignDisplay',
+    components: {
+      Campaign
+    },
     data () {
       return {
         campaignsModel: new Campaigns({
