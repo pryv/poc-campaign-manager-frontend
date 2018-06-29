@@ -11,7 +11,7 @@
         Permissions:<br>
         <textarea rows="5" v-model="campaign.permissions"></textarea>
         <br><br>
-        <button v-on:click="back">Back</button><button v-on:click="create">Create</button>
+        <button @click="back">Back</button><button @click="create">Create</button>
     </div>
 </template>
 

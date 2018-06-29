@@ -5,7 +5,7 @@
         <Campaign :campaign="campaign"></Campaign>
 
         <br>
-        <button v-on:click="back">Back</button>
+        <button @click="back">Back</button>
     </div>
 
 

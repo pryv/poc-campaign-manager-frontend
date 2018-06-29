@@ -10,7 +10,7 @@
         Confirm password:
         <input type="password" v-model="user.confirmPassword" placeholder="enter password">
         <br>
-        <button v-on:click="signUp">Create Account</button>
+        <button @click="signUp">Create Account</button>
         <br>
         Already have an account? <a href="/signin">Sign in</a>
     </div>

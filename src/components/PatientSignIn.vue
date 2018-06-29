@@ -7,7 +7,7 @@
         Password:
         <input type="password" v-model="user.pryvPassword" placeholder="enter password">
         <br>
-        <button v-on:click="signIn">Sign in</button>
+        <button @click="signIn">Sign in</button>
     </div>
 </template>
 

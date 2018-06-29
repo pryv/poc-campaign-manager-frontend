@@ -4,11 +4,11 @@
         <Campaign :campaign="campaign"></Campaign>
 
         <br>
-        <button v-on:click="back">Back</button>
+        <button @click="back">Back</button>
         <br><br>
 
         <div v-if="hasCancelButton">
-            <button v-on:click="revoke">Revoke</button>
+            <button @click="revoke">Revoke</button>
         </div>
         <div v-else>
             By signing here, you consent to participate to the campaign.
