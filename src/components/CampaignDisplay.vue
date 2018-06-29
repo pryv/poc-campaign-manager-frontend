@@ -5,7 +5,7 @@
         <Campaign :campaign="campaign"></Campaign>
 
         <br>
-        <button @click="back">Back</button>
+        <BackButton></BackButton>
     </div>
 
 
@@ -15,13 +15,15 @@
   import Campaigns from '@/models/campaigns';
 
   import Campaign from './bits/Campaign';
+  import BackButton from './bits/BackButton';
 
   import * as pryv from 'pryv';
 
   export default {
     name: 'CampaignDisplay',
     components: {
-      Campaign
+      Campaign,
+      BackButton
     },
     data () {
       return {
@@ -55,9 +57,6 @@
       this.getCampaign();
     },
     methods: {
-      back() {
-        this.$router.back();
-      },
       async getCampaign() {
         const response = await this.campaignsModel.getOne({
           campaignId: this.campaign.id

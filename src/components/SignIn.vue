@@ -31,9 +31,6 @@
     created() {
     },
     methods: {
-      back() {
-        this.$router.back();
-      },
       async signIn() {
         try {
           const response = await this.usersModel.signIn({

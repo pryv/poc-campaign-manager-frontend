@@ -62,7 +62,7 @@
           'Status',
           'Permissions',
           'Created'
-        ],
+        ]
       }
     },
     async created() {

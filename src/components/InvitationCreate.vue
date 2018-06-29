@@ -5,7 +5,7 @@
         User to invite to campaign {{ campaign.title }}:<br>
         <input v-model="requestee.pryvUsername" placeholder="enter Pryv username">
         <br>
-        <button @click="back">Back</button><button @click="create">Create</button>
+        <BackButton></BackButton><button @click="create">Create</button>
     </div>
 </template>
 
@@ -14,8 +14,13 @@
   import Users from '@/models/users';
   import Pryv from '@/models/pryv';
 
+  import BackButton from './bits/BackButton';
+
   export default {
     name: 'InvitationCreate',
+    components: {
+      BackButton
+    },
     data () {
       return {
         usersModel: new Users(),
@@ -42,9 +47,6 @@
       this.campaign.title = this.$route.query.campaignTitle;
     },
     methods: {
-      back() {
-        this.$router.back();
-      },
       async create() {
         try {
           const usersExists = await this.pryvModel.userExists({username: this.requestee.pryvUsername});

@@ -4,7 +4,7 @@
         <Campaign :campaign="campaign"></Campaign>
 
         <br>
-        <button @click="back">Back</button>
+        <BackButton></BackButton>
         <br><br>
 
         <div v-if="hasCancelButton">
@@ -91,9 +91,6 @@
 
         pryv.Auth.config.registerURL.host = 'reg.' + pryvDomain;
         pryv.Auth.setup(settings);
-      },
-      back() {
-        this.$router.back();
       },
       async revoke() {
         try {

@@ -11,7 +11,7 @@
         <input v-model="pryvUser.password" placeholder="enter password" type="password">
 
         <br>
-        <button @click="back">Back</button><button @click="link">Link</button>
+        <BackButton></BackButton><button @click="link">Link</button>
     </div>
 </template>
 
@@ -36,9 +36,6 @@
       }
     },
     methods: {
-      back() {
-        this.$router.back();
-      },
       async link() {
         try {
           const signInResponse = await this.pryvModel.signIn({

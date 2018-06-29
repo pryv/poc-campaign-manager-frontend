@@ -11,15 +11,20 @@
         Permissions:<br>
         <textarea rows="5" v-model="campaign.permissions"></textarea>
         <br><br>
-        <button @click="back">Back</button><button @click="create">Create</button>
+        <BackButton></BackButton><button @click="create">Create</button>
     </div>
 </template>
 
 <script>
   import Campaigns from '@/models/campaigns';
 
+  import BackButton from './bits/BackButton';
+
   export default {
     name: 'CampaignCreate',
+    components: {
+      BackButton
+    },
     data () {
       return {
         user: {
@@ -45,9 +50,6 @@
       this.user.username = this.$route.params.username;
     },
     methods: {
-      back() {
-        this.$router.back();
-      },
       async create() {
         console.log('creatin');
         let campaignToCreate = {

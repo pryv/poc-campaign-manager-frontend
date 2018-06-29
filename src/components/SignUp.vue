@@ -34,9 +34,6 @@
     created() {
     },
     methods: {
-      back() {
-        this.$router.back();
-      },
       async signUp() {
         if (this.user.password !== this.user.confirmPassword) {
           return alert('passwords do not match!');
