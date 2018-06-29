@@ -19,8 +19,13 @@
   import Users from '@/models/users';
   import Pryv from '@/models/pryv';
 
+  import BackButton from './bits/BackButton';
+
   export default {
     name: 'LinkToPryv',
+    components: {
+      BackButton
+    },
     data () {
       return {
         usersModel: new Users(),

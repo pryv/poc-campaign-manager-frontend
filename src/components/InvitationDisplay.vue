@@ -27,6 +27,7 @@
   import Pryv from '@/models/pryv';
 
   import Campaign from './bits/Campaign';
+  import BackButton from './bits/BackButton';
 
   import * as pryv from 'pryv';
   import _ from 'lodash';
@@ -34,7 +35,8 @@
   export default {
     name: 'InvitationDisplay',
     components: {
-      Campaign
+      Campaign,
+      BackButton
     },
     data () {
       return {
