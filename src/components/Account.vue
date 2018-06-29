@@ -61,48 +61,7 @@
 
     </div>
 
-    <h3>sent Invitations</h3>
-    <table>
-        <thead>
-            <th v-for="property in sentInvitationsColumns">
-                {{ property }}
-            </th>
-        </thead>
-        <tbody>
-        <tr v-for="invitation in sentInvitations">
-            <td>
-                {{ invitation.campaign.title }}
-            </td>
-            <td>
-                {{ invitation.requestee.username }}
-            </td>
-            <td>
-                {{ invitation.requestee.pryvUsername }}
-            </td>
-            <td>
-                {{ invitation.status }}
-            </td>
-            <td>
-                {{ invitation.permissions }}
-            </td>
-            <td>
-                {{ invitation.accessToken }}
-            </td>
-            <td>
-                <a :href="'' + invitation.url">
-                    {{ invitation.url }}
-                </a>
-            </td>
-            <td>
-                {{ invitation.created }}
-            </td>
-            <td>
-                {{ invitation.modified }}
-            </td>
-        </tr>
-        </tbody>
-    </table>
-
+    <SentInvitations :invitations="sentInvitations"></SentInvitations>
 
     <h3>received Invitations</h3>
     <table>
@@ -144,8 +103,13 @@
   import Users from '@/models/users';
   import Pryv from '@/models/pryv';
 
+  import SentInvitations from './bits/SentInvitations';
+
   export default {
     name: 'Account',
+    components: {
+      SentInvitations
+    },
     data: function () {
       return {
         user: {
