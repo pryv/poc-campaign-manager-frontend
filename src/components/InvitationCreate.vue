@@ -25,12 +25,12 @@
       return {
         usersModel: new Users(),
         invitationsModel: new Invitations({
-          username: this.$route.query.username || null,
-          token: 'TODO'
+          username: this.$route.query.username,
+          token: this.$route.query.token,
         }),
         pryvModel: new Pryv(),
         requester: {
-          username: this.$route.query.username || 'empty'
+          username: this.$route.query.username,
         },
         campaign: {
           id: '',

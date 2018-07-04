@@ -31,7 +31,8 @@
           username: 'empty'
         },
         campaignsModel: new Campaigns({
-          username: this.$route.query.username || 'empty'
+          username: this.$route.query.username,
+          token: this.$route.query.token,
         }),
         campaign: {
           title: '',

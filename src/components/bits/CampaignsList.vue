@@ -93,7 +93,8 @@
           query: {
             username: this.user.username,
             campaignId: campaignId,
-            campaignTitle: campaignTitle
+            campaignTitle: campaignTitle,
+            token: this.user.token,
           }
         });
       }

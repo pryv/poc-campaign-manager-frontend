@@ -46,20 +46,22 @@
     data: function () {
       return {
         user: {
-          username: this.$route.query.username || 'empty',
-          id: this.$route.query.id || 'empty',
-          pryvUsername: this.$route.query.pryvUsername || null,
-          pryvToken: this.$route.query.pryvToken || null,
-          token: this.$route.query.token || null,
+          username: this.$route.query.username,
+          id: this.$route.query.id,
+          pryvUsername: this.$route.query.pryvUsername,
+          pryvToken: this.$route.query.pryvToken,
+          token: this.$route.query.token,
           isLinkedToPryv: false
         },
         pryvModel: new Pryv(),
         usersModel: new Users(),
         campaignsModel: new Campaigns({
-          username: this.$route.query.username || 'empty'
+          username: this.$route.query.username,
+          token: this.$route.query.token,
         }),
         invitationsModel: new Invitations({
-          username: this.$route.query.username || 'empty'
+          username: this.$route.query.username,
+          token: this.$route.query.token,
         }),
         followedSlices: [],
         campaigns: [],
@@ -298,7 +300,8 @@
           path: '/pryv/link',
           query: {
             username: this.user.username,
-            id: this.user.id
+            id: this.user.id,
+            token: this.user.token,
           }
         })
       },
@@ -306,7 +309,8 @@
         this.$router.push({
           path: '/campaigns/new/',
           query: {
-            username: this.user.username
+            username: this.user.username,
+            token: this.user.token,
           }
         })
       }

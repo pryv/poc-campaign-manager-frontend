@@ -40,6 +40,7 @@ class Campaigns {
   }): Promise<any> {
     const url = this.makeUrl('/campaigns');
     return superagent.get(url)
+      .set('authorization', this.token)
       .query(query);
   }
 
@@ -47,7 +48,8 @@ class Campaigns {
     campaignId: string
   }): Promise<any> {
     const url = this.makeUrl('/campaigns/' + query.campaignId);
-    return superagent.get(url);
+    return superagent.get(url)
+      .set('authorization', this.token);
   }
 
   async getOneByAppId (params: {
@@ -79,6 +81,7 @@ class Campaigns {
     const url = this.makeUrl('/campaigns');
     console.info('doing campaign.create call to', url);
     return superagent.post(url)
+      .set('authorization', this.token)
       .send(query.campaign);
   }
 }

@@ -7,8 +7,7 @@ import config from '../../config';
 class Campaigns {
   baseUrl: string;
 
-  constructor (params: {
-  }) {
+  constructor () {
     this.baseUrl = config.dev.host +
       ':' + config.dev.port +
       '/users';
@@ -32,7 +31,7 @@ class Campaigns {
     password: string
   }): Promise<any> {
     const url = config.dev.host +
-      ':' + config.dev.port + '/signin';
+      ':' + config.dev.port + '/auth';
     console.info('doing users.signin call to', url);
     return superagent
       .post(url)

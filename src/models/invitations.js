@@ -29,7 +29,8 @@ class Invitations {
     token: string
   }): Promise<any> {
     const url = this.makeUrl();
-    return superagent.get(url);
+    return superagent.get(url)
+      .set('authorization', this.token);
   }
 
   async create (params: {
@@ -40,6 +41,7 @@ class Invitations {
   }): Promise<any> {
     const url = this.makeUrl();
     return superagent.post(url)
+      .set('authorization', this.token)
       .send(params);
   }
 
@@ -50,6 +52,7 @@ class Invitations {
     console.info('doing invitations.update call to', url, 'with params', params);
     return superagent
       .put(url)
+      .set('authorization', this.token)
       .send({
         status: params.invitation.status,
         accessToken: params.invitation.accessToken
