@@ -5,19 +5,11 @@ import superagent from 'superagent';
 import config from '../../config';
 
 class Invitations {
-  username: string;
-  token: string;
   baseUrl: string;
 
-  constructor (params: {
-    token: string,
-    username: string
-  }) {
-    this.token = params.token;
-    this.username = params.username;
+  constructor () {
     this.baseUrl = config.dev.host +
-      ':' + config.dev.port +
-      '/' + this.username + '/invitations';
+      ':' + config.dev.port + '/invitations';
   }
 
   makeUrl (path?: string): string {
@@ -25,37 +17,45 @@ class Invitations {
   }
 
   async get (params: {
-    requester: string,
+    username: string,
     token: string
   }): Promise<any> {
     const url = this.makeUrl();
     return superagent.get(url)
-      .set('authorization', this.token);
+      .set('authorization', params.token)
+      .query({
+        username: params.username
+      });
   }
 
   async create (params: {
-    requestee?: string,
-    requesteePryvUsername: string,
-    status: string,
-    campaignId: string
+    requestee: {
+      username?: string,
+      pryvUsername?: string,
+    },
+    campaign: {
+      id: string
+    },
+    status?: string,
+    accessToken?: string
   }): Promise<any> {
     const url = this.makeUrl();
     return superagent.post(url)
-      .set('authorization', this.token)
       .send(params);
   }
 
   update (params: {
-    invitation: Object
+    id: string,
+    accessToken?: string,
+    status?: string,
   }): Promise<mixed> {
-    const url = this.makeUrl(params.invitation.id);
+    const url = this.makeUrl(params.id);
     console.info('doing invitations.update call to', url, 'with params', params);
     return superagent
       .put(url)
-      .set('authorization', this.token)
       .send({
-        status: params.invitation.status,
-        accessToken: params.invitation.accessToken
+        status: params.status,
+        accessToken: params.accessToken
       });
   }
 }

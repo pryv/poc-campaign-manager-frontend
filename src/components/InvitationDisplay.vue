@@ -41,29 +41,23 @@
     data () {
       return {
         requester: {
-          username: this.$route.query.requester || null,
+          username: '',
         },
         requestee: {
-          username: this.$route.query.requestee || null,
-          pryvToken: this.$route.query.pryvToken || null,
+          username: this.$route.query.requestee,
+          pryvToken: this.$route.query.pryvToken,
         },
         campaign: {
           id: this.$route.query.campaignId,
         },
         invitation: {
-          id: this.$route.query.invitationId || null,
-          accessId: this.$route.query.accessId || null,
+          id: this.$route.query.invitationId,
+          accessId: this.$route.query.accessId,
         },
         isTargeted: this.$route.query.invitationId ? true : false,
         hasCancelButton: this.$route.query.hasCancel || false,
-        invitationsModel: new Invitations({
-          username: this.$route.query.requester || null,
-          token: 'TODO',
-        }),
-        campaignsModel: new Campaigns({
-          username: this.$route.query.requester || null,
-          token: 'TODO'
-        }),
+        invitationsModel: new Invitations(),
+        campaignsModel: new Campaigns(),
         usersModel: new Users(),
         pryvModel: new Pryv(),
       }
@@ -84,8 +78,8 @@
         const response = await this.campaignsModel.getOne({
           campaignId: this.campaign.id
         });
-        console.info('retrieved', response.body);
-        this.campaign = _.extend(response.body.campaign, {requester: this.requester });
+        console.info('retrieved campaign', response.body);
+        this.campaign = response.body.campaign;
       },
       loadButton() {
         const pryvDomain = 'pryv.me';
@@ -146,6 +140,7 @@
               console.log('error creating user', e.response.body)
           }
 
+          /**
           if (that.isTargeted) {
             try {
               await that.usersModel.update({
@@ -156,17 +151,15 @@
               if (e.response)
                 console.log('error updating user', e.response.body)
             }
-          }
+          }*/
 
           try {
 
             if (that.isTargeted && (that.invitation.status !== 'accepted')) {
               let response = await that.invitationsModel.update({
-                invitation: {
-                  id: that.invitation.id,
-                  status: 'accepted',
-                  accessToken: credentials.auth,
-                }
+                id: that.invitation.id,
+                status: 'accepted',
+                accessToken: credentials.auth
               });
               console.info('update successful', response.body);
               alert('invitation updated:' + JSON.stringify(response.body));
@@ -198,10 +191,8 @@
           if (that.isTargeted) {
             try {
               let response = await that.invitationsModel.update({
-                invitation: {
-                  id: that.invitation.id,
-                  status: 'refused'
-                }
+                id: that.invitation.id,
+                status: 'refused'
               });
               alert('invitation updated:' + JSON.stringify(response.body));
             } catch (e) {

@@ -48,8 +48,8 @@
     data: function () {
       return {
         user: {
-          pryvUsername: this.$route.query.pryvUsername || null,
-          pryvToken: this.$route.query.pryvToken || null
+          pryvUsername: this.$route.query.pryvUsername,
+          pryvToken: this.$route.query.pryvToken
         },
         pryvModel: new Pryv(),
         campaignsModel: new Campaigns(),

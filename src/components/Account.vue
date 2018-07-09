@@ -55,14 +55,8 @@
         },
         pryvModel: new Pryv(),
         usersModel: new Users(),
-        campaignsModel: new Campaigns({
-          username: this.$route.query.username,
-          token: this.$route.query.token,
-        }),
-        invitationsModel: new Invitations({
-          username: this.$route.query.username,
-          token: this.$route.query.token,
-        }),
+        campaignsModel: new Campaigns(),
+        invitationsModel: new Invitations(),
         followedSlices: [],
         campaigns: [],
         sentInvitations: [],
@@ -212,19 +206,24 @@
         return index;
       },
       async getCampaigns() {
-        const response = await this.campaignsModel.get();
+        const response = await this.campaignsModel.get({
+          username: this.user.username,
+          token: this.user.token
+        });
         console.log('retrieved campaigns:', response.body);
         const retrievedCampaigns = response.body.campaigns;
         retrievedCampaigns.forEach((c) => {
-          c.invitationLink = '/invitations/view/?campaignId=' + c.id +
-            '&requester=' + this.user.username;
+          c.invitationLink = '/invitations/view/?campaignId=' + c.id;
           c.created = printDate(c.created);
         });
         this.campaigns = retrievedCampaigns;
       },
       async getInvitations() {
         try {
-          const response = await this.invitationsModel.get();
+          const response = await this.invitationsModel.get({
+            username: this.user.username,
+            token: this.user.token
+          });
           console.info('retrieved invitations', response.body.invitations);
           const invitations = response.body.invitations;
           this.receivedInvitations = [];
@@ -252,7 +251,7 @@
         if (params.invitation.requester.id === this.user.id) {
           console.log('pushed in sent');
           params.invitation.url = '/invitations/view/?campaignId=' + params.invitation.campaign.id +
-            '&invitationId=' + params.invitation.id + '&requester=' + this.user.username +
+            '&invitationId=' + params.invitation.id +
             '&requestee=' + params.invitation.requestee.pryvUsername;
           this.sentInvitations.push(params.invitation);
         } else {

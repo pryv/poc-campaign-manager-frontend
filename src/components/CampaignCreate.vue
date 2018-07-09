@@ -28,16 +28,13 @@
     data () {
       return {
         user: {
-          username: 'empty'
-        },
-        campaignsModel: new Campaigns({
           username: this.$route.query.username,
-          token: this.$route.query.token,
-        }),
+          token: this.$route.query.token
+        },
+        campaignsModel: new Campaigns(),
         campaign: {
           title: '',
           description: '',
-          created: null,
           permissions: '[{\n' +
           ' "streamId":"diary",\n' +
           ' "level":"read",\n' +
@@ -47,12 +44,8 @@
         }
       }
     },
-    created() {
-      this.user.username = this.$route.params.username;
-    },
     methods: {
       async create() {
-        console.log('creatin');
         let campaignToCreate = {
           title: this.campaign.title,
           description: this.campaign.description
@@ -66,7 +59,8 @@
         let response;
         try {
           response = await this.campaignsModel.create({
-            campaign: campaignToCreate
+            campaign: campaignToCreate,
+            user: this.user
           });
           alert('campaign created succesfully' + JSON.stringify(response.body));
           this.$router.back();

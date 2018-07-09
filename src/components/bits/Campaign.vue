@@ -4,7 +4,7 @@
     <table>
       <tr v-if="hasRequester">
         <td>Requester:</td>
-        <td>{{ campaign.requester.username }}</td>
+        <td>{{ campaign.requester }}</td>
       </tr>
       <tr>
         <td>Title:</td>

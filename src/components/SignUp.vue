@@ -49,13 +49,14 @@
             username: this.user.username,
             password: this.user.password
           });
-          console.log('got sign in response', response.body);
-          user = response.body.user;
+          console.log('got sign in response', signinResponse.body);
+          user = signinResponse.body.user;
           this.$router.push({
             path: '/account',
             query: {
               id: user.id,
-              username: user.username
+              username: user.username,
+              token: user.token,
             }
           });
         } catch (e) {

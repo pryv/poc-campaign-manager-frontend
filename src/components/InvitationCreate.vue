@@ -24,10 +24,7 @@
     data () {
       return {
         usersModel: new Users(),
-        invitationsModel: new Invitations({
-          username: this.$route.query.username,
-          token: this.$route.query.token,
-        }),
+        invitationsModel: new Invitations(),
         pryvModel: new Pryv(),
         requester: {
           username: this.$route.query.username,
@@ -63,7 +60,6 @@
             if (e.response)
               console.log('error creating user', e.response.body)
           }
-
           const response = await this.invitationsModel.create({
             requestee: {
               pryvUsername: this.requestee.pryvUsername

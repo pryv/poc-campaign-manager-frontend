@@ -12,44 +12,30 @@ class Campaigns {
   token: string;
   baseUrl: string;
 
-  constructor (params: {
-    token: string,
-    username: string
-  }) {
-    if (params == null) {
-      params = {
-        token: '',
-        username: ''
-      };
-    }
-
-    this.token = params.token;
-    this.username = params.username;
+  constructor () {
     this.baseUrl = config.dev.host +
-      ':' + config.dev.port +
-      '/' + this.username;
+      ':' + config.dev.port;
   }
 
   makeUrl (path: string): string {
     return this.baseUrl + path;
   }
 
-  get (query: {
+  get (params: {
     username: string,
     token: string
   }): Promise<any> {
     const url = this.makeUrl('/campaigns');
     return superagent.get(url)
-      .set('authorization', this.token)
-      .query(query);
+      .set('authorization', params.token)
+      .query({ username: params.username });
   }
 
   getOne (query: {
     campaignId: string
   }): Promise<any> {
     const url = this.makeUrl('/campaigns/' + query.campaignId);
-    return superagent.get(url)
-      .set('authorization', this.token);
+    return superagent.get(url);
   }
 
   async getOneByAppId (params: {
@@ -71,18 +57,26 @@ class Campaigns {
     return getCampaignResponse.body.campaign;
   }
 
-  create (query: {
+  create (params: {
     campaign: {
       title: string,
       description: string,
       permissions: Array<mixed>
+    },
+    user: {
+      username: string,
+      token: string
     }
   }): Promise<any> {
     const url = this.makeUrl('/campaigns');
-    console.info('doing campaign.create call to', url);
     return superagent.post(url)
-      .set('authorization', this.token)
-      .send(query.campaign);
+      .set('authorization', params.user.token)
+      .send({
+        campaign: params.campaign,
+        user: {
+          username: params.user.username
+        }
+      });
   }
 }
 

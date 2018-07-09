@@ -27,15 +27,12 @@
     },
     data () {
       return {
-        campaignsModel: new Campaigns({
-          username: this.$route.query.username || 'empty',
-          token: 'TODO'
-        }),
+        campaignsModel: new Campaigns(),
         requester: {
-          username: this.$route.query.username ||'empty'
+          username: this.$route.query.username
         },
         campaign: {
-          id: this.$route.query.campaignId || 'empty'
+          id: this.$route.query.campaignId
         },
         columns: [
           'id',
