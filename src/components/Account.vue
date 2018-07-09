@@ -21,8 +21,6 @@
 
     <SentInvitations :invitations="sentInvitations"></SentInvitations>
 
-    <ReceivedInvitations :invitations="receivedInvitations" :user="user"></ReceivedInvitations>
-
 </div>
 </template>
 
@@ -35,14 +33,12 @@
 
   import CampaignsList from './bits/CampaignsList';
   import SentInvitations from './bits/SentInvitations';
-  import ReceivedInvitations from './bits/ReceivedInvitations';
 
   export default {
     name: 'Account',
     components: {
       CampaignsList,
       SentInvitations,
-      ReceivedInvitations
     },
     data: function () {
       return {
