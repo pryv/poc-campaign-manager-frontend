@@ -22,9 +22,6 @@
                         {{ invit.status }}
                     </td>
                     <td>
-                        {{ invit.permissions }}
-                    </td>
-                    <td>
                         {{ invit.accessToken }}
                     </td>
                     <td>
@@ -58,7 +55,6 @@
           'Username',
           'Pryv username',
           'Status',
-          'Permissions',
           'Access Token',
           'Link',
           'Created',
