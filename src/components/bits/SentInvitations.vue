@@ -13,9 +13,6 @@
                         {{ invit.campaign.title }}
                     </td>
                     <td>
-                        {{ invit.requestee.username }}
-                    </td>
-                    <td>
                         {{ invit.requestee.pryvUsername }}
                     </td>
                     <td>
@@ -52,7 +49,6 @@
       return {
         sentInvitationsColumns: [
           'Campaign',
-          'Username',
           'Pryv username',
           'Status',
           'Access Token',
