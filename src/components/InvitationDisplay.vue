@@ -4,7 +4,6 @@
         <Campaign :campaign="campaign"></Campaign>
 
         <br>
-        <BackButton></BackButton>
         <br><br>
 
         <div v-if="hasCancelButton">
