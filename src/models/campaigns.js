@@ -3,10 +3,6 @@
 import superagent from 'superagent';
 import config from '../../config';
 
-const sha256: any = require('fast-sha256');
-const nacl: any = require('tweetnacl');
-nacl.util = require('tweetnacl-util');
-
 class Campaigns {
   username: string;
   token: string;
@@ -39,20 +35,10 @@ class Campaigns {
   }
 
   async getOneByAppId (params: {
-    pryvUsername: string,
     pryvAppId: string,
-    accessToken: string
   }): Object {
-    const msg: number = Date.now() / 1000;
-    const encodedToken: Uint8Array = nacl.util.decodeUTF8(params.accessToken);
-    const encodedTimestamp: Uint8Array = nacl.util.decodeUTF8(msg + '');
-    const hmaced: Array<any> = sha256.hmac(encodedToken, encodedTimestamp);
-
     const getCampaignResponse = await superagent
-      .get(config.dev.host + ':' + config.dev.port + '/all/campaigns/title/' + params.pryvAppId)
-      .query('message=' + msg)
-      .query('signature=' + hmaced.toString())
-      .query('pryvUsername=' + params.pryvUsername);
+      .get(config.dev.host + ':' + config.dev.port + '/campaigns/by-pryv-app-id/' + params.pryvAppId);
     console.info('fetched campaign from backend', getCampaignResponse.body);
     return getCampaignResponse.body.campaign;
   }

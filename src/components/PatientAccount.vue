@@ -92,9 +92,7 @@
         this.cmAccesses.forEach(async (access) => {
             try {
               const accessCampaign = await this.campaignsModel.getOneByAppId({
-                pryvUsername: this.user.pryvUsername,
                 pryvAppId: access.name,
-                accessToken: access.token
               });
               access.campaignId = accessCampaign.id;
               access.requester = accessCampaign.requester;
@@ -109,7 +107,7 @@
               } else {
                 errorData = e;
               }
-              console.error('error while fetching accesses', errorData);
+              console.error('error while fetching campaigns', errorData);
             }
         });
       },
