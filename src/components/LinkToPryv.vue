@@ -29,7 +29,6 @@
     },
     data () {
       return {
-        backButtonText: 'Cancel',
         usersModel: new Users(),
         pryvModel: new Pryv(),
         pryvUser: {
@@ -42,6 +41,7 @@
           token: this.$route.query.token,
         },
         pryvDomain: config.pryv.domain,
+        backButtonText: 'Cancel',
       }
     },
     methods: {
