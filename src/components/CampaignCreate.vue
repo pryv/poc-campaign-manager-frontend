@@ -11,7 +11,7 @@
         Permissions:<br>
         <textarea rows="5" v-model="campaign.permissions"></textarea>
         <br><br>
-        <BackButton></BackButton><button @click="create">Create</button>
+        <BackButton :buttonText="backButtonText"></BackButton><button @click="create">Create</button>
     </div>
 </template>
 
@@ -41,7 +41,8 @@
           ' "defaultName":"Diary"\n' +
           '}]',
           pryvAppId: ''
-        }
+        },
+        backButtonText: 'Cancel',
       }
     },
     methods: {
