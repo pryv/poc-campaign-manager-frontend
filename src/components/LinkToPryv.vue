@@ -1,6 +1,6 @@
 <template>
     <div id="LinkToPryv">
-        <h2>Link to your Pryv</h2>
+        <h2>Link to your Pryv account on {{ pryvDomain }}</h2>
         <br>
 
         Pryv username
@@ -20,6 +20,7 @@
   import Pryv from '@/models/pryv';
 
   import BackButton from './bits/BackButton';
+  import config from '@/models/config';
 
   export default {
     name: 'LinkToPryv',
@@ -38,7 +39,8 @@
           username: this.$route.query.username,
           id: this.$route.query.id,
           token: this.$route.query.token,
-        }
+        },
+        pryvDomain: config.pryv.domain,
       }
     },
     methods: {

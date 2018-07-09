@@ -2,7 +2,9 @@
 
 import superagent from 'superagent';
 
-const DEFAULT_DOMAIN = 'pryv.me';
+import config from './config';
+
+const DEFAULT_DOMAIN = config.pryv.domain;
 const APP_ID = 'pryv-campaign-manager';
 
 class Pryv {

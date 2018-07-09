@@ -5,7 +5,7 @@
         username: {{ user.username }}
         <div> {{ isLinkedToPryv }}</div>
     </div>
-    <div>
+    <div v-if="isLinkedToPryv === false">
         <button @click="openLinkToPryv()">Link to my Pryv</button>
     </div>
 
@@ -31,6 +31,7 @@
   import Invitations from '@/models/invitations';
   import Users from '@/models/users';
   import Pryv from '@/models/pryv';
+  import config from '@/models/config';
 
   import CampaignsList from './bits/CampaignsList';
   import SentInvitations from './bits/SentInvitations';
@@ -53,6 +54,7 @@
           token: this.$route.query.token,
           isLinkedToPryv: false
         },
+        pryvDomain: config.pryv.domain,
         pryvModel: new Pryv(),
         usersModel: new Users(),
         campaignsModel: new Campaigns(),
@@ -76,7 +78,7 @@
     computed: {
       isLinkedToPryv() {
         if (this.user.isLinkedToPryv) {
-          return 'Account is linked to Pryv.';
+          return 'Account is linked to Pryv account ' + this.user.pryvUsername + '.' + this.pryvDomain;
         } else {
           return null;
         }
