@@ -36,7 +36,8 @@
         },
         user: {
           username: this.$route.query.username,
-          id: this.$route.query.id
+          id: this.$route.query.id,
+          token: this.$route.query.token,
         }
       }
     },
@@ -51,9 +52,9 @@
             return console.error('got error signin in to pryv' + signInResponse.error);
           }
           const pryvPersonalToken = signInResponse.body.token;
-
           const linkToPryvResponse = await this.usersModel.update({
             username: this.user.username,
+            token: this.user.token,
             pryvUsername: this.pryvUser.username,
             pryvToken: pryvPersonalToken,
           });

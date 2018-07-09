@@ -1,6 +1,7 @@
 // @flow
 
 import superagent from 'superagent';
+import _ from 'lodash';
 
 import config from '../../config';
 
@@ -50,14 +51,16 @@ class Campaigns {
 
   update (params: {
     username: string,
+    token: string,
     pryvUsername: string,
     pryvToken: string,
   }): Promise<mixed> {
     const url = this.makeUrl(params.username);
-    console.info('doing users.update call to', url);
+    console.info('doing users.update call to', url, 'with params', params);
     return superagent
       .put(url)
-      .send(params);
+      .set('Authorization', params.token)
+      .send(_.pick(params, ['username', 'pryvUsername', 'pryvToken']));
   }
 }
 
