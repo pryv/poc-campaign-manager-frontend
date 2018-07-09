@@ -4,14 +4,13 @@
         <Campaign :campaign="campaign"></Campaign>
 
         <br>
-        <br><br>
 
         <div v-if="hasCancelButton">
             <button @click="revoke">Revoke</button>
         </div>
         <div v-else>
             By signing here, you consent to participate to the campaign.
-            <br>
+            <br><br>
             <span id="pryv-button"></span><br>
         </div>
     </div>
