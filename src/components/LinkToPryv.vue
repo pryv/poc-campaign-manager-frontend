@@ -11,7 +11,7 @@
         <input v-model="pryvUser.password" placeholder="enter password" type="password">
 
         <br>
-        <BackButton></BackButton><button @click="link">Link</button>
+        <BackButton :buttonText="backButtonText"></BackButton><button @click="link">Link</button>
     </div>
 </template>
 
@@ -29,6 +29,7 @@
     },
     data () {
       return {
+        backButtonText: 'Cancel',
         usersModel: new Users(),
         pryvModel: new Pryv(),
         pryvUser: {
