@@ -271,7 +271,7 @@
           if (e.response && e.status && (e.status === 401)) {
             params.invitation.status = 'hold';
             console.info('token has been put on hold by the requestee');
-            await this.updateInvitation({invitation: params.invitation});
+            await this.updateInvitation(params.invitation);
           } else {
             console.error('error retrieving access info', e);
           }
