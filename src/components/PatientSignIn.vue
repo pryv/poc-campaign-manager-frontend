@@ -1,6 +1,8 @@
 <template>
     <div id="SignIn">
         <h2>Patient Sign in</h2>
+        Domain: {{ pryvDomain }}
+        <br>
         Username:
         <input v-model="user.pryvUsername" placeholder="enter username">
         <br>
@@ -13,6 +15,7 @@
 
 <script>
   import Pryv from '@/models/pryv';
+  import config from '@/models/config';
 
   export default {
     name: 'SignIn',
@@ -22,7 +25,8 @@
         user: {
           pryvUsername: null,
           pryvPassword: null,
-        }
+        },
+        pryvDomain: config.pryv.domain,
       }
     },
     created() {
