@@ -1,6 +1,6 @@
 <template>
     <div class="SentInvitations">
-        <h3>Sent Invitations</h3>
+        <h3>Invitations</h3>
         <table>
             <thead>
             <th v-for="property in sentInvitationsColumns">
