@@ -2,50 +2,38 @@
   <div class="CampaignsList">
 
     <h3>Campaigns</h3>
-    <table>
-      <thead>
-      <tr>
-        <th>
-          View
-        </th>
-        <th v-for="property in campaignsColumns">
-          {{ property }}
-        </th>
-        <th>
-          Invitation
-        </th>
-      </tr>
-      </thead>
-      <tbody>
-      <tr v-for="campaign in campaigns">
-        <button @click="openCampaignDisplay(campaign.id)">View</button>
-        <td>
-          {{ campaign.title }}
-        </td>
-        <td>
-          {{ campaign.description }}
-        </td>
-        <td>
-          {{ campaign.permissions }}
-        </td>
-        <td>
-          {{ campaign.created }}
-        </td>
-        <td>
-          {{ campaign.pryvAppId }}
-        </td>
-        <td>
-          <a :href="'' + campaign.invitationLink">
-            {{ campaign.invitationLink }}
-          </a>
-        </td>
-        <td>
-          <button @click="openInvitationCreate(campaign.id, campaign.title)">Create Invitation</button>
-        </td>
-      </tr>
-      </tbody>
-    </table>
-    
+
+    <v-data-table
+      :headers="campaignsColumns"
+      :items="campaigns"
+      hide-actions
+      class="elevation-0"
+    >
+      <template slot="items" slot-scope="props">
+        <tr>
+          <td>
+            <v-btn depressed small color="primary" @click="openCampaignDisplay(props.item.id)">
+              View
+            </v-btn>
+          </td>
+          <td>{{ props.item.title }}</td>
+          <td>{{ props.item.description }}</td>
+          <td>{{ props.item.permissions }}</td>
+          <td>{{ props.item.created }}</td>
+          <td>{{ props.item.pryvAppId }}</td>
+          <td>
+            <a :href="'' + props.item.invitationLink">
+            {{ props.item.invitationLink }}
+            </a>
+          </td>
+          <td>
+            <v-btn depressed small color="primary" @click="openInvitationCreate(props.item.id, props.item.title)">
+              Create Invitation
+            </v-btn>
+          </td>
+        </tr>
+      </template>
+    </v-data-table>
 
   </div>
 </template>
@@ -60,12 +48,54 @@
     data: function () {
       return {
         campaignsColumns: [
-          'title',
-          'description',
-          'permissions',
-          'created',
-          'pryvAppId',
-          'invitationLink'
+          {
+            text: 'View',
+            value: 'view',
+            align: 'center',
+            sortable: false
+          },
+          {
+            text: 'Title',
+            value: 'title',
+            align: 'center',
+            sortable: false
+          },
+          {
+            text: 'Description',
+            value: 'description',
+            align: 'center',
+            sortable: false
+          },
+          {
+            text: 'Permissions',
+            value: 'permissions',
+            align: 'center',
+            sortable: false
+          },
+          {
+            text: 'Created',
+            value: 'created',
+            align: 'center',
+            sortable: false
+          },
+          {
+            text: 'Pryv AppId',
+            value: 'pryvAppId',
+            align: 'center',
+            sortable: false
+          },
+          {
+            text: 'Invitation Link',
+            value: 'invitationLink',
+            align: 'center',
+            sortable: false
+          },
+          {
+            text: 'Invitation',
+            value: 'invitation',
+            align: 'center',
+            sortable: false
+          }
         ]
       }
     },
