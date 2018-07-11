@@ -10,7 +10,7 @@
         >
             <template slot="items" slot-scope="props">
                 <tr>
-                    <td>{{ props.item.campaigntitle }}</td>
+                    <td>{{ props.item.campaign.title }}</td>
                     <td>{{ props.item.requestee.pryvUsername }}</td>
                     <td>{{ props.item.status }}</td>
                     <td>{{ props.item.accessToken }}</td>
