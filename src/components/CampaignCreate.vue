@@ -2,16 +2,32 @@
     <div id="CampaignCreate">
         <h2>Create Campaign</h2>
         <br>
-        Title:<br>
-        <input v-model="campaign.title" placeholder="enter title">
-        <br>
-        Description:<br>
-        <textarea v-model="campaign.description" placeholder="enter description"></textarea>
-        <br>
-        Permissions:<br>
-        <textarea rows="5" v-model="campaign.permissions"></textarea>
+        <v-form v-model="valid">
+            <v-text-field
+              v-model="campaign.title"
+              :rules="titleRules"
+              label="Title"
+              required
+            ></v-text-field>
+            <v-textarea
+              v-model="campaign.description"
+              :rules="descriptionRules"
+              label="Description"
+              required
+            ></v-textarea>
+            <v-textarea
+              v-model="campaign.permissions"
+              :rules="permissionsRules"
+              label="Permissions"
+              required
+            ></v-textarea>
+        </v-form>
+        
         <br><br>
-        <BackButton :buttonText="backButtonText"></BackButton><button @click="create">Create</button>
+        <BackButton :buttonText="backButtonText"></BackButton>
+        <v-btn depressed small color="primary" @click="create">
+            Create
+        </v-btn>
     </div>
 </template>
 
@@ -43,6 +59,16 @@
           pryvAppId: ''
         },
         backButtonText: 'Cancel',
+        valid: false,
+        titleRules: [
+            v => !!v || 'Title is required'
+        ],
+        descriptionRules: [
+            v => !!v || 'Description is required'
+        ],
+        permissionsRules: [
+            v => !!v || 'Permissions are required'
+        ]
       }
     },
     methods: {
