@@ -14,7 +14,9 @@
         <CampaignsList :campaigns="campaigns" :user="user"></CampaignsList>
 
         <div>
-            <button @click="openCampaignCreate">New Campaign</button>
+            <v-btn depressed small color="primary" @click="openCampaignCreate">
+                Create Campaign
+            </v-btn>
         </div>
 
     </div>
