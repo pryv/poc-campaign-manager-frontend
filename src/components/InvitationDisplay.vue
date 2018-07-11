@@ -139,8 +139,7 @@
           }
 
           try {
-
-            if (that.isTargeted && (that.invitation.status !== 'accepted')) {
+            if (that.isTargeted) {
               let response = await that.invitationsModel.update({
                 id: that.invitation.id,
                 status: 'accepted',
