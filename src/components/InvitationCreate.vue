@@ -5,7 +5,7 @@
         User to invite to campaign {{ campaign.title }}:<br>
         <input v-model="requestee.pryvUsername" placeholder="enter Pryv username">
         <br>
-        <BackButton></BackButton><button @click="create">Create</button>
+        <BackButton :buttonText="backButtonText"></BackButton><button @click="create">Create</button>
     </div>
 </template>
 
@@ -35,7 +35,8 @@
         },
         requestee: {
           pryvUsername: ''
-        }
+        },
+        backButtonText: 'Cancel'
       }
     },
     created() {
