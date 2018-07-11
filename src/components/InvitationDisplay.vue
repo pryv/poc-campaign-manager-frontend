@@ -138,19 +138,6 @@
               console.log('error creating user', e.response.body)
           }
 
-          /**
-          if (that.isTargeted) {
-            try {
-              await that.usersModel.update({
-                username: that.requestee.username,
-                pryvUsername: credentials.username
-              });
-            } catch (e) {
-              if (e.response)
-                console.log('error updating user', e.response.body)
-            }
-          }*/
-
           try {
 
             if (that.isTargeted && (that.invitation.status !== 'accepted')) {
