@@ -1,40 +1,29 @@
 <template>
     <div class="SentInvitations">
         <h3>Invitations</h3>
-        <table>
-            <thead>
-            <th v-for="property in sentInvitationsColumns">
-                {{ property }}
-            </th>
-            </thead>
-            <tbody>
-                <tr v-for="invit in invitations">
+
+        <v-data-table
+          :headers="sentInvitationsColumns"
+          :items="invitations"
+          hide-actions
+          class="elevation-0"
+        >
+            <template slot="items" slot-scope="props">
+                <tr>
+                    <td>{{ props.item.campaigntitle }}</td>
+                    <td>{{ props.item.requestee.pryvUsername }}</td>
+                    <td>{{ props.item.status }}</td>
+                    <td>{{ props.item.accessToken }}</td>
                     <td>
-                        {{ invit.campaign.title }}
-                    </td>
-                    <td>
-                        {{ invit.requestee.pryvUsername }}
-                    </td>
-                    <td>
-                        {{ invit.status }}
-                    </td>
-                    <td>
-                        {{ invit.accessToken }}
-                    </td>
-                    <td>
-                        <a :href="'' + invit.url">
-                            {{ invit.url }}
+                        <a :href="'' + props.item.url">
+                            {{ props.item.url }}
                         </a>
                     </td>
-                    <td>
-                        {{ invit.created }}
-                    </td>
-                    <td>
-                        {{ invit.modified }}
-                    </td>
+                    <td>{{ props.item.created }}</td>
+                    <td>{{ props.item.modified }}</td>
                 </tr>
-                </tbody>
-        </table>
+            </template>
+        </v-data-table>
 
     </div>
 </template>
@@ -48,13 +37,48 @@
     data: function () {
       return {
         sentInvitationsColumns: [
-          'Campaign',
-          'Pryv username',
-          'Status',
-          'Access Token',
-          'Link',
-          'Created',
-          'Modified'
+          {
+            text: 'Campaign',
+            value: 'campaign',
+            align: 'center',
+            sortable: false
+          },
+          {
+            text: 'Pryv Username',
+            value: 'pryvUsername',
+            align: 'center',
+            sortable: false
+          },
+          {
+            text: 'Status',
+            value: 'status',
+            align: 'center',
+            sortable: false
+          },
+          {
+            text: 'Access Token',
+            value: 'accessToken',
+            align: 'center',
+            sortable: false
+          },
+          {
+            text: 'Link',
+            value: 'link',
+            align: 'center',
+            sortable: false
+          },
+          {
+            text: 'Created',
+            value: 'created',
+            align: 'center',
+            sortable: false
+          },
+          {
+            text: 'Modified',
+            value: 'modified',
+            align: 'center',
+            sortable: false
+          }
         ]
       }
     }
