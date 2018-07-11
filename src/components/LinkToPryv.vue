@@ -3,15 +3,26 @@
         <h2>Link to your Pryv account on {{ pryvDomain }}</h2>
         <br>
 
-        Pryv username
-        <input v-model="pryvUser.username" placeholder="enter username">
-        <br>
+        <v-form v-model="valid">
+            <v-text-field
+              v-model="pryvUser.username"
+              :rules="usernameRules"
+              label="Pryv Username"
+              required
+            ></v-text-field>
+            <v-text-field
+              v-model="pryvUser.password"
+              :rules="passwordRules"
+              label="Pryv Password"
+              required
+            ></v-text-field>
+        </v-form>
 
-        Pryv password
-        <input v-model="pryvUser.password" placeholder="enter password" type="password">
-
         <br>
-        <BackButton :buttonText="backButtonText"></BackButton><button @click="link">Link</button>
+        <BackButton :buttonText="backButtonText"></BackButton>
+        <v-btn depressed small color="primary" v-on:click="link">
+            Link
+        </v-btn>
     </div>
 </template>
 
@@ -42,6 +53,13 @@
         },
         pryvDomain: config.pryv.domain,
         backButtonText: 'Cancel',
+        valid: false,
+        usernameRules: [
+          v => !!v || 'Username is required',
+        ],
+        passwordRules: [
+          v => !!v || 'Password is required',
+        ]
       }
     },
     methods: {
