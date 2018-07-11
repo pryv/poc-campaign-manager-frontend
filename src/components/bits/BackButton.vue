@@ -1,6 +1,8 @@
 <template>
   <div class="BackButton">
-    <button @click="back">{{ text }}</button>
+    <v-btn depressed small color="primary" @click="back">
+      {{ text }}
+    </v-btn>
   </div>
 </template>
 
