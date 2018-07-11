@@ -15,16 +15,10 @@
               label="Password"
               required
             ></v-text-field>
-            <v-text-field
-              v-model="user.confirmPassword"
-              :rules="passwordRules"
-              label="Confirm Password"
-              required
-            ></v-text-field>
         </v-form>
 
         <v-btn depressed small color="primary" v-on:click="signIn">Sign in</v-btn>
-        
+
         <br>
         Not a user yet? Sign up <a href="/signup">here</a>.
     </div>
@@ -41,7 +35,6 @@
         user: {
           username: '',
           password: '',
-          confirmPassword: ''
         },
         valid: false,
         usernameRules: [
