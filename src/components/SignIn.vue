@@ -1,13 +1,30 @@
 <template>
     <div id="SignIn">
         <h2>Sign in</h2>
-        Username:
-        <input v-model="user.username" placeholder="enter username">
-        <br>
-        Password:
-        <input type="password" v-model="user.password" placeholder="enter password">
-        <br>
-        <button @click="signIn">Sign in</button>
+
+        <v-form v-model="valid">
+            <v-text-field
+              v-model="user.username"
+              :rules="usernameRules"
+              label="Username"
+              required
+            ></v-text-field>
+            <v-text-field
+              v-model="user.password"
+              :rules="passwordRules"
+              label="Password"
+              required
+            ></v-text-field>
+            <v-text-field
+              v-model="user.confirmPassword"
+              :rules="passwordRules"
+              label="Confirm Password"
+              required
+            ></v-text-field>
+        </v-form>
+
+        <v-btn depressed small color="primary" v-on:click="signIn">Sign in</v-btn>
+        
         <br>
         Not a user yet? Sign up <a href="/signup">here</a>.
     </div>
@@ -22,10 +39,19 @@
       return {
         usersModel: new Users(),
         user: {
-          username: null,
-          password: null,
-          confirmPassword: null
-        }
+          username: '',
+          password: '',
+          confirmPassword: ''
+        },
+        valid: false,
+        usernameRules: [
+          v => !!v || 'Username is required',
+          v => v.length <= 20 || 'Username must be less than 20 characters'
+        ],
+        passwordRules: [
+          v => !!v || 'Password is required',
+          v => v.length <= 20 || 'Password must be less than 20 characters'
+        ]
       }
     },
     created() {
