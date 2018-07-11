@@ -6,7 +6,12 @@
         <br>
 
         <div v-if="hasCancelButton">
-            <button @click="revoke">Revoke</button>
+            By pressing this button, the access will be revoked.
+            <br>
+            <BackButton :buttonText="backButtonText"></BackButton>
+            <v-btn depressed small color="primary" @click="revoke">
+                Revoke
+            </v-btn>
         </div>
         <div v-else>
             By signing here, you consent to participate to the campaign.
@@ -58,6 +63,7 @@
         campaignsModel: new Campaigns(),
         usersModel: new Users(),
         pryvModel: new Pryv(),
+        backButtonText: 'Cancel'
       }
     },
     computed: {
