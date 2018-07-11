@@ -3,10 +3,12 @@
     <h2>Account</h2>
     <div>
         username: {{ user.username }}
-        <div> {{ isLinkedToPryv }}</div>
+        <div> {{ linkedToPryvText }}</div>
     </div>
-    <div v-if="isLinkedToPryv === false">
-        <button @click="openLinkToPryv()">Link to my Pryv</button>
+    <div v-if="user.isLinkedToPryv === false">
+        <v-btn depressed small color="primary" @click="openLinkToPryv()">
+            Link to my Pryv
+        </v-btn>
     </div>
 
     <div id="campaignsList">
@@ -74,7 +76,7 @@
       }
     },
     computed: {
-      isLinkedToPryv() {
+      linkedToPryvText() {
         if (this.user.isLinkedToPryv) {
           return 'Account is linked to Pryv account ' + this.user.pryvUsername + '.' + this.pryvDomain;
         } else {
