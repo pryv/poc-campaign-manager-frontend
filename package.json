@@ -24,7 +24,8 @@
     "tweetnacl": "^1.0.0",
     "tweetnacl-util": "^0.15.0",
     "vue": "^2.5.2",
-    "vue-router": "^3.0.1"
+    "vue-router": "^3.0.1",
+    "vuetify": "^1.1.4"
   },
   "devDependencies": {
     "autoprefixer": "^7.1.2",

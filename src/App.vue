@@ -1,11 +1,24 @@
 <template>
     <div id="app">
-        <img src="./assets/logo-128.png">
-        <h1>Pryv Campaign Manager</h1>
+        <head>
+            <link href='https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons' rel="stylesheet">
+        </head>
+        <v-app id="inspire">
+            <v-toolbar
+              color="primary" dark fixed app flat>
+                <v-btn color="primary" depressed small><i class="fa fa-home"></i></v-btn>
+                <v-toolbar-title >Pryv Campaign Manager</v-toolbar-title>
+            </v-toolbar>
 
-        <router-view>
-        </router-view>
+            <!--<img src="./assets/logo-128.png">-->
 
+            <v-content>
+                <v-container align-content-center>
+                    <router-view>
+                    </router-view>
+                </v-container>
+            </v-content>
+        </v-app>
     </div>
 </template>
 
