@@ -6,36 +6,30 @@
         </div>
 
         <h3>Accesses</h3>
-        <table>
-            <thead>
-            <th v-for="property in cmAccessesColumns">
-                {{ property }}
-            </th>
-            </thead>
-            <tbody>
-            <tr v-for="access in cmAccesses">
-                <button @click="openAccess(access)">View</button>
-                <td>
-                    {{ access.campaignTitle }}
-                </td>
-                <td>
-                    {{ access.campaignDescription }}
-                </td>
-                <td>
-                    {{ access.requester }}
-                </td>
-                <td>
-                    accepted
-                </td>
-                <td>
-                    {{ access.permissions }}
-                </td>
-                <td>
-                    {{ access.created }}
-                </td>
-            </tr>
-            </tbody>
-        </table>
+
+        <v-data-table
+          :headers="cmAccessesColumns"
+          :items="cmAccesses"
+          hide-actions
+          class="elevation-0"
+        >
+            <template slot="items" slot-scope="props">
+                <tr>
+                    <td>
+                        <v-btn depressed small color="primary" @click="openAccess(props.item)">
+                            View
+                        </v-btn>
+                    </td>
+                    <td>{{ props.item.campaignTitle }}</td>
+                    <td>{{ props.item.campaignDescription }}</td>
+                    <td>{{ props.item.requester }}</td>
+                    <td>accepted</td>
+                    <td>{{ props.item.permissions }}</td>
+                    <td>{{ props.item.created }}</td>
+                </tr>
+            </template>
+        </v-data-table>
+        
     </div>
 </template>
 
@@ -55,13 +49,48 @@
         campaignsModel: new Campaigns(),
         cmAccesses: [], // accesses originated from campaign manager
         cmAccessesColumns: [
-          'View',
-          'Campaign',
-          'Description',
-          'Requester',
-          'Status',
-          'Permissions',
-          'Created'
+          {
+            text: 'View',
+            value: 'view',
+            align: 'center',
+            sortable: false
+          },
+          {
+            text: 'Campaign',
+            value: 'campaign',
+            align: 'center',
+            sortable: false
+          },
+          {
+            text: 'Description',
+            value: 'description',
+            align: 'center',
+            sortable: false
+          },
+          {
+            text: 'Requester',
+            value: 'requester',
+            align: 'center',
+            sortable: false
+          },
+          {
+            text: 'Status',
+            value: 'status',
+            align: 'center',
+            sortable: false
+          },
+          {
+            text: 'Permissions',
+            value: 'permissions',
+            align: 'center',
+            sortable: false
+          },
+          {
+            text: 'Created',
+            value: 'created',
+            align: 'center',
+            sortable: false
+          }
         ]
       }
     },
