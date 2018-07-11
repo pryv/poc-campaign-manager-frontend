@@ -3,9 +3,21 @@
         <h2>Create Invitation</h2>
         <br>
         User to invite to campaign {{ campaign.title }}:<br>
-        <input v-model="requestee.pryvUsername" placeholder="enter Pryv username">
+
+        <v-form v-model="valid">
+            <v-text-field
+              v-model="requestee.pryvUsername"
+              :rules="usernameRules"
+              label="Username"
+              required
+            ></v-text-field>
+        </v-form>
+
         <br>
-        <BackButton :buttonText="backButtonText"></BackButton><button @click="create">Create</button>
+        <BackButton :buttonText="backButtonText"></BackButton>
+        <v-btn depressed small color="primary" @click="create">
+            Create
+        </v-btn>
     </div>
 </template>
 
@@ -36,7 +48,12 @@
         requestee: {
           pryvUsername: ''
         },
-        backButtonText: 'Cancel'
+        backButtonText: 'Cancel',
+        valid: false,
+        usernameRules: [
+            v => !!v || 'Username is required',
+            v => v.length <= 20 || 'Username must be less than 20 characters'
+        ],
       }
     },
     created() {
