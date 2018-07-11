@@ -3,13 +3,24 @@
         <h2>Patient Sign in</h2>
         Domain: {{ pryvDomain }}
         <br>
-        Username:
-        <input v-model="user.pryvUsername" placeholder="enter username">
-        <br>
-        Password:
-        <input type="password" v-model="user.pryvPassword" placeholder="enter password">
-        <br>
-        <button @click="signIn">Sign in</button>
+
+        <v-form v-model="valid">
+            <v-text-field
+              v-model="user.pryvUsername"
+              :rules="usernameRules"
+              label="Pryv Username"
+              required
+            ></v-text-field>
+            <v-text-field
+              v-model="user.pryvPassword"
+              :rules="passwordRules"
+              label="Pryv Password"
+              required
+            ></v-text-field>
+        </v-form>
+
+        <v-btn depressed small color="primary" v-on:click="signIn">Sign in</v-btn>
+
     </div>
 </template>
 
@@ -27,6 +38,13 @@
           pryvPassword: null,
         },
         pryvDomain: config.pryv.domain,
+        valid: false,
+        usernameRules: [
+          v => !!v || 'Username is required',
+        ],
+        passwordRules: [
+          v => !!v || 'Password is required',
+        ]
       }
     },
     created() {
