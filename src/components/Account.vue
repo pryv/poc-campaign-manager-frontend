@@ -38,6 +38,8 @@
   import CampaignsList from './bits/CampaignsList';
   import SentInvitations from './bits/SentInvitations';
 
+  const DESCRIPTION_DISPLAY_LENGTH = 50;
+
   export default {
     name: 'Account',
     components: {
@@ -218,6 +220,7 @@
           c.invitationLink = '/invitations/view/?campaignId=' + c.id;
           c.created = printDate(c.created);
           c.permissionsDisplay = minimizePermissions(c.permissions);
+          c.descriptionDisplay = minimizeDescription(c.description);
         });
         this.campaigns = retrievedCampaigns;
       },
@@ -324,6 +327,18 @@
       return p.streamId + ':' + p.level;
     });
     return minimizedPermissions.join(',');
+  }
+
+  function minimizeDescription(description) {
+    if (description == null) {
+      return null;
+    }
+    if (description.length < DESCRIPTION_DISPLAY_LENGTH) {
+      return description;
+    }
+
+    const end = description.indexOf(' ', DESCRIPTION_DISPLAY_LENGTH);
+    return description.substring(0, end) + '...';
   }
 
   function printDate(timestamp) {

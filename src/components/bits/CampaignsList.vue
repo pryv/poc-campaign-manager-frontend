@@ -17,7 +17,7 @@
             </v-btn>
           </td>
           <td>{{ props.item.title }}</td>
-          <td>{{ props.item.description }}</td>
+          <td>{{ props.item.descriptionDisplay }}</td>
           <td>{{ props.item.permissionsDisplay }}</td>
           <td>{{ props.item.created }}</td>
           <td>{{ props.item.pryvAppId }}</td>
