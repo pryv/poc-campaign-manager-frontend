@@ -217,6 +217,7 @@
         retrievedCampaigns.forEach((c) => {
           c.invitationLink = '/invitations/view/?campaignId=' + c.id;
           c.created = printDate(c.created);
+          c.permissionsDisplay = minimizePermissions(c.permissions);
         });
         this.campaigns = retrievedCampaigns;
       },
@@ -317,6 +318,13 @@
       }
     }
   };
+
+  function minimizePermissions(permissions) {
+    const minimizedPermissions = permissions.map((p) => {
+      return p.streamId + ':' + p.level;
+    });
+    return minimizedPermissions.join(',');
+  }
 
   function printDate(timestamp) {
     function pad2(n) { return n < 10 ? '0' + n : n }
