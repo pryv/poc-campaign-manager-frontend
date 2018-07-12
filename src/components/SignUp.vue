@@ -14,12 +14,14 @@
               :rules="passwordRules"
               label="Password"
               required
+              type="password"
             ></v-text-field>
             <v-text-field
               v-model="user.confirmPassword"
               :rules="passwordRules"
               label="Confirm Password"
               required
+              type="password"
             ></v-text-field>
         </v-form>
 

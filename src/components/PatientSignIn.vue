@@ -16,6 +16,7 @@
               :rules="passwordRules"
               label="Pryv Password"
               required
+              type="password"
             ></v-text-field>
         </v-form>
 
