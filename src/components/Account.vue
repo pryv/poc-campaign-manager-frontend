@@ -217,7 +217,7 @@
         console.log('retrieved campaigns:', response.body);
         const retrievedCampaigns = response.body.campaigns;
         retrievedCampaigns.forEach((c) => {
-          c.invitationLink = '/invitations/view/?campaignId=' + c.id;
+          c.invitationLink = buildInvitationLink(c.id);
           c.created = printDate(c.created);
           c.permissionsDisplay = minimizePermissions(c.permissions);
           c.descriptionDisplay = minimizeDescription(c.description);
@@ -256,9 +256,7 @@
           'are they the same?', (params.invitation.requester.id === this.user.id));
         if (params.invitation.requester.id === this.user.id) {
           console.log('pushed in sent');
-          params.invitation.url = '/invitations/view/?campaignId=' + params.invitation.campaign.id +
-            '&invitationId=' + params.invitation.id +
-            '&requestee=' + params.invitation.requestee.pryvUsername;
+          params.invitation.url = buildTargetedInvitationLink(params.invitation);
           this.sentInvitations.push(params.invitation);
         } else {
           console.log('pushed in receieved');
@@ -339,6 +337,16 @@
 
     const end = description.indexOf(' ', DESCRIPTION_DISPLAY_LENGTH);
     return description.substring(0, end) + '...';
+  }
+
+  function buildInvitationLink(id) {
+    return config.hostname + '/invitations/view/?campaignId=' + id;
+  }
+
+  function buildTargetedInvitationLink(invitation) {
+    return config.hostname + '/invitations/view/?campaignId=' + invitation.campaign.id +
+    '&invitationId=' + invitation.id +
+    '&requestee=' + invitation.requestee.pryvUsername;
   }
 
   function printDate(timestamp) {
