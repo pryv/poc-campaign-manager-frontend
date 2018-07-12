@@ -220,7 +220,7 @@
           c.invitationLink = buildInvitationLink(c.id);
           c.created = printDate(c.created);
           c.permissionsDisplay = minimizePermissions(c.permissions);
-          c.descriptionDisplay = minimizeDescription(c.description);
+          [c.descriptionDisplay, c.isDescriptionMinimized] = minimizeDescription(c.description);
         });
         this.campaigns = retrievedCampaigns;
       },
@@ -332,11 +332,11 @@
       return null;
     }
     if (description.length < DESCRIPTION_DISPLAY_LENGTH) {
-      return description;
+      return [description, false];
     }
 
     const end = description.indexOf(' ', DESCRIPTION_DISPLAY_LENGTH);
-    return description.substring(0, end) + '...';
+    return [description.substring(0, end) + '...', true];
   }
 
   function buildInvitationLink(id) {

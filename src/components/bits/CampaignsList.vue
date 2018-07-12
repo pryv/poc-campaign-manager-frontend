@@ -17,7 +17,12 @@
             </v-btn>
           </td>
           <td>{{ props.item.title }}</td>
-          <td>{{ props.item.descriptionDisplay }}</td>
+          <td>
+            {{ props.item.descriptionDisplay }}
+            <a :href="'/campaigns/view/?campaignId=' + props.item.id" v-if="props.item.isDescriptionMinimized">
+              (See full description)
+            </a>
+          </td>
           <td>{{ props.item.permissionsDisplay }}</td>
           <td>{{ props.item.created }}</td>
           <td>{{ props.item.pryvAppId }}</td>
@@ -113,7 +118,6 @@
           path: '/campaigns/view/',
           query: {
             campaignId: campaignId,
-            username: this.user.username
           }
         });
       },
