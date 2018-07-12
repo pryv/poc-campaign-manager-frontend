@@ -14,7 +14,7 @@ Vue.config.productionTip = false;
 
 Vue.use(Vuetify, {
   theme: {
-    primary: colors.red.darken4, // #B71C1C, the right one is #BD1026
+    primary: '#BD1026', // #B71C1C, the right one is #BD1026
     secondary: colors.red.lighten4, // #FFCDD2
     accent: colors.indigo.base // #3F51B5
   }
