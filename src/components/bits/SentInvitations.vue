@@ -13,7 +13,11 @@
                     <td>{{ props.item.campaign.title }}</td>
                     <td>{{ props.item.requestee.pryvUsername }}</td>
                     <td>{{ props.item.status }}</td>
-                    <td>{{ props.item.accessToken }}</td>
+                    <td>
+                        <a :href="'https://' + props.item.requestee.pryvUsername + '.pryv.me/#/sharings/' + props.item.accessToken">
+                            {{ props.item.accessToken }}
+                        </a>
+                    </td>
                     <td>
                         <a :href="'' + props.item.url">
                             {{ props.item.url }}
@@ -29,6 +33,8 @@
 </template>
 
 <script>
+  import config from '@/models/config';
+
   export default {
     name: 'SentInvitations',
     props: [
@@ -36,6 +42,7 @@
     ],
     data: function () {
       return {
+        pryvDomain: config.pryv.domain,
         sentInvitationsColumns: [
           {
             text: 'Campaign',
