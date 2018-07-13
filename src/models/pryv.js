@@ -84,7 +84,7 @@ class Pryv {
         .post('https://reg.' + this.domain + '/' + params.username + '/server');
     } catch (e) {
       console.log('error while making exists call', e);
-      if (e.status === 404) {
+      if (e.status === 404 || e.status === 400) {
         return false;
       }
     }
