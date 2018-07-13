@@ -322,8 +322,11 @@
 
   function minimizePermissions(permissions) {
     const minimizedPermissions = permissions.map((p) => {
-      return p.streamId + ':' + p.level;
+      return p.streamId + '(' + capitalize(p.level) + ')';
     });
+    function capitalize(text) {
+      return text.charAt(0).toUpperCase();
+    }
     return minimizedPermissions.join(',');
   }
 
