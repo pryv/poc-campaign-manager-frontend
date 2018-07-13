@@ -14,20 +14,74 @@
               :rules="descriptionRules"
               label="Description"
               required
-            ></v-textarea>
-            <v-textarea
-              v-model="campaign.permissions"
-              :rules="permissionsRules"
-              label="Permissions"
-              required
+              rows="5"
+              cols="70"
             ></v-textarea>
         </v-form>
-        
-        <br><br>
-        <BackButton :buttonText="backButtonText"></BackButton>
-        <v-btn depressed small color="primary" @click="create">
-            Create
+        <div v-if="isExpertPermissionsDisplay">
+            <v-layout row>
+                <v-flex xs12>
+                    <v-textarea
+                      v-model="campaign.permissionsText"
+                      :rules="permissionsRules"
+                      label="Permissions"
+                      required
+                    ></v-textarea>
+                </v-flex>
+            </v-layout>
+        </div>
+        <div v-else>
+            <div v-for="(permission, index) in campaign.permissionsArray" >
+                <v-layout row>
+                <v-flex xs3>
+                    <v-text-field
+                      label="streamId"
+                      v-model="permission.streamId"
+                    ></v-text-field>
+                </v-flex>
+                <v-flex xs3>
+                    <v-text-field
+                      label="defaultName"
+                      v-model="permission.defaultName"
+                    ></v-text-field>
+                </v-flex>
+                <v-flex xs3>
+                    <v-select
+                      :items="levels"
+                      label="Choose level"
+                      solo
+                      v-model="permission.level"
+                    ></v-select>
+                </v-flex>
+                <v-flex xs3>
+                    <v-btn depressed small color="primary" @click="removePermission(index)">
+                        Remove
+                    </v-btn>
+                </v-flex>
+                </v-layout>
+            </div>
+
+            <v-btn depressed small color="primary" @click="addRow()">
+                Add
+            </v-btn>
+        </div>
+
+        <v-btn depressed small color="primary" @click="switchMode()">
+            {{ switchModeButtonText }}
         </v-btn>
+
+        <v-layout row>
+            <v-flex xs2 offset-xs4>
+                <BackButton :buttonText="backButtonText"></BackButton>
+            </v-flex>
+            <v-flex xs2 >
+                <v-btn depressed small color="primary" @click="create">
+                    Create
+                </v-btn>
+            </v-flex>
+        </v-layout>
+
+
     </div>
 </template>
 
@@ -36,6 +90,19 @@
 
   import BackButton from './bits/BackButton';
 
+  const DEFAULT_PERMISSIONS = [
+    {
+      streamId: 'diary',
+      defaultName: 'Diary',
+      level: 'read'
+    },
+    {
+      streamId: 'heart',
+      defaultName: 'Heart',
+      level: 'read'
+    }
+  ];
+
   export default {
     name: 'CampaignCreate',
     components: {
@@ -43,6 +110,7 @@
     },
     data () {
       return {
+        levels: [ 'read', 'contribute', 'manage'],
         user: {
           username: this.$route.query.username,
           token: this.$route.query.token
@@ -51,13 +119,10 @@
         campaign: {
           title: '',
           description: '',
-          permissions: '[{\n' +
-          ' "streamId":"diary",\n' +
-          ' "level":"read",\n' +
-          ' "defaultName":"Diary"\n' +
-          '}]',
-          pryvAppId: ''
+          permissionsText: JSON.stringify(DEFAULT_PERMISSIONS, null, '\t'),
+          permissionsArray: DEFAULT_PERMISSIONS
         },
+        isExpertPermissionsDisplay: false,
         backButtonText: 'Cancel',
         valid: false,
         titleRules: [
@@ -77,15 +142,18 @@
           title: this.campaign.title,
           description: this.campaign.description
         };
-        try {
-          campaignToCreate.permissions = JSON.parse(this.campaign.permissions);
-        } catch (e) {
-          return alert('error in permissions JSON parsing', e);
+        if (this.isExpertPermissionsDisplay) {
+          campaignToCreate.permissions = this.campaign.permissionsArray;
+        } else {
+          try {
+            campaignToCreate.permissions = JSON.parse(this.campaign.permissionsText);
+          } catch (e) {
+            return alert('error in permissions JSON parsing', e);
+          }
         }
 
-        let response;
         try {
-          response = await this.campaignsModel.create({
+          const response = await this.campaignsModel.create({
             campaign: campaignToCreate,
             user: this.user
           });
@@ -97,9 +165,30 @@
           alert(JSON.stringify(errorBody))
         }
       },
-      save() {
-        console.log('savin');
-        alert('not implemented yet');
+      removePermission(index) {
+        this.campaign.permissionsArray.splice(index, 1);
+      },
+      addRow() {
+        this.campaign.permissionsArray.push({
+          streamId: '',
+          defaultName: '',
+          level: 'read'
+        });
+      },
+      switchMode() {
+        if (! this.isExpertPermissionsDisplay) {
+          this.campaign.permissionsText = JSON.stringify(this.campaign.permissionsArray, null, '\t');
+        }
+        this.isExpertPermissionsDisplay = ! this.isExpertPermissionsDisplay;
+      }
+    },
+    computed: {
+      switchModeButtonText() {
+        if (this.isExpertPermissionsDisplay) {
+          return 'Normal mode';
+        } else {
+          return 'Expert mode';
+        }
       }
     }
   };
