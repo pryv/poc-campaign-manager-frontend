@@ -18,10 +18,8 @@
                             {{ props.item.accessToken }}
                         </a>
                     </td>
-                    <td>
-                        <a :href="'' + props.item.url">
-                            {{ props.item.url }}
-                        </a>
+                    <td @click="copyToClipboard(props.item.url)">
+                        {{ props.item.url }}
                     </td>
                     <td>{{ props.item.created }}</td>
                     <td>{{ props.item.modified }}</td>
@@ -40,6 +38,16 @@
     props: [
       'invitations'
     ],
+    methods: {
+      copyToClipboard(url) {
+        this.$copyText(url).then(function (e) {
+          console.log(e)
+        }, function (e) {
+          alert('Can not copy')
+          console.log(e)
+        })
+      },
+    },
     data: function () {
       return {
         pryvDomain: config.pryv.domain,
