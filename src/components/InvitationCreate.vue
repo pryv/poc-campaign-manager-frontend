@@ -13,18 +13,18 @@
             ></v-text-field>
         </v-form>
 
+        <br>
+        <v-btn depressed small color="primary" @click="create">
+            Create new invitation
+        </v-btn>
+        <BackButton></BackButton>
+
         <div v-if="invitationCreated">
             Invitation Link: {{ invitationLink }}
             <v-btn depressed small color="primary" @click="copyToClipboard(invitationLink)">
                 Copy link
             </v-btn>
         </div>
-
-        <br>
-        <BackButton></BackButton>
-        <v-btn depressed small color="primary" @click="create">
-            Create
-        </v-btn>
     </div>
 </template>
 
