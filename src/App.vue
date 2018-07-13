@@ -13,9 +13,11 @@
             <!--<img src="./assets/logo-128.png">-->
 
             <v-content>
-                <v-container align-content-center>
-                    <router-view>
-                    </router-view>
+                <v-container>
+                    <v-layout align-center justify-center>
+                        <router-view>
+                        </router-view>
+                    </v-layout>
                 </v-container>
             </v-content>
         </v-app>
