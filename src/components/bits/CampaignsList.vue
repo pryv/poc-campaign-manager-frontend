@@ -26,10 +26,8 @@
           <td>{{ props.item.permissionsDisplay }}</td>
           <td>{{ props.item.created }}</td>
           <td>{{ props.item.pryvAppId }}</td>
-          <td>
-            <a :href="'' + props.item.invitationLink">
+          <td @click="copyToClipboard(props.item.invitationLink)">
             {{ props.item.invitationLink }}
-            </a>
           </td>
           <td>
             <v-btn depressed small color="primary" @click="openInvitationCreate(props.item.id, props.item.title)">
@@ -113,6 +111,14 @@
       }
     },
     methods: {
+      copyToClipboard(url) {
+        this.$copyText(url).then(function (e) {
+          console.log(e)
+        }, function (e) {
+          alert('Can not copy')
+          console.log(e)
+        })
+      },
       openCampaignDisplay(campaignId) {
         this.$router.push({
           path: '/campaigns/view/',

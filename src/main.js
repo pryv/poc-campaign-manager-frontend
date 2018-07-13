@@ -6,6 +6,7 @@ import App from './App.vue';
 import router from './router';
 import Vuetify from 'vuetify';
 import 'vuetify/dist/vuetify.min.css'; // Ensure you are using css-loader
+import VueClipboard from 'vue-clipboard2';
 
 // Helpers
 import colors from 'vuetify/es5/util/colors';
@@ -19,6 +20,7 @@ Vue.use(Vuetify, {
     accent: colors.indigo.base // #3F51B5
   }
 });
+Vue.use(VueClipboard);
 
 /* eslint-disable no-new */
 new Vue({
