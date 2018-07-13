@@ -20,6 +20,14 @@
                     </v-layout>
                 </v-container>
             </v-content>
+
+            <v-footer color="primary" dark fixed app flat>
+                <v-layout justify-end>
+                    <span class="white--text">&copy; 2018 Pryv  </span>
+                </v-layout>
+
+
+            </v-footer>
         </v-app>
     </div>
 </template>
