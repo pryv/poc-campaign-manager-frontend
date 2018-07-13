@@ -7,7 +7,7 @@
     </div>
     <div v-if="user.isLinkedToPryv === false">
         <v-btn depressed small color="primary" @click="openLinkToPryv()">
-            Link to my Pryv
+            Sync accepted invitations with my Pryv account
         </v-btn>
     </div>
 

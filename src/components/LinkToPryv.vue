@@ -21,7 +21,7 @@
         <br>
         <BackButton :buttonText="backButtonText"></BackButton>
         <v-btn depressed small color="primary" v-on:click="link">
-            Link
+            Sync
         </v-btn>
     </div>
 </template>
