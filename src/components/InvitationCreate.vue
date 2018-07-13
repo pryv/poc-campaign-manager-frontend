@@ -13,6 +13,13 @@
             ></v-text-field>
         </v-form>
 
+        <div v-if="invitationCreated">
+            Invitation Link: {{ invitationLink }}
+            <v-btn depressed small color="primary" @click="copyToClipboard(invitationLink)">
+                Copy link
+            </v-btn>
+        </div>
+
         <br>
         <BackButton :buttonText="backButtonText"></BackButton>
         <v-btn depressed small color="primary" @click="create">
@@ -25,6 +32,7 @@
   import Invitations from '@/models/invitations';
   import Users from '@/models/users';
   import Pryv from '@/models/pryv';
+  import config from '@/models/config';
 
   import BackButton from './bits/BackButton';
 
@@ -51,9 +59,9 @@
         backButtonText: 'Cancel',
         valid: false,
         usernameRules: [
-            v => !!v || 'Username is required',
-            v => v.length <= 20 || 'Username must be less than 20 characters'
+            v => !!v || 'Username is required'
         ],
+        latestInvitation: null
       }
     },
     created() {
@@ -86,8 +94,11 @@
               id: this.campaign.id
             }
           });
-          console.info('created invitation', response.body);
-          alert('invitation created: ' + JSON.stringify(response.body));
+          const invitation = response.body.invitation;
+          console.info('created invitation', invitation);
+          alert('invitation created: ' + JSON.stringify(invitation));
+          this.latestInvitation = invitation;
+          this.clearUsername();
         } catch (e) {
           let msg = e;
           if (e.response) {
@@ -97,6 +108,31 @@
           console.error('error while creating invitation', msg);
         }
 
+      },
+      copyToClipboard(url) {
+        this.$copyText(url).then(function (e) {
+          console.log(e)
+        }, function (e) {
+          alert('Can not copy');
+          console.log(e)
+        })
+      },
+      clearUsername() {
+        this.requestee.pryvUsername = '';
+      }
+    },
+    computed: {
+      invitationLink() {
+        if (this.latestInvitation == null) {
+          return null;
+        }
+
+        return config.hostname + '/invitations/view/?campaignId=' + this.latestInvitation.campaign.id +
+          '&invitationId=' + this.latestInvitation.id +
+          '&requestee=' + this.latestInvitation.requestee.pryvUsername;
+      },
+      invitationCreated() {
+        return (this.latestInvitation != null);
       }
     }
   };
