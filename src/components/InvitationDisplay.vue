@@ -14,7 +14,7 @@
             </v-btn>
         </div>
         <div v-else>
-            By signing here, you consent to participate to the campaign.
+            To accept the invitation to this campaign, press the sign in button and follow the steps.
             <br><br>
             <span id="pryv-button"></span><br>
         </div>
