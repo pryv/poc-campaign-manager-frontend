@@ -74,7 +74,7 @@
         try {
           const usersExists = await this.pryvModel.userExists({username: this.requestee.pryvUsername});
           if (! usersExists) {
-            alert('Pryv user does not exist. Please enter a valid username.');
+            alert('Pryv user ' + this.requestee.pryvUsername + ' does not exist. Please enter a valid username.');
             return;
           }
 
