@@ -17,6 +17,10 @@
             To accept the invitation to this campaign, press the sign in button and follow the steps.
             <br><br>
             <span id="pryv-button"></span><br>
+            <br>
+            <v-btn depressed small color="primary" @click="revoke">
+                Refuse
+            </v-btn>
         </div>
     </div>
 
