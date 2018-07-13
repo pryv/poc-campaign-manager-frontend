@@ -14,7 +14,7 @@
             </v-btn>
         </div>
         <div v-else>
-            To accept the invitation to this campaign, press the sign in button and follow the steps.
+            {{ signInMessage }}
             <br><br>
             <span id="pryv-button"></span><br>
             <br>
@@ -38,6 +38,10 @@
 
   import * as pryv from 'pryv';
   import _ from 'lodash';
+
+  const BASE_MESSAGE = 'To accept the invitation to this campaign, press the sign in button and follow the steps.';
+  const ACCEPTED_MESSAGE = 'You have accepted the campaign invitation.';
+  const REFUSED_MESSAGE = 'You have refused the campaign invitation.';
 
   export default {
     name: 'InvitationDisplay',
@@ -67,7 +71,8 @@
         campaignsModel: new Campaigns(),
         usersModel: new Users(),
         pryvModel: new Pryv(),
-        backButtonText: 'Cancel'
+        backButtonText: 'Cancel',
+        signInMessage: BASE_MESSAGE
       }
     },
     computed: {
@@ -142,6 +147,7 @@
           }
 
           try {
+            that.signInMessage = ACCEPTED_MESSAGE;
             if (that.isTargeted) {
               if (credentials.username !== that.requestee.username) {
                 console.error('requestee username ' + that.requestee.username + ' and authentified user ' + credentials.username +
@@ -181,6 +187,7 @@
         async refused(code) {
           console.info('invitation refused, callback code:', code);
 
+          that.signInMessage = REFUSED_MESSAGE;
           if (that.isTargeted) {
             try {
               let response = await that.invitationsModel.update({
