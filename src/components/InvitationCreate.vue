@@ -21,7 +21,7 @@
         </div>
 
         <br>
-        <BackButton :buttonText="backButtonText"></BackButton>
+        <BackButton></BackButton>
         <v-btn depressed small color="primary" @click="create">
             Create
         </v-btn>
