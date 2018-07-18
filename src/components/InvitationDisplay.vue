@@ -22,6 +22,23 @@
                 Refuse
             </v-btn>
         </div>
+
+        <v-snackbar
+          v-model="snackbar.display"
+          :color="snackbar.color"
+          :timeout=6000
+          :top="true"
+        >
+            {{ snackbar.text }}
+            <v-btn
+              dark
+              flat
+              @click="snackbar.display = false"
+            >
+                Close
+            </v-btn>
+        </v-snackbar>
+
     </div>
 
 
@@ -72,7 +89,12 @@
         usersModel: new Users(),
         pryvModel: new Pryv(),
         backButtonText: 'Cancel',
-        signInMessage: BASE_MESSAGE
+        signInMessage: BASE_MESSAGE,
+        snackbar: {
+          display: false,
+          color: 'info',
+          text: ''
+        }
       }
     },
     computed: {
@@ -117,6 +139,14 @@
           }
           console.error('error while revoking access', errorData);
         }
+      },
+      showSnackbar(params: {
+        color: string,
+        text: string
+      }): void {
+        this.snackbar.text = params.text;
+        this.snackbar.color = params.color;
+        this.snackbar.display = true;
       }
     }
   };
@@ -152,8 +182,11 @@
               if (credentials.username !== that.requestee.username) {
                 console.error('requestee username ' + that.requestee.username + ' and authentified user ' + credentials.username +
                   ' do not match. Invitation update dropped.');
-                return alert('Access have been approved by ' + credentials.username + ', but the invitation was intended for ' +
-                  that.requestee.username + '. No access has been stored in the Campaign Manager.');
+                return that.showSnackbar({
+                  color: 'error',
+                  text: 'Access have been approved by ' + credentials.username + ', but the invitation was intended for ' +
+                  that.requestee.username + '. No access has been stored in the Campaign Manager.'
+                });
               }
               let response = await that.invitationsModel.update({
                 id: that.invitation.id,
@@ -161,7 +194,10 @@
                 accessToken: credentials.auth
               });
               console.info('update successful', response.body);
-              alert('invitation updated:' + JSON.stringify(response.body));
+              that.showSnackbar({
+                color: 'success',
+                text: 'Invitation updated.'
+              });
             } else {
               let response = await that.invitationsModel.create({
                 requester: that.requester,
@@ -174,13 +210,20 @@
                 status: 'accepted'
               });
               console.info('creation successful', response.body);
-              alert('invitation created:' + JSON.stringify(response.body));
+              'invitation updated:' + JSON.stringify(response.body)
+              that.showSnackbar({
+                color: 'success',
+                text: 'Invitation created.'
+              });
             }
           } catch (e) {
             if (e.response && e.response.body.error.indexOf('exists') > 0) {
               console.log(e.response.body);
             } else {
-              alert('error creating approval' + e);
+              that.showSnackbar({
+                color: 'error',
+                text: 'Error creating approval: ' + e
+              });
             }
           }
         },
@@ -194,13 +237,19 @@
                 id: that.invitation.id,
                 status: 'refused'
               });
-              alert('invitation updated:' + JSON.stringify(response.body));
+              that.showSnackbar({
+                color: 'success',
+                text: 'Invitation updated.'
+              });
             } catch (e) {
               if (e.response && e.response.body.error.indexOf('exists') > 0) {
                 console.log(e.response.body);
               } else {
                 console.info('error refusal', e);
-                alert('error creating refusal', e);
+                that.showSnackbar({
+                  color: 'error',
+                  text: 'Error creating refusal: ' + e
+                });
               }
             }
           } else {
@@ -208,7 +257,10 @@
           }
         },
         error: function (code, message) {
-          alert('error during auth. code=' + code + ', message:' + message);
+          that.showSnackbar({
+            color: 'error',
+            text: 'Error during auth. code=' + code + ', message:' + message
+          });
         }
       }
     };
