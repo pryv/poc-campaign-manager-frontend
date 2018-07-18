@@ -25,6 +25,22 @@
                 Copy link
             </v-btn>
         </div>
+
+        <v-snackbar
+          v-model="snackbar.display"
+          :color="snackbar.color"
+          :timeout=6000
+          :top="true"
+        >
+            {{ snackbar.text }}
+            <v-btn
+              dark
+              flat
+              @click="snackbar.display = false"
+            >
+                Close
+            </v-btn>
+        </v-snackbar>
     </div>
 </template>
 
@@ -43,6 +59,11 @@
     },
     data () {
       return {
+        snackbar: {
+          display: false,
+          color: 'info',
+          text: ''
+        },
         usersModel: new Users(),
         invitationsModel: new Invitations(),
         pryvModel: new Pryv(),
@@ -74,7 +95,10 @@
         try {
           const usersExists = await this.pryvModel.userExists({username: this.requestee.pryvUsername});
           if (! usersExists) {
-            alert('Pryv user ' + this.requestee.pryvUsername + ' does not exist. Please enter a valid username.');
+            this.showSnackbar({
+              color: 'error',
+              text: 'Pryv user ' + this.requestee.pryvUsername + ' does not exist. Please enter a valid username.'
+            });
             return;
           }
 
@@ -96,7 +120,10 @@
           });
           const invitation = response.body.invitation;
           console.info('created invitation', invitation);
-          alert('invitation created: ' + JSON.stringify(invitation));
+          this.showSnackbar({
+            color: 'success',
+            text: 'invitation created for ' + this.requestee.pryvUsername
+          });
           this.latestInvitation = invitation;
           this.clearUsername();
         } catch (e) {
@@ -104,7 +131,10 @@
           if (e.response) {
             msg = e.response.body;
           }
-          alert('error while creating invitation' + JSON.stringify(msg));
+          this.showSnackbar({
+            color: 'error',
+            text: 'Error while creating invitation: ' + msg.error
+          });
           console.error('error while creating invitation', msg);
         }
 
@@ -119,6 +149,14 @@
       },
       clearUsername() {
         this.requestee.pryvUsername = '';
+      },
+      showSnackbar(params: {
+        color: string,
+        text: string
+      }): void {
+        this.snackbar.text = params.text;
+        this.snackbar.color = params.color;
+        this.snackbar.display = true;
       }
     },
     computed: {
