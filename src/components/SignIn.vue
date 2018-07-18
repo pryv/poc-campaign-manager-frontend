@@ -22,6 +22,22 @@
 
         <br>
         Not a user yet? Sign up <a href="/signup">here</a>.
+
+        <v-snackbar
+          v-model="snackbar.display"
+          :color="snackbar.color"
+          :timeout=6000
+          :top="true"
+        >
+            {{ snackbar.text }}
+            <v-btn
+              dark
+              flat
+              @click="snackbar.display = false"
+            >
+                Close
+            </v-btn>
+        </v-snackbar>
     </div>
 </template>
 
@@ -45,7 +61,12 @@
         passwordRules: [
           v => !!v || 'Password is required',
           v => v.length <= 20 || 'Password must be less than 20 characters'
-        ]
+        ],
+        snackbar: {
+          display: false,
+          color: 'info',
+          text: ''
+        }
       }
     },
     created() {
@@ -72,11 +93,22 @@
         } catch (e) {
           if (e.response) {
             console.error(e.response.body);
-            alert(JSON.stringify(e.response.body));
+            this.showSnackbar({
+              color: 'error',
+              text: JSON.stringify(e.response.body)
+            });
           } else {
             console.error(e);
           }
         }
+      },
+      showSnackbar(params: {
+        color: string,
+        text: string
+      }): void {
+        this.snackbar.text = params.text;
+        this.snackbar.color = params.color;
+        this.snackbar.display = true;
       }
     }
   };
