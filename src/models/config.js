@@ -4,5 +4,5 @@ export default {
   pryv: {
     domain: 'pryv.me'
   },
-  hostname: 'http://localhost:9001'
+  hostname: 'https://cm.pryv.me'
 };
