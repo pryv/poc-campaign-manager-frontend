@@ -18,9 +18,7 @@
             <br><br>
             <span id="pryv-button"></span><br>
             <br>
-            <v-btn depressed small color="primary" @click="revoke">
-                Refuse
-            </v-btn>
+
         </div>
 
         <v-snackbar
