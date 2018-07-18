@@ -29,6 +29,23 @@
 
         <br>
         Already have an account? <a href="/signin">Sign in</a>
+
+        <v-snackbar
+          v-model="snackbar.display"
+          :color="snackbar.color"
+          :timeout=6000
+          :top="true"
+        >
+            {{ snackbar.text }}
+            <v-btn
+              dark
+              flat
+              @click="snackbar.display = false"
+            >
+                Close
+            </v-btn>
+        </v-snackbar>
+
     </div>
 </template>
 
@@ -53,7 +70,12 @@
         passwordRules: [
             v => !!v || 'Password is required',
             v => v.length <= 20 || 'Password must be less than 20 characters'
-        ]
+        ],
+        snackbar: {
+          display: false,
+          color: 'info',
+          text: ''
+        }
       }
     },
     created() {
@@ -61,7 +83,10 @@
     methods: {
       async signUp() {
         if (this.user.password !== this.user.confirmPassword) {
-          return alert('passwords do not match!');
+          return this.showSnackbar({
+            color: 'error',
+            text: 'Passwords do not match!'
+          });
         }
         try {
           const response = await this.usersModel.create({
@@ -87,11 +112,22 @@
         } catch (e) {
           if (e.response) {
             console.error(e.response.body);
-            alert(JSON.stringify(e.response.body));
+            this.showSnackbar({
+              color: 'error',
+              text: JSON.stringify(e.response.body)
+            });
           } else {
             console.error(e);
           }
         }
+      },
+      showSnackbar(params: {
+        color: string,
+        text: string
+      }): void {
+        this.snackbar.text = params.text;
+        this.snackbar.color = params.color;
+        this.snackbar.display = true;
       }
     }
   };
