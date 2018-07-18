@@ -22,6 +22,22 @@
 
         <v-btn depressed small color="primary" v-on:click="signIn">Sign in</v-btn>
 
+        <v-snackbar
+          v-model="snackbar.display"
+          :color="snackbar.color"
+          :timeout=6000
+          :top="true"
+        >
+            {{ snackbar.text }}
+            <v-btn
+              dark
+              flat
+              @click="snackbar.display = false"
+            >
+                Close
+            </v-btn>
+        </v-snackbar>
+
     </div>
 </template>
 
@@ -45,7 +61,12 @@
         ],
         passwordRules: [
           v => !!v || 'Password is required',
-        ]
+        ],
+        snackbar: {
+          display: false,
+            color: 'info',
+            text: ''
+        }
       }
     },
     created() {
@@ -73,9 +94,20 @@
           if (e.response) {
             msg = e.response;
           }
-          alert('error while signing in to Pryv' + JSON.stringify(msg));
+          this.showSnackbar({
+            color: 'error',
+            text: 'Error while signing in to Pryv: ' + JSON.stringify(msg)
+          })
           console.error('error while signing in to Pryv', msg);
         }
+      },
+      showSnackbar(params: {
+        color: string,
+        text: string
+      }): void {
+        this.snackbar.text = params.text;
+        this.snackbar.color = params.color;
+        this.snackbar.display = true;
       }
     }
   };
