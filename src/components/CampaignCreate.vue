@@ -81,7 +81,21 @@
             </v-flex>
         </v-layout>
 
-
+        <v-snackbar
+          v-model="snackbar.display"
+          :color="snackbar.color"
+          :timeout=6000
+          :top="true"
+        >
+            {{ snackbar.text }}
+            <v-btn
+              dark
+              flat
+              @click="snackbar.display = false"
+            >
+                Close
+            </v-btn>
+        </v-snackbar>
     </div>
 </template>
 
@@ -133,7 +147,12 @@
         ],
         permissionsRules: [
             v => !!v || 'Permissions are required'
-        ]
+        ],
+        snackbar: {
+          display: false,
+          color: 'info',
+          text: ''
+        }
       }
     },
     methods: {
@@ -143,13 +162,17 @@
           description: this.campaign.description
         };
         if (this.isExpertPermissionsDisplay) {
-          campaignToCreate.permissions = this.campaign.permissionsArray;
-        } else {
           try {
             campaignToCreate.permissions = JSON.parse(this.campaign.permissionsText);
           } catch (e) {
-            return alert('error in permissions JSON parsing', e);
+            this.showSnackbar({
+              color: 'error',
+              text: 'Error in permissions JSON parsing: ' + e
+            });
+            return;
           }
+        } else {
+          campaignToCreate.permissions = this.campaign.permissionsArray;
         }
 
         try {
@@ -157,12 +180,14 @@
             campaign: campaignToCreate,
             user: this.user
           });
-          alert('campaign created succesfully' + JSON.stringify(response.body));
           this.$router.back();
         } catch (e) {
           const errorBody = e.response.body;
-          console.log('got error creating campaign', errorBody);
-          alert(JSON.stringify(errorBody))
+          this.showSnackbar({
+            color: 'error',
+            text: 'Error while creating campaign: ' + errorBody.error
+          });
+          console.error('got error creating campaign', errorBody);
         }
       },
       removePermission(index) {
@@ -180,6 +205,14 @@
           this.campaign.permissionsText = JSON.stringify(this.campaign.permissionsArray, null, '\t');
         }
         this.isExpertPermissionsDisplay = ! this.isExpertPermissionsDisplay;
+      },
+      showSnackbar(params: {
+        color: string,
+        text: string
+      }): void {
+        this.snackbar.text = params.text;
+        this.snackbar.color = params.color;
+        this.snackbar.display = true;
       }
     },
     computed: {
