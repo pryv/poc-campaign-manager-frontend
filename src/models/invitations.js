@@ -2,14 +2,14 @@
 
 import superagent from 'superagent';
 
-import config from '../../config';
+import config from '@/models/config';
 
 class Invitations {
   baseUrl: string;
 
   constructor () {
-    this.baseUrl = config.dev.host +
-      ':' + config.dev.port + '/invitations';
+    this.baseUrl = config.hostname +
+      ':' + config.port + '/invitations';
   }
 
   makeUrl (path?: string): string {

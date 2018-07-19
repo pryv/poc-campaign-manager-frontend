@@ -3,14 +3,14 @@
 import superagent from 'superagent';
 import _ from 'lodash';
 
-import config from '../../config';
+import config from '@/models/config';
 
 class Campaigns {
   baseUrl: string;
 
   constructor () {
-    this.baseUrl = config.dev.host +
-      ':' + config.dev.port +
+    this.baseUrl = config.hostname +
+      ':' + config.port +
       '/users';
   }
 
@@ -31,8 +31,8 @@ class Campaigns {
     username: string,
     password: string
   }): Promise<any> {
-    const url = config.dev.host +
-      ':' + config.dev.port + '/auth';
+    const url = config.hostname +
+      ':' + config.port + '/auth';
     console.info('doing users.signin call to', url);
     return superagent
       .post(url)

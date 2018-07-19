@@ -1,7 +1,7 @@
 // @flow
 
 import superagent from 'superagent';
-import config from '../../config';
+import config from '@/models/config';
 
 class Campaigns {
   username: string;
@@ -9,8 +9,8 @@ class Campaigns {
   baseUrl: string;
 
   constructor () {
-    this.baseUrl = config.dev.host +
-      ':' + config.dev.port;
+    this.baseUrl = config.hostname +
+      ':' + config.port;
   }
 
   makeUrl (path: string): string {
@@ -38,7 +38,7 @@ class Campaigns {
     pryvAppId: string,
   }): Object {
     const getCampaignResponse = await superagent
-      .get(config.dev.host + ':' + config.dev.port + '/campaigns/by-pryv-app-id/' + params.pryvAppId);
+      .get(makeUrl('/campaigns/by-pryv-app-id/' + params.pryvAppId));
     console.info('fetched campaign from backend', getCampaignResponse.body);
     return getCampaignResponse.body.campaign;
   }
