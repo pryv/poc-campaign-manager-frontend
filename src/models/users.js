@@ -3,7 +3,7 @@
 import superagent from 'superagent';
 import _ from 'lodash';
 
-import config from '@/models/config';
+import config from './config';
 
 class Campaigns {
   baseUrl: string;
