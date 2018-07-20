@@ -21,7 +21,7 @@
         <v-btn depressed small color="primary" v-on:click="signIn">Sign in</v-btn>
 
         <br>
-        Not a user yet? Sign up <a href="/signup">here</a>.
+        Not a user yet? Sign up <router-link to="/signup">here</router-link>.
 
         <v-snackbar
           v-model="snackbar.display"

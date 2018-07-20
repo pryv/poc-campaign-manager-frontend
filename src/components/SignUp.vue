@@ -28,7 +28,7 @@
         <v-btn depressed small color="primary" v-on:click="signUp">Create Account</v-btn>
 
         <br>
-        Already have an account? <a href="/signin">Sign in</a>
+        Already have an account? <router-link to="/signin">Sign in</router-link>.
 
         <v-snackbar
           v-model="snackbar.display"
