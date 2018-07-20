@@ -70,6 +70,5 @@ export default new Router({
       name: 'CampaignDisplay',
       component: CampaignDisplay
     }
-  ],
-  mode: 'history'
+  ]
 });
