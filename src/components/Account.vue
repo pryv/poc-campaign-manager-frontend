@@ -358,14 +358,12 @@
     let optionalPath = '';
 
     const port = window.location.port;
-    if (port != "443" && port != "80") {
-      console.log('weird port')
+    if (port != "") {
       optionalPort = ':' + port;
     }
 
     if (baseHostname != 'localhost') {
-      console.log('not localhost')
-      optionalPath = '/' + window.location.pathname
+      optionalPath = window.location.pathname
     }
     return location.protocol + '//' + baseHostname + optionalPort + optionalPath;
   }
