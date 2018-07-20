@@ -343,13 +343,31 @@
   }
 
   function buildInvitationLink(id) {
-    return config.hostname + '/invitations/view/?campaignId=' + id;
+    return getHostname() + '/#/invitations/view/?campaignId=' + id;
   }
 
   function buildTargetedInvitationLink(invitation) {
-    return config.hostname + '/invitations/view/?campaignId=' + invitation.campaign.id +
+    return getHostname() + '/#/invitations/view/?campaignId=' + invitation.campaign.id +
     '&invitationId=' + invitation.id +
     '&requestee=' + invitation.requestee.pryvUsername;
+  }
+
+  function getHostname() {
+    let baseHostname = window.location.hostname;
+    let optionalPort = '';
+    let optionalPath = '';
+
+    const port = window.location.port;
+    if (port != "443" && port != "80") {
+      console.log('weird port')
+      optionalPort = ':' + port;
+    }
+
+    if (baseHostname != 'localhost') {
+      console.log('not localhost')
+      optionalPath = '/' + window.location.pathname
+    }
+    return location.protocol + '//' + baseHostname + optionalPort + optionalPath;
   }
 
   function printDate(timestamp) {
