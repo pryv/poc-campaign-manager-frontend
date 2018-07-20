@@ -343,11 +343,11 @@
   }
 
   function buildInvitationLink(id) {
-    return getHostname() + '/#/invitations/view/?campaignId=' + id;
+    return getHostname() + '#/invitations/view/?campaignId=' + id;
   }
 
   function buildTargetedInvitationLink(invitation) {
-    return getHostname() + '/#/invitations/view/?campaignId=' + invitation.campaign.id +
+    return getHostname() + '#/invitations/view/?campaignId=' + invitation.campaign.id +
     '&invitationId=' + invitation.id +
     '&requestee=' + invitation.requestee.pryvUsername;
   }
