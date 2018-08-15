@@ -2944,7 +2944,7 @@ expand-range@^1.8.1:
   dependencies:
     fill-range "^2.1.0"
 
-express@^4.16.2:
+express@^4.14.0, express@^4.16.2:
   version "4.16.3"
   resolved "https://registry.yarnpkg.com/express/-/express-4.16.3.tgz#6af8a502350db3246ecc4becf6b5a34d22f7ed53"
   dependencies:
@@ -6401,6 +6401,12 @@ readdirp@^2.0.0:
     minimatch "^3.0.2"
     readable-stream "^2.0.2"
     set-immediate-shim "^1.0.1"
+
+rec-la@^0.1.5:
+  version "0.1.5"
+  resolved "https://registry.yarnpkg.com/rec-la/-/rec-la-0.1.5.tgz#1a1367fcedfec1ce605d62d9e1ba2d7990dbdbb5"
+  dependencies:
+    express "^4.14.0"
 
 rechoir@^0.6.2:
   version "0.6.2"
