@@ -27,7 +27,7 @@
             {{ props.item.invitationLink }}
           </td>
           <td>
-            <v-btn depressed small color="primary" @click="openInvitationCreate(props.item.id, props.item.title)">
+            <v-btn v-if="props.item.isNotCancelled" depressed small color="primary" @click="openInvitationCreate(props.item.id, props.item.title)">
               Create Invitation
             </v-btn>
           </td>

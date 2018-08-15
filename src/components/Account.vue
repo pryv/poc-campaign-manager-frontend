@@ -221,6 +221,7 @@
           c.created = printDate(c.created);
           c.permissionsDisplay = minimizePermissions(c.permissions);
           [c.descriptionDisplay, c.isDescriptionMinimized] = minimizeDescription(c.description);
+          c.isNotCancelled = (c.status !== 'cancelled');
         });
         this.campaigns = retrievedCampaigns;
       },
