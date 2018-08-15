@@ -186,10 +186,9 @@
                   that.requestee.username + '. No access has been stored in the Campaign Manager.'
                 });
               }
-              let response = await that.invitationsModel.update({
-                id: that.invitation.id,
-                status: 'accepted',
-                accessToken: credentials.auth
+              let response = await that.invitationsModel.accept({
+                invitationId: that.invitation.id,
+                pryvAccessToken: credentials.auth
               });
               console.info('update successful', response.body);
               that.showSnackbar({
@@ -231,9 +230,8 @@
           that.signInMessage = REFUSED_MESSAGE;
           if (that.isTargeted) {
             try {
-              let response = await that.invitationsModel.update({
-                id: that.invitation.id,
-                status: 'refused'
+              let response = await that.invitationsModel.refuse({
+                invitationId: that.invitation.id,
               });
               that.showSnackbar({
                 color: 'success',

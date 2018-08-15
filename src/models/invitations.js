@@ -44,19 +44,25 @@ class Invitations {
       .send(params);
   }
 
-  update (params: {
-    id: string,
-    accessToken?: string,
-    status?: string,
+  async accept (params: {
+    invitationId: string,
+    pryvAccessToken: string,
   }): Promise<mixed> {
-    const url = this.makeUrl(params.id);
-    console.info('doing invitations.update call to', url, 'with params', params);
+    const url = this.makeUrl(params.invitationId) + '/accept';
+    console.info('accepting invitation ' + params.invitationId);
     return superagent
-      .put(url)
-      .send({
-        status: params.status,
-        accessToken: params.accessToken
-      });
+      .post(url)
+      .send({ accessToken: params.pryvAccessToken });
+  }
+
+  async refuse (params: {
+    invitationId: string,
+  }): Promise<mixed> {
+    const url = this.makeUrl(params.invitationId) + '/refuse';
+    console.info('refusing invitation ' + params.invitationId);
+    return superagent
+      .post(url)
+      .send({});
   }
 }
 

@@ -283,11 +283,11 @@
           }
         }
       },
-      async updateInvitation(params: {
-        invitation: Object
-      }): void {
+      async updateInvitation(invitation): void {
         try {
-          await this.invitationsModel.update(params);
+          await this.invitationsModel.refuse({
+            invitationId: invitation.id,
+          });
         } catch (e) {
           let errorData = null;
           if (e.response) {
