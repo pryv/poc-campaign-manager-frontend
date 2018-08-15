@@ -64,6 +64,19 @@ class Campaigns {
         }
       });
   }
+
+  cancel (params: {
+    campaignId: string,
+    localAccessToken: string,
+  }): Promise<any> {
+    const url: string = this.makeUrl('/campaigns') + '/' + params.campaignId + '/cancel';
+    return superagent.post(url)
+      .set('authorization', params.localAccessToken)
+      .send({
+        campaignId: params.campaignId,
+        localAccessToken: params.localAccessToken
+      });
+  }
 }
 
 export default Campaigns;

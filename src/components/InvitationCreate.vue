@@ -150,10 +150,7 @@
       clearUsername() {
         this.requestee.pryvUsername = '';
       },
-      showSnackbar(params: {
-        color: string,
-        text: string
-      }): void {
+      showSnackbar(params) {
         this.snackbar.text = params.text;
         this.snackbar.color = params.color;
         this.snackbar.display = true;

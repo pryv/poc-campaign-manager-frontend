@@ -121,6 +121,7 @@
           path: '/campaigns/view/',
           query: {
             campaignId: campaignId,
+            token: this.user.token,
           }
         });
       },

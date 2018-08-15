@@ -49,6 +49,14 @@
         <v-subheader>{{ createdReadable }}</v-subheader>
       </v-flex>
     </v-layout>
+    <v-layout row v-if="isCancelled">
+      <v-flex xs4>
+        <v-subheader>Cancelled:</v-subheader>
+      </v-flex>
+      <v-flex xs8>
+        <v-subheader>{{ cancelledReadable }}</v-subheader>
+      </v-flex>
+    </v-layout>
 
   </div>
 </template>
@@ -65,6 +73,12 @@
       },
       hasRequester() {
         return (this.campaign.requester != null);
+      },
+      isCancelled() {
+        return this.campaign.status === 'cancelled';
+      },
+      cancelledReadable() {
+        return printDate(this.campaign.modified);
       }
     }
   }
