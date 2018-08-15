@@ -249,9 +249,7 @@
           console.error('error while retrieving invitations', e);
         }
       },
-      pushInSentOrReceived (params: {
-        invitation: Object
-      }): void {
+      pushInSentOrReceived (params) {
         console.log('checking inv for requester', params.invitation.requester.id, 'comparin with',this.user.id,
           'are they the same?', (params.invitation.requester.id === this.user.id));
         if (params.invitation.requester.id === this.user.id) {
@@ -263,9 +261,7 @@
           this.receivedInvitations.push(params.invitation);
         }
       },
-      async checkInvitationToken(params: {
-        invitation: Object
-      }): void {
+      async checkInvitationToken(params) {
         console.info('verifying invitation token for user', this.user.username, 'for campaign', params.invitation.campaign.title);
         try {
           const accessInfo = await this.pryvModel.isTokenValid({
@@ -283,7 +279,7 @@
           }
         }
       },
-      async updateInvitation(invitation): void {
+      async updateInvitation(invitation) {
         try {
           await this.invitationsModel.refuse({
             invitationId: invitation.id,
