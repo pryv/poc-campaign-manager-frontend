@@ -23,13 +23,19 @@
           <td>{{ props.item.permissionsDisplay }}</td>
           <td>{{ props.item.created }}</td>
           <td>{{ props.item.pryvAppId }}</td>
-          <td @click="copyToClipboard(props.item.invitationLink)">
+          <td @click="copyToClipboard(props.item.invitationLink)" v-if="props.item.isNotCancelled">
             {{ props.item.invitationLink }}
           </td>
-          <td>
-            <v-btn v-if="props.item.isNotCancelled" depressed small color="primary" @click="openInvitationCreate(props.item.id, props.item.title)">
+          <td v-else>
+            Campaign cancelled
+          </td>
+          <td v-if="props.item.isNotCancelled">
+            <v-btn depressed small color="primary" @click="openInvitationCreate(props.item.id, props.item.title)">
               Create Invitation
             </v-btn>
+          </td>
+          <td v-else>
+            Campaign cancelled
           </td>
         </tr>
       </template>
