@@ -72,7 +72,7 @@
 
         <v-layout row>
             <v-flex xs2 offset-xs4>
-                <BackButton :buttonText="backButtonText"></BackButton>
+                <BackButton buttonText="Cancel"></BackButton>
             </v-flex>
             <v-flex xs2 >
                 <v-btn depressed small color="primary" @click="create">
@@ -137,7 +137,6 @@
           permissionsArray: DEFAULT_PERMISSIONS
         },
         isExpertPermissionsDisplay: false,
-        backButtonText: 'Cancel',
         valid: false,
         titleRules: [
             v => !!v || 'Title is required'

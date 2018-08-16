@@ -20,7 +20,7 @@
         </v-form>
 
         <br>
-        <BackButton :buttonText="backButtonText"></BackButton>
+        <BackButton buttonText="Cancel"></BackButton>
         <v-btn depressed small color="primary" v-on:click="link">
             Sync
         </v-btn>
@@ -69,7 +69,6 @@
           token: this.$route.query.token,
         },
         pryvDomain: config.pryv.domain,
-        backButtonText: 'Cancel',
         valid: false,
         usernameRules: [
           v => !!v || 'Username is required',

@@ -8,7 +8,7 @@
         <div v-if="hasCancelButton">
             By pressing this button, the access will be revoked.
             <br>
-            <BackButton :buttonText="backButtonText"></BackButton>
+            <BackButton buttonText="Cancel"></BackButton>
             <v-btn depressed small color="primary" @click="revoke">
                 Revoke
             </v-btn>
@@ -86,7 +86,6 @@
         campaignsModel: new Campaigns(),
         usersModel: new Users(),
         pryvModel: new Pryv(),
-        backButtonText: 'Cancel',
         signInMessage: BASE_MESSAGE,
         snackbar: {
           display: false,
