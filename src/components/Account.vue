@@ -347,13 +347,14 @@
   }
 
   function buildInvitationLink(id) {
-    return getHostname() + '#/invitations/view/?campaignId=' + id;
+    return getHostname() + '#/invitations/view/?campaignId=' + id + '&hasSignIn=true';
   }
 
   function buildTargetedInvitationLink(invitation) {
     return getHostname() + '#/invitations/view/?campaignId=' + invitation.campaign.id +
     '&invitationId=' + invitation.id +
-    '&requestee=' + invitation.requestee.pryvUsername;
+    '&requestee=' + invitation.requestee.pryvUsername + 
+    '&hasSignIn=true';
   }
 
   function getHostname() {

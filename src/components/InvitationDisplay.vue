@@ -118,6 +118,7 @@
         },
         isTargeted: this.$route.query.invitationId ? true : false,
         hasCancelButton: this.$route.query.hasCancel || false,
+        hasSignInButton: this.$route.query.hasSignIn || false,
         invitationsModel: new Invitations(),
         campaignsModel: new Campaigns(),
         usersModel: new Users(),
