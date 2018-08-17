@@ -16,6 +16,7 @@
               required
               rows="5"
               cols="70"
+              auto-grow
             ></v-textarea>
         </v-form>
         <div v-if="isExpertPermissionsDisplay">
