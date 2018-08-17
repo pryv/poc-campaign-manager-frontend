@@ -5,9 +5,6 @@
         <Campaign :campaign="campaign"></Campaign>
 
         <br>
-        <v-btn v-if="isCampaignNotCancelled" depressed small color="primary" @click="cancelCampaign">
-          Cancel
-        </v-btn>
         <BackButton></BackButton>
 
         <v-snackbar
