@@ -57,6 +57,7 @@
   const BASE_MESSAGE = 'To accept the invitation to this campaign, press the sign in button and follow the steps.';
   const ACCEPTED_MESSAGE = 'You have accepted the campaign invitation.';
   const REFUSED_MESSAGE = 'You have refused the campaign invitation.';
+  const WRONG_USER_MESSAGE = 'This invitation was intended for someone else, no invitation was saved.'
 
   export default {
     name: 'InvitationDisplay',
@@ -153,7 +154,7 @@
       spanButtonID: 'pryv-button',
       callbacks: {
         initialization: function () {
-          // unused
+          that.signInMessage = BASE_MESSAGE;
         },
         needSignin: function (popupUrl, pollUrl, pollRateMs) {
           // unused
@@ -171,15 +172,15 @@
           }
 
           try {
-            that.signInMessage = ACCEPTED_MESSAGE;
             if (that.isTargeted) {
               if (credentials.username !== that.requestee.username) {
                 console.error('requestee username ' + that.requestee.username + ' and authentified user ' + credentials.username +
                   ' do not match. Invitation update dropped.');
+                that.signInMessage = WRONG_USER_MESSAGE;
                 return that.showSnackbar({
                   color: 'error',
                   text: 'Access have been approved by ' + credentials.username + ', but the invitation was intended for ' +
-                  that.requestee.username + '. No access has been stored in the Campaign Manager.'
+                  that.requestee.username + '. No access has been stored.'
                 });
               }
               let response = await that.invitationsModel.accept({
@@ -209,6 +210,7 @@
                 text: 'Invitation created.'
               });
             }
+            that.signInMessage = ACCEPTED_MESSAGE;
           } catch (e) {
             if (e.response && e.response.body.error.indexOf('exists') > 0) {
               console.log(e.response.body);
