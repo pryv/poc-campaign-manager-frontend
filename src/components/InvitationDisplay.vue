@@ -6,20 +6,55 @@
         <br>
 
         <div v-if="hasCancelButton">
-            By pressing this button, the access will be revoked.
-            <br>
-            <BackButton buttonText="Cancel"></BackButton>
-            <v-btn depressed small color="primary" @click="revoke">
-                Revoke
-            </v-btn>
+          <v-btn
+              depressed 
+              small 
+              color="primary" 
+              @click.stop="dialog = true"
+            >
+              Revoke access
+          </v-btn>
+          <v-dialog
+            v-model="dialog"
+            width="500"
+          >
+            <v-card>
+              <v-card-title class="headline">Revoke Access?</v-card-title>
+
+              <v-card-text>
+                By clicking on "OK", you will prevent {{ requester.username }} from accessing your data.
+              </v-card-text>
+
+              <v-card-actions>
+                <v-spacer></v-spacer>
+
+                <v-btn
+                  color="green darken-1"
+                  flat="flat"
+                  @click="dialog = false"
+                >
+                  Cancel
+                </v-btn>
+
+                <v-btn
+                  color="green darken-1"
+                  flat="flat"
+                  @click="revoke"
+                >
+                  OK
+                </v-btn>
+              </v-card-actions>
+            </v-card>
+          </v-dialog>
         </div>
-        <div v-else>
+        <div v-if="hasSignInButton">
             {{ signInMessage }}
             <br><br>
             <span id="pryv-button"></span><br>
             <br>
 
         </div>
+        <BackButton></BackButton>
 
         <v-snackbar
           v-model="snackbar.display"
@@ -68,7 +103,7 @@
     data () {
       return {
         requester: {
-          username: '',
+          username: this.$route.query.requester || null,
         },
         requestee: {
           username: this.$route.query.requestee,
@@ -92,7 +127,8 @@
           display: false,
           color: 'info',
           text: ''
-        }
+        },
+        dialog: false,
       }
     },
     computed: {
@@ -122,11 +158,17 @@
         pryv.Auth.setup(settings);
       },
       async revoke() {
+        this.dialog = false;
         try {
           await this.pryvModel.deleteAccess({
             username: this.requestee.username,
             token: this.requestee.pryvToken,
             accessId: this.invitation.accessId,
+          });
+          this.hasCancelButton = false;
+          this.showSnackbar({
+            color: 'success',
+            text: 'Access revoked.'
           });
         } catch (e) {
           let errorData = null;
