@@ -9,7 +9,7 @@
           class="elevation-0"
         >
             <template slot="items" slot-scope="props">
-                <tr>
+                <tr @click="props.expanded = !props.expanded">
                     <td>{{ props.item.campaign.title }}</td>
                     <td>{{ props.item.requestee.pryvUsername }}</td>
                     <td>{{ props.item.status }}</td>
@@ -24,6 +24,20 @@
                     <td>{{ props.item.created }}</td>
                     <td>{{ props.item.modified }}</td>
                 </tr>
+            </template>
+            <template slot="expand" slot-scope="props">
+              <v-data-table
+                :headers="historyColumns"
+                :items="props.item.history"
+                hide-actions
+                class="elevation-0"
+              >
+                <template slot="items" slot-scope="subProps">
+                  <td>{{ subProps.item.status }}</td>
+                  <td>{{ subProps.item.accessToken }}</td>
+                  <td>{{ subProps.item.modified }}</td>
+                </template>
+              </v-data-table>
             </template>
         </v-data-table>
 
@@ -90,6 +104,26 @@
           },
           {
             text: 'Modified',
+            value: 'modified',
+            align: 'center',
+            sortable: false
+          }
+        ],
+        historyColumns: [
+          {
+            text: 'Status',
+            value: 'status',
+            align: 'center',
+            sortable: false
+          },
+          {
+            text: 'AccessToken',
+            value: 'accessToken',
+            align: 'center',
+            sortable: false
+          },
+          {
+            text: 'Date',
             value: 'modified',
             align: 'center',
             sortable: false
