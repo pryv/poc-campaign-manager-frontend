@@ -14,9 +14,16 @@
                     <td>{{ props.item.requestee.pryvUsername }}</td>
                     <td>{{ props.item.status }}</td>
                     <td>
-                        <a :href="'https://' + props.item.requestee.pryvUsername + '.pryv.me/#/sharings/' + props.item.accessToken">
-                            {{ props.item.accessToken }}
+                      <div v-if="props.item.status === 'refused'">
+                        {{ props.item.accessToken }}
+                      </div>
+                      <div v-else>
+                        <a
+                          :href="'https://' + props.item.requestee.pryvUsername + '.pryv.me/#/sharings/' + props.item.accessToken"
+                        >
+                          {{ props.item.accessToken }}
                         </a>
+                      </div>
                     </td>
                     <td @click="copyToClipboard(props.item.url)">
                         {{ props.item.url }}
