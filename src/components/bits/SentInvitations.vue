@@ -25,7 +25,7 @@
                         </a>
                       </div>
                     </td>
-                    <td>
+                    <td style="white-space:nowrap;">
                       <v-tooltip top>
                         <v-btn 
                           slot="activator" 

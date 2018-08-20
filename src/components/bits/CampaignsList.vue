@@ -23,7 +23,7 @@
           <td>{{ props.item.permissionsDisplay }}</td>
           <td>{{ props.item.created }}</td>
           <td>{{ props.item.pryvAppId }}</td>
-          <td>
+          <td style="white-space:nowrap;">
             <v-tooltip top>
               <v-btn 
                 slot="activator" 
