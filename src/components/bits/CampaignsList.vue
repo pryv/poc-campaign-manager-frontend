@@ -22,7 +22,6 @@
           </td>
           <td>{{ props.item.permissionsDisplay }}</td>
           <td>{{ props.item.created }}</td>
-          <td>{{ props.item.pryvAppId }}</td>
           <td style="white-space:nowrap;">
             <v-tooltip top>
               <v-btn 
@@ -97,12 +96,6 @@
           {
             text: 'Created',
             value: 'created',
-            align: 'center',
-            sortable: false
-          },
-          {
-            text: 'Pryv AppId',
-            value: 'pryvAppId',
             align: 'center',
             sortable: false
           },
