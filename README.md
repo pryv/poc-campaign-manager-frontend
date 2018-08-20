@@ -17,7 +17,7 @@ VueJS web app for Pryv campaign management
 ## Deploy to GH-pages
 
 1. Build: `yarn build`
-2. Copy to gh-pages: `cp -R dist/ gh-pages/`
+2. Copy to gh-pages (the `/` at the end are important): `cp -R dist/ gh-pages/`
 3. Make links relative (Remove first `/`)
 4. Commit and push
 
