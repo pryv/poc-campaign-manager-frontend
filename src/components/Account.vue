@@ -38,8 +38,6 @@
   import CampaignsList from './bits/CampaignsList';
   import SentInvitations from './bits/SentInvitations';
 
-  const DESCRIPTION_DISPLAY_LENGTH = 50;
-
   export default {
     name: 'Account',
     components: {
@@ -218,9 +216,16 @@
         const retrievedCampaigns = response.body.campaigns;
         retrievedCampaigns.forEach((c) => {
           c.invitationLink = buildInvitationLink(c.id);
+          [c.invitationLinkMinimized] = minimizeText({
+            text: c.invitationLink
+          });
+          c.copiedTooltipShow = false;
           c.created = printDate(c.created);
           c.permissionsDisplay = minimizePermissions(c.permissions);
-          [c.descriptionDisplay, c.isDescriptionMinimized] = minimizeDescription(c.description);
+          [c.descriptionDisplay, c.isDescriptionMinimized] = minimizeText({
+            text: c.description,
+            endChar: ' ',
+          });
           c.isNotCancelled = (c.status !== 'cancelled');
         });
         this.campaigns = retrievedCampaigns;
@@ -334,16 +339,31 @@
     return minimizedPermissions.join(',');
   }
 
-  function minimizeDescription(description) {
-    if (description == null) {
+  function minimizeText(params: {
+    text: string,
+    length?: number,
+    endChar?: string,
+  }) {
+    const DEFAULT_LENGTH = 50;
+
+    if (params.text == null) {
       return null;
     }
-    if (description.length < DESCRIPTION_DISPLAY_LENGTH) {
-      return [description, false];
+    if (params.length == null) {
+      params.length = DEFAULT_LENGTH;
     }
 
-    const end = description.indexOf(' ', DESCRIPTION_DISPLAY_LENGTH);
-    return [description.substring(0, end) + '...', true];
+    if (params.text.length < DEFAULT_LENGTH) {
+      return [params.text, false];
+    }
+
+    let end;
+    if (params.endChar != null) {
+      end = params.text.indexOf(params.endChar, params.length);
+    } else {
+      end = params.length;
+    }
+    return [params.text.substring(0, end) + '...', true];
   }
 
   function buildInvitationLink(id) {
@@ -353,7 +373,7 @@
   function buildTargetedInvitationLink(invitation) {
     return getHostname() + '#/invitations/view/?campaignId=' + invitation.campaign.id +
     '&invitationId=' + invitation.id +
-    '&requestee=' + invitation.requestee.pryvUsername + 
+    '&requestee=' + invitation.requestee.pryvUsername +
     '&hasSignIn=true';
   }
 
