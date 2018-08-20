@@ -23,11 +23,27 @@
           <td>{{ props.item.permissionsDisplay }}</td>
           <td>{{ props.item.created }}</td>
           <td>{{ props.item.pryvAppId }}</td>
-          <td @click="copyToClipboard(props.item.invitationLink)" v-if="props.item.isNotCancelled">
-            {{ props.item.invitationLink }}
-          </td>
-          <td v-else>
-            Campaign cancelled
+          <td>
+            <v-tooltip top>
+              <v-btn 
+                slot="activator" 
+                icon
+                @click="copyToClipboard(props.item.invitationLink)"
+              >
+                <v-icon color="grey lighten-1">file_copy</v-icon>
+              </v-btn>
+              <span>Click to copy to clipboard</span>
+            </v-tooltip>
+            <v-tooltip top>
+              <v-btn 
+                slot="activator" 
+                icon
+                @click="openInvitationLink(props.item.invitationLink)"
+              >
+                <v-icon color="grey lighten-1">open_in_new</v-icon>
+              </v-btn>
+              <span>Click to open in new tab</span>
+            </v-tooltip>
           </td>
           <td v-if="props.item.isNotCancelled">
             <v-btn depressed small color="primary" @click="openInvitationCreate(props.item.id, props.item.title)">
@@ -102,7 +118,7 @@
             align: 'center',
             sortable: false
           }
-        ]
+        ],
       }
     },
     computed: {
@@ -141,7 +157,10 @@
             token: this.user.token,
           }
         });
-      }
+      },
+      openInvitationLink(link) {
+        window.open(link);
+      },
     }
   }
 </script>

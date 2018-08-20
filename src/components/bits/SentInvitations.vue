@@ -25,8 +25,27 @@
                         </a>
                       </div>
                     </td>
-                    <td @click="copyToClipboard(props.item.url)">
-                        {{ props.item.url }}
+                    <td>
+                      <v-tooltip top>
+                        <v-btn 
+                          slot="activator" 
+                          icon
+                          @click="copyToClipboard(props.item.url)"
+                        >
+                          <v-icon color="grey lighten-1">file_copy</v-icon>
+                        </v-btn>
+                        <span>Click to copy to clipboard</span>
+                      </v-tooltip>
+                      <v-tooltip top>
+                        <v-btn 
+                          slot="activator" 
+                          icon
+                          @click="openInvitationLink(props.item.url)"
+                        >
+                          <v-icon color="grey lighten-1">open_in_new</v-icon>
+                        </v-btn>
+                        <span>Click to open in new tab</span>
+                      </v-tooltip>
                     </td>
                     <td>{{ props.item.created }}</td>
                     <td>{{ props.item.modified }}</td>
@@ -67,6 +86,9 @@
           alert('Can not copy')
           console.log(e)
         })
+      },
+      openInvitationLink(link) {
+        window.open(link);
       },
     },
     data: function () {

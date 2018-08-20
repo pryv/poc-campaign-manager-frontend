@@ -219,7 +219,6 @@
           [c.invitationLinkMinimized] = minimizeText({
             text: c.invitationLink
           });
-          c.copiedTooltipShow = false;
           c.created = printDate(c.created);
           c.permissionsDisplay = minimizePermissions(c.permissions);
           [c.descriptionDisplay, c.isDescriptionMinimized] = minimizeText({
