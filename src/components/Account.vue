@@ -243,13 +243,14 @@
             i.created = printDate(i.created);
             i.modified = printDate(i.modified);
             i.permissions = i.campaign.permissions;
-
-            i.history.forEach((hi) => {
-              hi.modified = printDate(hi.modified);
-              if (hi.accessToken == null) {
-                hi.accessToken = 'N/A';
-              }
-            });
+            if (i.history != null) {
+              i.history.forEach((hi) => {
+                hi.modified = printDate(hi.modified);
+                if (hi.accessToken == null) {
+                  hi.accessToken = 'N/A';
+                }
+              });
+            }
 
             this.pushInSentOrReceived({ invitation: i});
 
