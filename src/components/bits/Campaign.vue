@@ -17,12 +17,13 @@
         <v-subheader>{{ campaign.title }}</v-subheader>
       </v-flex>
     </v-layout>
-    <v-layout row>
+    <v-layout row my-2>
       <v-flex xs4>
         <v-subheader>Description:</v-subheader>
       </v-flex>
-      <v-flex xs8>
-        <v-subheader>{{ campaign.description }}</v-subheader>
+      <v-flex xs8 justify-start>
+        <VueMarkdown :source="campaign.description">
+        </VueMarkdown>
       </v-flex>
     </v-layout>
     <v-layout row>
@@ -62,10 +63,15 @@
 </template>
 
 <script>
+  import VueMarkdown from 'vue-markdown';
+
   export default {
     name: 'Campaign',
+    components: {
+      VueMarkdown,
+    },
     props: [
-      'campaign'
+      'campaign',
     ],
     computed: {
       createdReadable() {
@@ -96,3 +102,9 @@
   }
 </script>
 
+<style>
+    #app {
+        text-align: left;
+    }
+
+</style>
