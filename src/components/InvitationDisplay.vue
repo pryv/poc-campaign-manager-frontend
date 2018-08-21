@@ -54,7 +54,9 @@
             <br>
 
         </div>
-        <BackButton></BackButton>
+        <div v-else>
+          <BackButton></BackButton>
+        </div>
 
         <v-snackbar
           v-model="snackbar.display"
