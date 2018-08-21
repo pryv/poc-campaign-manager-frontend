@@ -121,7 +121,7 @@
             sortable: false
           },
           {
-            text: 'Link',
+            text: 'Invitation Link',
             value: 'link',
             align: 'center',
             sortable: false
