@@ -104,7 +104,7 @@
 
           try {
             await this.usersModel.create({
-              pryvUsername: this.requestee.pryvUsername
+              pryvUsername: this.requestee.pryvUsername.toLowerCase()
             });
           } catch (e) {
             if (e.response)
