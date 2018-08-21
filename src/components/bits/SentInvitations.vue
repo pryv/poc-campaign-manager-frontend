@@ -20,6 +20,7 @@
                       <div v-else>
                         <a
                           :href="'https://' + props.item.requestee.pryvUsername + '.pryv.me/#/sharings/' + props.item.accessToken"
+                          target="_blank"
                         >
                           {{ props.item.accessToken }}
                         </a>
