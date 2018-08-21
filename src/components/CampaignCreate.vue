@@ -134,7 +134,7 @@
         campaign: {
           title: '',
           description: '',
-          permissionsText: JSON.stringify(DEFAULT_PERMISSIONS, null, '\t'),
+          permissionsText: this.permissionsArrayAsText,
           permissionsArray: DEFAULT_PERMISSIONS
         },
         isExpertPermissionsDisplay: false,
@@ -161,18 +161,25 @@
           title: this.campaign.title,
           description: this.campaign.description
         };
+
         if (this.isExpertPermissionsDisplay) {
           try {
             campaignToCreate.permissions = JSON.parse(this.campaign.permissionsText);
           } catch (e) {
-            this.showSnackbar({
+            return this.showSnackbar({
               color: 'error',
               text: 'Error in permissions JSON parsing: ' + e
             });
-            return;
           }
         } else {
           campaignToCreate.permissions = this.campaign.permissionsArray;
+        }
+        const permissionsError = this.hasPermissionsErrors(campaignToCreate.permissions);
+        if (permissionsError != null) {
+          return this.showSnackbar({
+            color: 'error',
+            text: 'Error: ' + permissionsError
+          });
         }
 
         try {
@@ -213,6 +220,30 @@
         this.snackbar.text = params.text;
         this.snackbar.color = params.color;
         this.snackbar.display = true;
+      },
+      hasPermissionsErrors(permissionsArray) {
+        if (! Array.isArray(permissionsArray)) {
+          return 'permissions should be an array';
+        }
+
+        if (permissionsArray.length === 0) {
+          return 'permissions array is empty';
+        }
+
+        for(let i=0; i < permissionsArray.length; i++) {
+          if (isStringEmptyOrNull(permissionsArray[i].level)) {
+              return 'permission ' + i + ' is missing "level" parameter';
+            }
+
+          if (permissionsArray[i].streamId) {
+            if (isStringEmptyOrNull(permissionsArray[i].defaultName)) {
+              return 'permission ' + i + ' is missing "defaultName" parameter';
+            }
+          } else if (isStringEmptyOrNull(permissionsArray[i].tag)) {
+            return 'permission ' + i + ' is missing "streamId" or "tag" parameter';
+          }
+        }
+        return null;
       }
     },
     computed: {
@@ -222,9 +253,18 @@
         } else {
           return 'Expert mode';
         }
+      },
+      permissionsArrayAsText() {
+        return JSON.stringify(this.permissionsArray, null, '\t');
       }
     }
   };
+
+  function isStringEmptyOrNull(s) {
+    if (s == null) return true;
+    if (s === '') return true;
+    return false;
+  }
 </script>
 
 <!-- styling for the component -->
