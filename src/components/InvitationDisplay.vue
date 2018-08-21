@@ -195,6 +195,7 @@
       requestingAppId: that.campaign.pryvAppId,
       requestedPermissions: that.campaign.permissions,
       spanButtonID: 'pryv-button',
+      cookiesForceDisable: true,
       callbacks: {
         initialization: function () {
           that.signInMessage = BASE_MESSAGE;
