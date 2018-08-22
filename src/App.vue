@@ -22,7 +22,7 @@
             </v-content>
 
             <v-footer color="primary" dark fixed app flat>
-                <v-layout justify-end>
+                <v-layout justify-end mr-4>
                     <span class="white--text">&copy; 2018 Pryv  </span>
                 </v-layout>
 
