@@ -31,7 +31,7 @@
         <v-subheader>Permissions:</v-subheader>
       </v-flex>
       <v-flex xs8>
-        <v-subheader>{{ campaign.permissions }}</v-subheader>
+        <v-subheader>{{ minimizedPermissions }}</v-subheader>
       </v-flex>
     </v-layout>
     <v-layout row>
@@ -65,6 +65,8 @@
 <script>
   import VueMarkdown from 'vue-markdown';
 
+  import helpers from '@/utils/helpers';
+
   export default {
     name: 'Campaign',
     components: {
@@ -85,6 +87,9 @@
       },
       cancelledReadable() {
         return printDate(this.campaign.modified);
+      },
+      minimizedPermissions() {
+        return helpers.minimizePermissions(this.campaign.permissions);
       }
     }
   }
