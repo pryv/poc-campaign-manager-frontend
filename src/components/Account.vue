@@ -218,12 +218,12 @@
         const retrievedCampaigns = response.body.campaigns;
         retrievedCampaigns.forEach((c) => {
           c.invitationLink = buildInvitationLink(c.id);
-          [c.invitationLinkMinimized] = minimizeText({
+          [c.invitationLinkMinimized] = helpers.minimizeText({
             text: c.invitationLink
           });
           c.created = printDate(c.created);
           c.permissionsDisplay = helpers.minimizePermissions(c.permissions);
-          [c.descriptionDisplay, c.isDescriptionMinimized] = minimizeText({
+          [c.descriptionDisplay, c.isDescriptionMinimized] = helpers.minimizeText({
             text: c.description,
             endChar: ' ',
           });
@@ -330,33 +330,6 @@
       }
     }
   };
-
-  function minimizeText(params: {
-    text: string,
-    length?: number,
-    endChar?: string,
-  }) {
-    const DEFAULT_LENGTH = 50;
-
-    if (params.text == null) {
-      return null;
-    }
-    if (params.length == null) {
-      params.length = DEFAULT_LENGTH;
-    }
-
-    if (params.text.length < DEFAULT_LENGTH) {
-      return [params.text, false];
-    }
-
-    let end;
-    if (params.endChar != null) {
-      end = params.text.indexOf(params.endChar, params.length);
-    } else {
-      end = params.length;
-    }
-    return [params.text.substring(0, end) + '...', true];
-  }
 
   function buildInvitationLink(id) {
     return getHostname() + '#/invitations/view/?campaignId=' + id + '&hasSignIn=true';
