@@ -124,7 +124,6 @@
               access.requester = accessCampaign.requester;
               access.campaignTitle = accessCampaign.title;
               access.campaignDescription = accessCampaign.description;
-              access.created = printDate(access.created);
               access.invitationId = accessCampaign.invitationId;
               access.permissions = helpers.minimizePermissions(access.permissions);
             } catch (e) {
@@ -155,16 +154,4 @@
       }
     }
   };
-
-  function printDate(timestamp) {
-    function pad2(n) { return n < 10 ? '0' + n : n }
-
-    const date = new Date(timestamp * 1000);
-
-    return pad2(date.getHours()) + ':' +
-      pad2(date.getMinutes()) + ' ' +
-      pad2( date.getDate()) + '/' +
-      pad2(date.getMonth() + 1) + '/' +
-      date.getFullYear().toString();
-  }
 </script>
