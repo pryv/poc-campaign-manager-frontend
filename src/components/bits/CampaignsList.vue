@@ -79,25 +79,21 @@
             text: 'Title',
             value: 'title',
             align: 'center',
-            sortable: false
           },
           {
             text: 'Description',
             value: 'description',
             align: 'center',
-            sortable: false
           },
           {
             text: 'Permissions',
             value: 'permissions',
             align: 'center',
-            sortable: false
           },
           {
             text: 'Created',
             value: 'created',
             align: 'center',
-            sortable: false
           },
           {
             text: 'Invitation Link',
