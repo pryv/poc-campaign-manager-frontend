@@ -8,6 +8,7 @@
               :rules="usernameRules"
               label="Username"
               required
+              @keyup.enter="signIn"
             ></v-text-field>
             <v-text-field
               v-model="user.password"
@@ -15,10 +16,18 @@
               label="Password"
               required
               type="password"
+              @keyup.enter="signIn"
             ></v-text-field>
         </v-form>
 
-        <v-btn depressed small color="primary" v-on:click="signIn">Sign in</v-btn>
+        <v-btn 
+          depressed 
+          small 
+          color="primary" 
+          v-on:click="signIn" 
+        >
+          Sign in
+        </v-btn>
 
         <br>
         Not a user yet? Sign up <router-link to="/signup">here</router-link>.
