@@ -98,21 +98,18 @@
         sentInvitationsColumns: [
           {
             text: 'Campaign',
-            value: 'campaign',
+            value: 'campaign.title',
             align: 'center',
-            sortable: false
           },
           {
             text: 'Pryv Username',
-            value: 'pryvUsername',
+            value: 'requestee.pryvUsername',
             align: 'center',
-            sortable: false
           },
           {
             text: 'Status',
             value: 'status',
             align: 'center',
-            sortable: false
           },
           {
             text: 'Access Token',
@@ -130,13 +127,11 @@
             text: 'Created',
             value: 'created',
             align: 'center',
-            sortable: false
           },
           {
             text: 'Modified',
             value: 'modified',
             align: 'center',
-            sortable: false
           }
         ],
         historyColumns: [
