@@ -1,7 +1,6 @@
 <template>
     <div id="SignIn">
         <h2>Patient Sign in</h2>
-        Domain: {{ pryvDomain }}
         <br>
 
         <v-form v-model="valid">
