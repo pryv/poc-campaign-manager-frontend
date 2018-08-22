@@ -9,7 +9,7 @@
                 <v-layout row align-center>
                     <v-flex xs1>
                         <v-toolbar-side-icon>
-                            <img src="@/assets/logo-128.png">
+                            <img src="@/assets/logo-128-black.png">
                         </v-toolbar-side-icon>
                     </v-flex>
                     <v-flex xs2>
@@ -20,8 +20,6 @@
                     </v-flex>
                 </v-layout>
             </v-toolbar>
-
-            <!--<img src="./assets/logo-128.png">-->
 
             <v-content>
                 <v-container>
