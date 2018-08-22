@@ -37,6 +37,8 @@
   import Campaigns from '@/models/campaigns';
   import Pryv from '@/models/pryv';
 
+  import helpers from '@/utils/helpers';
+
   export default {
     name: 'Account',
     data: function () {
@@ -129,6 +131,7 @@
               access.campaignDescription = accessCampaign.description;
               access.created = printDate(access.created);
               access.invitationId = accessCampaign.invitationId;
+              access.permissions = helpers.minimizePermissions(access.permissions);
             } catch (e) {
               let errorData = null;
               if (e.response) {
