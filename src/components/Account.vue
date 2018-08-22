@@ -38,6 +38,8 @@
   import CampaignsList from './bits/CampaignsList';
   import SentInvitations from './bits/SentInvitations';
 
+  import helpers from '@/utils/helpers';
+
   export default {
     name: 'Account',
     components: {
@@ -220,7 +222,7 @@
             text: c.invitationLink
           });
           c.created = printDate(c.created);
-          c.permissionsDisplay = minimizePermissions(c.permissions);
+          c.permissionsDisplay = helpers.minimizePermissions(c.permissions);
           [c.descriptionDisplay, c.isDescriptionMinimized] = minimizeText({
             text: c.description,
             endChar: ' ',
@@ -328,16 +330,6 @@
       }
     }
   };
-
-  function minimizePermissions(permissions) {
-    const minimizedPermissions = permissions.map((p) => {
-      return p.streamId + '(' + capitalize(p.level) + ')';
-    });
-    function capitalize(text) {
-      return text.charAt(0).toUpperCase();
-    }
-    return minimizedPermissions.join(',');
-  }
 
   function minimizeText(params: {
     text: string,
