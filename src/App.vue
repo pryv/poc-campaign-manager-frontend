@@ -15,6 +15,9 @@
                     <v-flex xs2>
                         <v-toolbar-title pl-4>Campaign Manager</v-toolbar-title>
                     </v-flex>
+                    <v-flex xs1 offset-xs8>
+                        {{ pryvDomain }}
+                    </v-flex>
                 </v-layout>
             </v-toolbar>
 
@@ -41,16 +44,16 @@
 </template>
 
 <script>
+  import config from '@/utils/config';
+
   export default {
     name: 'App',
     components: {},
     data: function () {
-      return {}
+      return {
+          pryvDomain: config.pryv.domain,
+      }
     },
-    created: function () {
-    },
-    methods: {
-    }
   };
 </script>
 
