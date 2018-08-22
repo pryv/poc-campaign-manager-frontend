@@ -21,7 +21,7 @@
       <v-flex xs4>
         <v-subheader>Description:</v-subheader>
       </v-flex>
-      <v-flex xs8 justify-start>
+      <v-flex xs8 class="campaignDescription">
         <VueMarkdown :source="campaign.description">
         </VueMarkdown>
       </v-flex>
@@ -103,7 +103,7 @@
 </script>
 
 <style>
-    #app {
+    .campaignDescription {
         text-align: left;
     }
 
