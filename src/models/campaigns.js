@@ -1,6 +1,8 @@
 // @flow
 
 import superagent from 'superagent';
+
+// eslint-disable-next-line
 import config from '@/utils/config';
 
 class Campaigns {

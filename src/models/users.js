@@ -3,6 +3,7 @@
 import superagent from 'superagent';
 import _ from 'lodash';
 
+// eslint-disable-next-line
 import config from '@/utils/config';
 
 class Campaigns {
