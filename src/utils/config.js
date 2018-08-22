@@ -4,6 +4,6 @@ export default {
   pryv: {
     domain: 'pryv.me'
   },
-  hostname: 'http://localhost',
-  port: 9000
+  hostname: 'https://cm.pryv.me',
+  port: 443
 };
