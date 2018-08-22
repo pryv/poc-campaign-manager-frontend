@@ -1,57 +1,59 @@
 <template>
   <div class="Campaign">
 
-    <v-layout row v-if="hasRequester">
-      <v-flex xs4>
-        <v-subheader>Requester:</v-subheader>
+    <v-layout row v-if="hasRequester" mb-3>
+      <v-flex xs3 class="alignRight">
+        Requester:
       </v-flex>
-      <v-flex xs8>
-        <v-subheader>{{ campaign.requester }}</v-subheader>
-      </v-flex>
-    </v-layout>
-    <v-layout row>
-      <v-flex xs4>
-        <v-subheader>Title:</v-subheader>
-      </v-flex>
-      <v-flex xs8>
-        <v-subheader>{{ campaign.title }}</v-subheader>
+      <v-flex xs8 offset-xs1 class="alignLeft">
+        {{ campaign.requester }}
       </v-flex>
     </v-layout>
-    <v-layout row my-2>
-      <v-flex xs4>
-        <v-subheader>Description:</v-subheader>
+    <v-layout row mb-3>
+      <v-flex xs3 class="alignRight">
+        Title:
       </v-flex>
-      <v-flex xs8 class="campaignDescription">
-        <VueMarkdown :source="campaign.description">
-        </VueMarkdown>
-      </v-flex>
-    </v-layout>
-    <v-layout row>
-      <v-flex xs4>
-        <v-subheader>Permissions:</v-subheader>
-      </v-flex>
-      <v-flex xs8>
-        <v-subheader>{{ minimizedPermissions }}</v-subheader>
+      <v-flex xs8 offset-xs1 class="alignLeft">
+        {{ campaign.title }}
       </v-flex>
     </v-layout>
-    <v-layout row>
-      <v-flex xs4>
-        <v-subheader>Pryv AppId:</v-subheader>
+    <v-layout mb-3>
+      <v-flex xs3 class="alignRight">
+        Description:
       </v-flex>
-      <v-flex xs8>
-        <v-subheader>{{ campaign.pryvAppId }}</v-subheader>
+      <v-flex xs8 offset-xs1 class="alignLeft">
+        
+          <VueMarkdown :source="campaign.description">
+          </VueMarkdown>
+        
       </v-flex>
     </v-layout>
-    <v-layout row>
-      <v-flex xs4>
-        <v-subheader>Created:</v-subheader>
+    <v-layout row mb-3>
+      <v-flex xs3 class="alignRight">
+        Permissions:
       </v-flex>
-      <v-flex xs8>
-        <v-subheader>{{ createdReadable }}</v-subheader>
+      <v-flex xs8 offset-xs1 class="alignLeft">
+        {{ minimizedPermissions }}
+      </v-flex>
+    </v-layout>
+    <v-layout row mb-3>
+      <v-flex xs3 class="alignRight">
+        Pryv AppId:
+      </v-flex>
+      <v-flex xs8 offset-xs1 class="alignLeft">
+        {{ campaign.pryvAppId }}
+      </v-flex>
+    </v-layout>
+    <v-layout row mb-3>
+      <v-flex xs3 class="alignRight">
+        Created:
+      </v-flex>
+      <v-flex xs8 offset-xs1 class="alignLeft">
+        {{ createdReadable }}
       </v-flex>
     </v-layout>
     <v-layout row v-if="isCancelled">
-      <v-flex xs4>
+      <v-flex xs3 class="alignRight">
         <v-subheader>Cancelled:</v-subheader>
       </v-flex>
       <v-flex xs8>
@@ -108,8 +110,12 @@
 </script>
 
 <style>
-    .campaignDescription {
+    .alignLeft {
         text-align: left;
+    }
+
+    .alignRight {
+        text-align: right;
     }
 
 </style>
