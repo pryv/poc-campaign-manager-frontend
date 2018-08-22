@@ -259,7 +259,23 @@
             that.signInMessage = ACCEPTED_MESSAGE;
           } catch (e) {
             if (e.response && e.response.body.error.indexOf('exists') > 0) {
-              console.log(e.response.body);
+              try {
+                const invitationId = e.response.body.invitationId;
+                const response = await that.invitationsModel.accept({
+                  invitationId: invitationId,
+                  pryvAccessToken: credentials.auth,
+                });
+                console.info('update successful', response.body);
+                that.showSnackbar({
+                  color: 'success',
+                  text: 'Invitation updated.'
+                });
+              } catch (e) {
+                that.showSnackbar({
+                color: 'error',
+                text: 'Error creating approval: ' + e
+              });
+              }
             } else {
               that.showSnackbar({
                 color: 'error',
