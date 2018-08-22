@@ -221,7 +221,7 @@
           [c.invitationLinkMinimized] = helpers.minimizeText({
             text: c.invitationLink
           });
-          c.created = printDate(c.created);
+          c.created = helpers.printDate(c.created);
           c.permissionsDisplay = helpers.minimizePermissions(c.permissions);
           [c.descriptionDisplay, c.isDescriptionMinimized] = helpers.minimizeText({
             text: c.description,
@@ -242,12 +242,12 @@
           this.receivedInvitations = [];
           this.sentInvitations = [];
           invitations.forEach(async (i) => {
-            i.created = printDate(i.created);
-            i.modified = printDate(i.modified);
+            i.created = helpers.printDate(i.created);
+            i.modified = helpers.printDate(i.modified);
             i.permissions = i.campaign.permissions;
             if (i.history != null) {
               i.history.forEach((hi) => {
-                hi.modified = printDate(hi.modified);
+                hi.modified = helpers.printDate(hi.modified);
                 if (hi.accessToken == null) {
                   hi.accessToken = 'N/A';
                 }
@@ -356,17 +356,5 @@
       optionalPath = window.location.pathname
     }
     return location.protocol + '//' + baseHostname + optionalPort + optionalPath;
-  }
-
-  function printDate(timestamp) {
-    function pad2(n) { return n < 10 ? '0' + n : n }
-
-    const date = new Date(timestamp * 1000);
-
-    return pad2(date.getHours()) + ':' +
-      pad2(date.getMinutes()) + ' ' +
-      pad2( date.getDate()) + '/' +
-      pad2(date.getMonth() + 1) + '/' +
-      date.getFullYear().toString();
   }
 </script>
