@@ -48,7 +48,7 @@
   import Invitations from '@/models/invitations';
   import Users from '@/models/users';
   import Pryv from '@/models/pryv';
-  import config from '@/models/config';
+  import config from '@/utils/config';
 
   import BackButton from './bits/BackButton';
 

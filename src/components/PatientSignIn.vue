@@ -43,7 +43,7 @@
 
 <script>
   import Pryv from '@/models/pryv';
-  import config from '@/models/config';
+  import config from '@/utils/config';
 
   export default {
     name: 'SignIn',

@@ -2,7 +2,7 @@
 
 import superagent from 'superagent';
 
-import config from './config';
+import config from '@/utils/config';
 
 class Invitations {
   baseUrl: string;

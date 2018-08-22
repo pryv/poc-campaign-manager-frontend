@@ -48,7 +48,7 @@
   import Pryv from '@/models/pryv';
 
   import BackButton from './bits/BackButton';
-  import config from '@/models/config';
+  import config from '@/utils/config';
 
   export default {
     name: 'LinkToPryv',

@@ -33,7 +33,7 @@
   import Invitations from '@/models/invitations';
   import Users from '@/models/users';
   import Pryv from '@/models/pryv';
-  import config from '@/models/config';
+  import config from '@/utils/config';
 
   import CampaignsList from './bits/CampaignsList';
   import SentInvitations from './bits/SentInvitations';

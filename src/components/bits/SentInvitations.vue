@@ -72,7 +72,7 @@
 </template>
 
 <script>
-  import config from '@/models/config';
+  import config from '@/utils/config';
 
   export default {
     name: 'SentInvitations',
