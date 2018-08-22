@@ -9,6 +9,7 @@
               :rules="usernameRules"
               label="Pryv Username"
               required
+              @keyup.enter="signIn"
             ></v-text-field>
             <v-text-field
               v-model="user.pryvPassword"
@@ -16,6 +17,7 @@
               label="Pryv Password"
               required
               type="password"
+              @keyup.enter="signIn"
             ></v-text-field>
         </v-form>
 
