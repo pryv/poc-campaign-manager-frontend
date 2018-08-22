@@ -2,9 +2,20 @@
     <div class="SentInvitations">
         <h3>Invitations</h3>
 
+        <v-card-title>
+          <v-spacer></v-spacer>
+          <v-text-field
+            v-model="search"
+            append-icon="search"
+            label="Search"
+            single-line
+            hide-details
+          ></v-text-field>
+        </v-card-title>
         <v-data-table
           :headers="sentInvitationsColumns"
           :items="invitations"
+          :search="search"
           hide-actions
           class="elevation-0"
         >
@@ -66,6 +77,9 @@
                 </template>
               </v-data-table>
             </template>
+            <v-alert slot="no-results" :value="true" color="error" icon="warning">
+              Your search for "{{ search }}" found no results.
+            </v-alert>
         </v-data-table>
 
     </div>
@@ -95,6 +109,7 @@
     data: function () {
       return {
         pryvDomain: config.pryv.domain,
+        search: '',
         sentInvitationsColumns: [
           {
             text: 'Campaign',
