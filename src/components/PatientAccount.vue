@@ -59,21 +59,18 @@
           },
           {
             text: 'Campaign',
-            value: 'campaign',
+            value: 'campaignTitle',
             align: 'center',
-            sortable: false
           },
           {
             text: 'Description',
-            value: 'description',
+            value: 'campaignDescription',
             align: 'center',
-            sortable: false
           },
           {
             text: 'Requester',
             value: 'requester',
             align: 'center',
-            sortable: false
           },
           {
             text: 'Status',
@@ -85,13 +82,11 @@
             text: 'Permissions',
             value: 'permissions',
             align: 'center',
-            sortable: false
           },
           {
             text: 'Created',
             value: 'created',
             align: 'center',
-            sortable: false
           }
         ]
       }
