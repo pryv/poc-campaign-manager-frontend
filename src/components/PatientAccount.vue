@@ -123,7 +123,10 @@
               access.campaignId = accessCampaign.id;
               access.requester = accessCampaign.requester;
               access.campaignTitle = accessCampaign.title;
-              access.campaignDescription = accessCampaign.description;
+              [access.campaignDescription] = helpers.minimizeText({
+                text: accessCampaign.description,
+              });
+              access.created = helpers.printDate(access.created);
               access.invitationId = accessCampaign.invitationId;
               access.permissions = helpers.minimizePermissions(access.permissions);
             } catch (e) {
