@@ -137,6 +137,7 @@
           query: {
             campaignId: campaignId,
             token: this.user.token,
+            username: this.user.username,
           }
         });
       },
