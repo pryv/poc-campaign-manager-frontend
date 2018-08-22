@@ -6,8 +6,16 @@
         <v-app id="inspire">
             <v-toolbar
               color="primary" dark fixed app flat>
-                <v-btn color="primary" depressed small><i class="fa fa-home"></i></v-btn>
-                <v-toolbar-title >Pryv Campaign Manager</v-toolbar-title>
+                <v-layout row align-center>
+                    <v-flex xs1>
+                        <v-toolbar-side-icon>
+                            <img src="@/assets/logo-128.png">
+                        </v-toolbar-side-icon>
+                    </v-flex>
+                    <v-flex xs2>
+                        <v-toolbar-title pl-4>Campaign Manager</v-toolbar-title>
+                    </v-flex>
+                </v-layout>
             </v-toolbar>
 
             <!--<img src="./assets/logo-128.png">-->
@@ -54,6 +62,10 @@
         text-align: center;
         color: #2c3e50;
         margin-top: 60px;
+    }
+
+    img {
+        object-fit: contain;
     }
 
 </style>
