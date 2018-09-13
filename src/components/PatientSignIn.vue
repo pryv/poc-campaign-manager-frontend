@@ -75,6 +75,16 @@
     methods: {
       async signIn() {
         try {
+          const userExists = await this.pryvModel.userExists({
+            username: this.user.pryvUsername,
+          });
+          if (! userExists) {
+            return this.showSnackbar({
+              color: 'error',
+              text: 'Username does not exist.',
+            });
+          }
+
           const signInResponse = await this.pryvModel.signIn({
             username: this.user.pryvUsername,
             password: this.user.pryvPassword,
@@ -92,14 +102,14 @@
           })
         } catch (e) {
           let msg = e;
-          if (e.response) {
-            msg = e.response;
+          if ((e.response != null) && (e.response.body != null)) {
+            msg = e.response.body;
           }
           this.showSnackbar({
             color: 'error',
-            text: 'Error while signing in to Pryv: ' + JSON.stringify(msg)
-          })
-          console.error('error while signing in to Pryv', msg);
+            text: msg.error.message,
+          });
+          console.error('error while linking to Pryv', msg);
         }
       },
       showSnackbar(params: {

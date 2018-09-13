@@ -100,15 +100,23 @@
             }
           });
         } catch (e) {
-          if (e.response) {
-            console.error(e.response.body);
-            this.showSnackbar({
-              color: 'error',
-              text: JSON.stringify(e.response.body)
-            });
+          let errorText = 'Unknown error.';
+          if ((e.response != null) && (e.response.body != null)) {
+            const error = e.response.body.error;
+            console.error(error);
+            if (error.id === 'Invalid request structure') {
+              const firstError = error.details[0];
+              errorText = firstError.dataPath.substring(1, firstError.dataPath.length) + ' ' + firstError.message;
+            } else {
+              errorText = error.id + ': ' + error.details;
+            }
           } else {
             console.error(e);
           }
+          this.showSnackbar({
+            color: 'error',
+            text: errorText,
+          });
         }
       },
       showSnackbar(params: {

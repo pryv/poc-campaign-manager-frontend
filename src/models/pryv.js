@@ -33,6 +33,21 @@ class Pryv {
       });
   }
 
+  async userExists (params: {
+    username: string
+  }) {
+    const checkUsernameResponse = await superagent.get('https://reg.' + this.domain + '/' + params.username + '/check_username');
+    const isReserved: boolean = checkUsernameResponse.body.reserved;
+    if (!isReserved) {
+      return false;
+    }
+    const reason: string = checkUsernameResponse.body.reason;
+    if (isReserved && (reason != null) && (reason === 'RESERVED_USER_NAME')) {
+      return false;
+    }
+    return true;
+  }
+
   async isTokenValid (params: {
     username: string,
     token: string
@@ -74,22 +89,6 @@ class Pryv {
     const deleteSliceResponse = await superagent
       .delete('https://' + params.username + '.' + this.domain + '/followed-slices/' + params.slice.id + '?auth=' + params.token);
     return deleteSliceResponse.body;
-  }
-
-  async userExists (params: {
-    username: string
-  }) {
-    try {
-      console.log('callin userExists');
-      await superagent
-        .post('https://reg.' + this.domain + '/' + params.username + '/server');
-    } catch (e) {
-      console.log('error while making exists call', e);
-      if (e.status === 404 || e.status === 400) {
-        return false;
-      }
-    }
-    return true;
   }
 
   async getUsernameFromEmail (params: {

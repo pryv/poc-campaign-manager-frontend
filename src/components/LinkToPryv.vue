@@ -86,6 +86,16 @@
     methods: {
       async link() {
         try {
+          const userExists = await this.pryvModel.userExists({
+            username: this.pryvUser.username,
+          });
+          if (! userExists) {
+            return this.showSnackbar({
+              color: 'error',
+              text: 'Username does not exist.',
+            });
+          }
+
           const signInResponse = await this.pryvModel.signIn({
             username: this.pryvUser.username,
             password: this.pryvUser.password,
@@ -109,12 +119,12 @@
           this.$router.back();
         } catch (e) {
           let msg = e;
-          if (e.response) {
-            msg = e.response;
+          if ((e.response != null) && (e.response.body != null)) {
+            msg = e.response.body;
           }
           this.showSnackbar({
             color: 'error',
-            text: 'Error while linking to Pryv'
+            text: msg.error.message,
           });
           console.error('error while linking to Pryv', msg);
         }

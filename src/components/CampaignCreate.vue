@@ -192,7 +192,7 @@
           const errorBody = e.response.body;
           this.showSnackbar({
             color: 'error',
-            text: 'Error while creating campaign: ' + errorBody.error
+            text: 'Error while creating campaign: ' + errorBody.error.id
           });
           console.error('got error creating campaign', errorBody);
         }
