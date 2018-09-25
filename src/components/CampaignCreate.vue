@@ -19,6 +19,11 @@
               auto-grow
             ></v-textarea>
         </v-form>
+        
+        <h3>Permissions</h3>
+        <v-btn depressed small color="primary" @click="switchMode()">
+            {{ switchModeButtonText }}
+        </v-btn>
         <div v-if="isExpertPermissionsDisplay">
             <v-layout row>
                 <v-flex xs12>
@@ -63,13 +68,9 @@
             </div>
 
             <v-btn depressed small color="primary" @click="addRow()">
-                Add
+                Add Permission
             </v-btn>
         </div>
-
-        <v-btn depressed small color="primary" @click="switchMode()">
-            {{ switchModeButtonText }}
-        </v-btn>
 
         <v-layout row>
             <v-flex xs2 offset-xs4>
@@ -232,15 +233,15 @@
 
         for(let i=0; i < permissionsArray.length; i++) {
           if (isStringEmptyOrNull(permissionsArray[i].level)) {
-              return 'permission ' + i + ' is missing "level" parameter';
+              return 'permission ' + (i+1) + ' is missing "level" parameter';
             }
 
           if (permissionsArray[i].streamId) {
             if (isStringEmptyOrNull(permissionsArray[i].defaultName)) {
-              return 'permission ' + i + ' is missing "defaultName" parameter';
+              return 'permission ' + (i+1) + ' is missing "defaultName" parameter';
             }
           } else if (isStringEmptyOrNull(permissionsArray[i].tag)) {
-            return 'permission ' + i + ' is missing "streamId" or "tag" parameter';
+            return 'permission ' + (i+1) + ' is missing "streamId" or "tag" parameter';
           }
         }
         return null;
@@ -249,9 +250,9 @@
     computed: {
       switchModeButtonText() {
         if (this.isExpertPermissionsDisplay) {
-          return 'Normal mode';
+          return 'Switch to Normal mode';
         } else {
-          return 'Expert mode';
+          return 'Switch to Expert mode';
         }
       },
       permissionsArrayAsText() {
