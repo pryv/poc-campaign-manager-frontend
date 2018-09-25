@@ -1,5 +1,9 @@
 <template>
 <div id="account">
+    <v-btn depressed small color="primary" @click="copyToClipboard()">
+      Export to Tableau
+    </v-btn>
+
     <h2>Account</h2>
     <div>
         username: {{ user.username }}
@@ -327,7 +331,15 @@
             token: this.user.token,
           }
         })
-      }
+      },
+      copyToClipboard() {
+        this.$copyText(window.location.href).then(function (e) {
+          console.log(e)
+        }, function (e) {
+          alert('Can not copy')
+          console.log(e)
+        })
+      },
     }
   };
 
