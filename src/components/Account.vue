@@ -7,12 +7,20 @@
     <h2>Account</h2>
     <div>
         username: {{ user.username }}
-        <div> {{ linkedToPryvText }}</div>
     </div>
     <div v-if="user.isLinkedToPryv === false">
         <v-btn depressed small color="primary" @click="openLinkToPryv()">
             Sync accepted invitations with my Pryv account
         </v-btn>
+    </div>
+    <div v-else>
+      Account is linked to Pryv account 
+        <a
+          :href="'Account is linked to Pryv account https://' + this.user.pryvUsername + '.' + this.pryvDomain"
+          target="_blank"
+        >
+          {{ pryvEndpoint }}
+        </a>
     </div>
 
     <div id="campaignsList">
@@ -82,12 +90,8 @@
       }
     },
     computed: {
-      linkedToPryvText() {
-        if (this.user.isLinkedToPryv) {
-          return 'Account is linked to Pryv account ' + this.user.pryvUsername + '.' + this.pryvDomain;
-        } else {
-          return null;
-        }
+      pryvEndpoint() {
+        return this.user.pryvUsername + '.' + this.pryvDomain;
       }
     },
     methods: {
