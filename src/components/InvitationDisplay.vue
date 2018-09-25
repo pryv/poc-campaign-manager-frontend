@@ -140,6 +140,9 @@
       }
     },
     async created() {
+      if (this.campaign.id == null) {
+        return;
+      }
       await this.getCampaign();
       if (! this.hasCancelButton) {
         this.loadButton();
@@ -240,7 +243,6 @@
               });
             } else {
               let response = await that.invitationsModel.create({
-                requester: that.requester,
                 campaign: that.campaign,
                 requestee: {
                   username: that.requestee.username,
