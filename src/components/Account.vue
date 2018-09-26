@@ -16,7 +16,7 @@
     <div v-else>
       Account is linked to Pryv account 
         <a
-          :href="'Account is linked to Pryv account https://' + this.user.pryvUsername + '.' + this.pryvDomain"
+          :href="'https://' + this.user.pryvUsername + '.' + this.pryvDomain"
           target="_blank"
         >
           {{ pryvEndpoint }}
