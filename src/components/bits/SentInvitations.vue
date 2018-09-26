@@ -3,6 +3,9 @@
         <h3>Invitations</h3>
 
         <v-card-title>
+          <v-btn depressed small color="primary" @click="copyToClipboard()">
+            Export to Tableau
+          </v-btn>
           <v-spacer></v-spacer>
           <v-text-field
             v-model="search"
@@ -104,6 +107,19 @@
       },
       openInvitationLink(link) {
         window.open(link);
+      },
+      copyToClipboard() {
+        let URL = config.hostname + '/invitations?token=' + this.$route.query.token + '&username=' + this.$route.query.username;
+        const campaignId = this.$route.query.campaignId;
+        if (campaignId != null) {
+          URL += '&campaignId=' + campaignId;
+        }
+        this.$copyText(URL).then(function (e) {
+          console.log(e)
+        }, function (e) {
+          alert('Can not copy')
+          console.log(e)
+        })
       },
     },
     data: function () {
