@@ -109,7 +109,7 @@
         window.open(link);
       },
       copyToClipboard() {
-        let URL = config.hostname + '/invitations?token=' + this.$route.query.token + '&username=' + this.$route.query.username;
+        let URL = 'pryvcampaign://' + config.hostname + '/invitations?auth=' + this.$route.query.token + '&username=' + this.$route.query.username;
         const campaignId = this.$route.query.campaignId;
         if (campaignId != null) {
           URL += '&campaignId=' + campaignId;
