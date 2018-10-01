@@ -3,7 +3,7 @@
         <h3>Invitations</h3>
 
         <v-card-title>
-          <v-btn depressed small color="primary" @click="copyToClipboard()">
+          <v-btn depressed small color="primary" @click="copyTableauLinkToClipboard()">
             Export to Tableau
           </v-btn>
           <v-spacer></v-spacer>
@@ -108,7 +108,7 @@
       openInvitationLink(link) {
         window.open(link);
       },
-      copyToClipboard() {
+      copyTableauLinkToClipboard() {
         let URL = 'pryvcampaign://' + config.hostname + '/invitations?auth=' + this.$route.query.token + '&username=' + this.$route.query.username;
         const campaignId = this.$route.query.campaignId;
         if (campaignId != null) {
