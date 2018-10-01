@@ -162,7 +162,7 @@
           return null;
         }
 
-        return config.hostname + '/invitations/view/?campaignId=' + this.latestInvitation.campaign.id +
+        return window.location.host + '/#/invitations/view/?campaignId=' + this.latestInvitation.campaign.id +
           '&invitationId=' + this.latestInvitation.id +
           '&requestee=' + this.latestInvitation.requestee.pryvUsername;
       },
