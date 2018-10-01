@@ -120,7 +120,7 @@
 
         try {
           const accessInfo = await this.pryvModel.isTokenValid({
-            username: this.user.username,
+            username: this.user.pryvUsername,
             token: this.user.pryvToken
           });
           console.info('pryv token valid', accessInfo);
