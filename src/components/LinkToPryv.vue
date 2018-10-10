@@ -104,6 +104,18 @@
             return console.error('got error signin in to pryv' + signInResponse.error);
           }
           const pryvPersonalToken = signInResponse.body.token;
+
+          const addCmTokenToPryvProfileResponse = await this.pryvModel.updateProfile({
+            username: this.user.username,
+            token: this.user.token,
+            pryvUsername: this.pryvUser.username,
+            pryvToken: pryvPersonalToken,
+          });
+
+          if (addCmTokenToPryvProfileResponse.error != null) {
+            return console.error('error while saving campaign-manager credentials in Pryv.IO: ' + addCmTokenToPryvProfileResponse.error);
+          }
+
           const linkToPryvResponse = await this.usersModel.update({
             username: this.user.username,
             token: this.user.token,

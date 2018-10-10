@@ -121,6 +121,23 @@ class Pryv {
     console.info('access deleted, response:', deleteAccessResponse.body);
     return deleteAccessResponse.body.accessDeletion;
   }
+
+  async updateProfile (params: {
+    username: string,
+    token: string,
+    pryvUsername: string,
+    pryvToken: string
+  }): Object {
+    const updateProfileResponse = await superagent.put('https://' + params.pryvUsername + '.' + this.domain + '/profile/private')
+      .set('Authorization', params.pryvToken)
+      .send({
+        'campaign-manager': {
+          username: params.username,
+          token: params.token
+        }
+      });
+    return updateProfileResponse.body;
+  }
 }
 
 export default Pryv;
