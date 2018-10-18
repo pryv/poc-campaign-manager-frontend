@@ -166,7 +166,7 @@
       async createFollowedSlice(invitation) {
         try {
           const createdSlice = await this.pryvModel.createSlice({
-            username: this.user.username,
+            username: this.user.pryvUsername,
             token: this.user.pryvToken,
             invitation: invitation
           });
