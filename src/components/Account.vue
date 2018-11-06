@@ -84,6 +84,7 @@
       if (this.user.isLinkedToPryv) {
         await this.getFollowedSlices();
         await this.updateFollowedSlices();
+        await this.saveCredentialsInProfile();
       }
     },
     computed: {
@@ -92,6 +93,24 @@
       }
     },
     methods: {
+      async saveCredentialsInProfile() {
+        try {
+          const addCmTokenToPryvProfileResponse = await this.pryvModel.updateProfile({
+            username: this.user.username,
+            token: this.user.token,
+            pryvUsername: this.user.pryvUsername,
+            pryvToken: this.user.pryvToken,
+          });
+        } catch (e) {
+          let errorData = null;
+          if (e.response) {
+            errorData = e.response;
+          } else {
+            errorData = e;
+          }
+          console.error('error while saving CM credentials to Pryv account', errorData);
+        }
+      },
       async getUserData() {
         try {
           const userResponse = await this.usersModel.getOne({
