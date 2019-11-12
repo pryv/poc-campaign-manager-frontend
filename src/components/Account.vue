@@ -86,6 +86,7 @@
         await this.updateFollowedSlices();
         await this.saveCredentialsInProfile();
       }
+      await this.pryvModel.fetchServiceInfo();
     },
     computed: {
       pryvEndpoint() {

@@ -10,6 +10,8 @@ const APP_ID = 'pryv-campaign-manager';
 
 class Pryv {
   domain: string;
+  serviceInfoUrl: string;
+  apiFormat: string;
 
   constructor (params: {
     domain: string
@@ -20,12 +22,22 @@ class Pryv {
     this.domain = params.domain || DEFAULT_DOMAIN;
   };
 
+  fetchServiceInfo() {
+    // call serviceInfoUrl
+    // set this.apiEndpoint
+  }
+
+  buildUrl(username) {
+    // return apiEndpoint using this.apiFormat.
+    return this.apiEndpoint.replace('{username}', username);
+  }
+
   signIn (params: {
     username: string,
     password: string
   }): Promise<string> {
     return superagent
-      .post('https://' + params.username + '.' + this.domain + '/auth/login')
+      .post(this.buildUrl(params.username) + '/auth/login')
       .send({
         username: params.username,
         password: params.password,
