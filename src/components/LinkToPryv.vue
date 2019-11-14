@@ -83,6 +83,9 @@
         }
       }
     },
+    async created() {
+      await this.pryvModel.fetchServiceInfo();
+    },
     methods: {
       async link() {
         try {
@@ -134,11 +137,11 @@
           if ((e.response != null) && (e.response.body != null)) {
             msg = e.response.body;
           }
+          console.error('error while linking to Pryv', msg);
           this.showSnackbar({
             color: 'error',
-            text: msg.error.message,
+            text: msg.message,
           });
-          console.error('error while linking to Pryv', msg);
         }
 
       },

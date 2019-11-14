@@ -1,6 +1,7 @@
 // @flow
 
 import superagent from 'superagent';
+import pathjs from 'path';
 
 // eslint-disable-next-line
 import config from '@/utils/config';
@@ -8,10 +9,12 @@ import config from '@/utils/config';
 const DEFAULT_DOMAIN = config.pryv.domain;
 const APP_ID = 'pryv-campaign-manager';
 
+/* eslint-disable prefer-promise-reject-errors */ // TODO ilia : ok ?
+
 class Pryv {
   domain: string;
-  serviceInfoUrl: string;
-  apiFormat: string;
+  apiUrl: string;
+  registerUrl: string;
 
   constructor (params: {
     domain: string
@@ -22,22 +25,61 @@ class Pryv {
     this.domain = params.domain || DEFAULT_DOMAIN;
   };
 
-  fetchServiceInfo() {
-    // call serviceInfoUrl
-    // set this.apiEndpoint
+  isApiUrlSet () {
+    console.info('isApiUrlSet : ' + (!!this.apiUrl).toString());
+    return !!this.apiUrl;
   }
 
-  buildUrl(username) {
-    // return apiEndpoint using this.apiFormat.
-    return this.apiEndpoint.replace('{username}', username);
+  isRegisterUrlSet () {
+    return !!this.registerUrl;
+  }
+
+  async fetchServiceInfo () {
+    // Already fetched
+    if (this.isApiUrlSet()) {
+      console.warn('service info already fetched');
+      return;
+    }
+
+    try {
+      const serviceInfoRes = await superagent.get(config.pryv.serviceInfoUrl);
+      this.apiUrl = serviceInfoRes.body.api;
+      this.registerUrl = serviceInfoRes.body.register;
+      console.info('apiUrl : ' + this.apiUrl + ' / registerUrl : ' + this.registerUrl);
+    } catch (error) {
+      console.info('Unable to reach service info at ' + config.pryv.serviceInfoUrl + ' : ' + JSON.stringify(error, null, 2));
+    }
+  }
+
+  buildApiUrl (username: string, path: string) {
+    if (!this.isApiUrlSet()) {
+      console.error('api as not been set');
+      return '';
+    }
+
+    return pathjs.join(this.apiUrl.replace('{username}', username), path);
+  }
+
+  buildRegisterUrl (path: string) {
+    if (!this.isRegisterUrlSet()) {
+      console.error('register as not been set');
+      return '';
+    }
+
+    return pathjs.join(this.registerUrl, path);
   }
 
   signIn (params: {
     username: string,
     password: string
   }): Promise<string> {
+    if (!this.isApiUrlSet()) { // TODO ilia : double check ?
+      return new Promise(function (resolve, reject) {
+        reject({error: {message: 'signIn - Pryv is not initialized'}});
+      });
+    }
     return superagent
-      .post(this.buildUrl(params.username) + '/auth/login')
+      .post(this.buildApiUrl(params.username, 'auth/login'))
       .send({
         username: params.username,
         password: params.password,
@@ -48,7 +90,14 @@ class Pryv {
   async userExists (params: {
     username: string
   }) {
-    const checkUsernameResponse = await superagent.get('https://reg.' + this.domain + '/' + params.username + '/check_username');
+    if (!this.isRegisterUrlSet()) { // TODO ilia : idem
+      return new Promise(function (resolve, reject) {
+        // reject(new Error('PryvYYY is not initialized'));
+        // reject(new Error({error: 'PryvYYY is not initialized'}));
+        reject({error: {message: 'userExists - Pryv is not initialized'}});
+      });
+    }
+    const checkUsernameResponse = await superagent.get(this.buildRegisterUrl(params.username + '/check_username'));
     const isReserved: boolean = checkUsernameResponse.body.reserved;
     if (!isReserved) {
       return false;
@@ -64,8 +113,14 @@ class Pryv {
     username: string,
     token: string
   }): Object {
+    console.info('testing TOKEN : ' + params.token);
+    if (!this.isApiUrlSet()) { // TODO ilia : idem
+      return new Promise(function (resolve, reject) {
+        reject({message: 'isTokenValid - Pryv is not initialized'});
+      });
+    }
     const accessInfoResponse = await superagent
-      .get('https://' + params.username + '.' + this.domain + '/access-info?auth=' + params.token);
+      .get(this.buildApiUrl(params.username, 'access-info?auth=' + params.token));
     return accessInfoResponse.body;
   }
 
@@ -73,8 +128,13 @@ class Pryv {
     username: string,
     token: string
   }): Object {
+    if (!this.isApiUrlSet()) { // TODO ilia : idem
+      return new Promise(function (resolve, reject) {
+        reject({error: {message: 'getFollowedSlices - Pryv is not initialized'}});
+      });
+    }
     const followedSlicesResponse = await superagent
-      .get('https://' + params.username + '.' + this.domain + '/followed-slices?auth=' + params.token);
+      .get(this.buildApiUrl(params.username, 'followed-slices?auth=' + params.token));
     return followedSlicesResponse.body.followedSlices;
   }
 
@@ -83,12 +143,17 @@ class Pryv {
     token: string,
     invitation: Object
   }): Object {
+    if (!this.isApiUrlSet()) { // TODO ilia : idem
+      return new Promise(function (resolve, reject) {
+        reject({error: {message: 'createSlice - Pryv is not initialized'}});
+      });
+    }
     const createSliceResponse = await superagent
-      .post('https://' + params.username + '.' + this.domain + '/followed-slices?auth=' + params.token)
+      .post(this.buildApiUrl(params.username, 'followed-slices?auth=' + params.token))
       .send({
         accessToken: params.invitation.accessToken,
         name: params.invitation.requestee.pryvUsername + '-' + params.invitation.campaign.title,
-        url: 'https://' + params.invitation.requestee.pryvUsername + '.' + this.domain + '/#/sharings/' + params.invitation.accessToken
+        url: this.buildApiUrl(params.invitation.requestee.pryvUsername, '#/sharings/' + params.invitation.accessToken)
       });
     return createSliceResponse.body.followedSlice;
   }
@@ -98,16 +163,26 @@ class Pryv {
     token: string,
     slice: Object
   }): Object {
+    if (!this.isApiUrlSet()) { // TODO ilia : idem
+      return new Promise(function (resolve, reject) {
+        reject({error: {message: 'deleteSlice - Pryv is not initialized'}});
+      });
+    }
     const deleteSliceResponse = await superagent
-      .delete('https://' + params.username + '.' + this.domain + '/followed-slices/' + params.slice.id + '?auth=' + params.token);
+      .delete(this.buildApiUrl(params.username, 'followed-slices/' + params.slice.id + '?auth=' + params.token));
     return deleteSliceResponse.body;
   }
 
   async getUsernameFromEmail (params: {
     email: string
   }) {
+    if (!this.isRegisterUrlSet()) { // TODO ilia : idem
+      return new Promise(function (resolve, reject) {
+        reject({error: {message: 'getUsernameFromEmail - Pryv is not initialized'}});
+      });
+    }
     const usernameResponse = await superagent
-      .get('https://reg.' + this.domain + '/' + params.email + '/uid');
+      .get(this.buildRegisterUrl(params.email + '/uid'));
     return usernameResponse.body.uid;
   }
 
@@ -115,8 +190,13 @@ class Pryv {
     username: string,
     token: string
   }) {
+    if (!this.isApiUrlSet()) { // TODO ilia : idem
+      return new Promise(function (resolve, reject) {
+        reject({error: {message: 'getAccesses - Pryv is not initialized'}});
+      });
+    }
     const getAccessesResponse = await superagent
-      .get('https://' + params.username + '.' + this.domain + '/accesses?auth=' + params.token);
+      .get(this.buildApiUrl(params.username, 'accesses?auth=' + params.token));
     console.info('got access response', getAccessesResponse.body);
     return getAccessesResponse.body.accesses.filter((access) => {
       return access.name.startsWith('cm-') && (access.type === 'app');
@@ -128,8 +208,13 @@ class Pryv {
     token: string,
     accessId: string
   }): Object {
+    if (!this.isApiUrlSet()) { // TODO ilia : idem
+      return new Promise(function (resolve, reject) {
+        reject({error: {message: 'deleteAccess - Pryv is not initialized'}});
+      });
+    }
     const deleteAccessResponse = await superagent
-      .delete('https://' + params.username + '.' + this.domain + '/accesses/' + params.accessId + '?auth=' + params.token);
+      .delete(this.buildApiUrl(params.username, 'accesses/' + params.accessId + '?auth=' + params.token));
     console.info('access deleted, response:', deleteAccessResponse.body);
     return deleteAccessResponse.body.accessDeletion;
   }
@@ -140,7 +225,12 @@ class Pryv {
     pryvUsername: string,
     pryvToken: string
   }): Object {
-    const updateProfileResponse = await superagent.put('https://' + params.pryvUsername + '.' + this.domain + '/profile/private')
+    if (!this.isApiUrlSet()) { // TODO ilia : idem
+      return new Promise(function (resolve, reject) {
+        reject({error: {message: 'updateProfile - Pryv is not initialized'}});
+      });
+    }
+    const updateProfileResponse = await superagent.put(this.buildApiUrl(params.pryvUsername, 'profile/private'))
       .set('Authorization', params.pryvToken)
       .send({
         'campaign-manager': {

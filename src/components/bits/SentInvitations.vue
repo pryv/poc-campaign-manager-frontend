@@ -36,7 +36,7 @@
                           :href="'https://' + props.item.requestee.pryvUsername + '.pryv.me/#/sharings/' + props.item.accessToken"
                           target="_blank"
                         >
-                          {{ props.item.accessToken }}
+                          {{ props.item.accessToken }} TODO
                         </a>
                       </div>
                     </td>

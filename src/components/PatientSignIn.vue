@@ -70,7 +70,8 @@
         }
       }
     },
-    created() {
+    async created() {
+      await this.pryvModel.fetchServiceInfo();
     },
     methods: {
       async signIn() {
@@ -107,7 +108,7 @@
           }
           this.showSnackbar({
             color: 'error',
-            text: msg.error.message,
+            text: msg.message,
           });
           console.error('error while linking to Pryv', msg);
         }

@@ -11,7 +11,7 @@
         </v-btn>
     </div>
     <div v-else>
-      Account is linked to Pryv account 
+      Account is linked to Pryv account TODO
         <a
           :href="'https://' + this.user.pryvUsername + '.' + this.pryvDomain"
           target="_blank"
@@ -77,6 +77,7 @@
       }
     },
     async created() {
+      await this.pryvModel.fetchServiceInfo();
       await this.getUserData();
       await this.getCampaigns();
       await this.getInvitations();
@@ -86,7 +87,6 @@
         await this.updateFollowedSlices();
         await this.saveCredentialsInProfile();
       }
-      await this.pryvModel.fetchServiceInfo();
     },
     computed: {
       pryvEndpoint() {

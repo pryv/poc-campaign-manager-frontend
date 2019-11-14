@@ -86,9 +86,10 @@
         return ! (this.campaign.status === 'cancelled');
       }
     },
-    created() {
+    async created() {
       this.getCampaign();
       this.getInvitations();
+      await this.pryvModel.fetchServiceInfo();
     },
     methods: {
       async getInvitations() {
