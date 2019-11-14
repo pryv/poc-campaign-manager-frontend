@@ -26,11 +26,11 @@ class Pryv {
   };
 
   isApiUrlSet () {
-    return this.apiUrl == null;
+    return this.apiUrl != null;
   }
 
   isRegisterUrlSet () {
-    return this.registerUrl == null;
+    return this.registerUrl != null;
   }
 
   async fetchServiceInfo () {
@@ -65,6 +65,10 @@ class Pryv {
     }
 
     return pathjs.join(this.registerUrl, path);
+  }
+
+  getBaseUrl (username: string) {
+    return this.buildApiUrl(username, '');
   }
 
   signIn (params: {
