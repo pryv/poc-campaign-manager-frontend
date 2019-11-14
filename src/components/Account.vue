@@ -11,7 +11,7 @@
         </v-btn>
     </div>
     <div v-else>
-      Account is linked to Pryv account
+      Account is linked to Pryv account 
         <a
           :href="''"
           target="_blank"
