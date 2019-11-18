@@ -33,10 +33,10 @@
                       </div>
                       <div v-else>
                         <a
-                          :href="'https://' + props.item.requestee.pryvUsername + '.pryv.me/#/sharings/' + props.item.accessToken"
+                          :href="props.item.apiUrl"
                           target="_blank"
                         >
-                          {{ props.item.accessToken }} TODO
+                          {{ props.item.accessToken }}
                         </a>
                       </div>
                     </td>

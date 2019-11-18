@@ -295,11 +295,15 @@
         if (params.invitation.requester.id === this.user.id) {
           console.log('pushed in sent');
           params.invitation.url = buildTargetedInvitationLink(params.invitation);
+          params.invitation.apiUrl = this.buildApiUrl(params.invitation.requestee.pryvUsername, '#/sharings/' + params.invitation.accessToken);
           this.sentInvitations.push(params.invitation);
         } else {
           console.log('pushed in receieved');
           this.receivedInvitations.push(params.invitation);
         }
+      },
+      buildApiUrl(username, path) {
+        return this.pryvModel.buildApiUrl(username, path);
       },
       async checkInvitationToken(params) {
         console.info('verifying invitation token for user', this.user.username, 'for campaign', params.invitation.campaign.title);
