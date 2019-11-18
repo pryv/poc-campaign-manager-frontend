@@ -13,7 +13,7 @@
     <div v-else>
       Account is linked to Pryv account 
         <a
-          :href="''"
+          :href="pryvEndpoint"
           target="_blank"
         >
           {{ pryvEndpoint }}
