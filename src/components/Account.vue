@@ -13,7 +13,7 @@
     <div v-else>
       Account is linked to Pryv account 
         <a
-          :href="'https://' + this.user.pryvUsername + '.' + this.pryvDomain"
+          :href="pryvEndpoint"
           target="_blank"
         >
           {{ pryvEndpoint }}
@@ -77,6 +77,7 @@
       }
     },
     async created() {
+      await this.pryvModel.fetchServiceInfo();
       await this.getUserData();
       await this.getCampaigns();
       await this.getInvitations();
@@ -89,7 +90,7 @@
     },
     computed: {
       pryvEndpoint() {
-        return this.user.pryvUsername + '.' + this.pryvDomain;
+        return this.pryvModel.getBaseUrl(this.user.pryvUsername);
       }
     },
     methods: {
@@ -294,11 +295,15 @@
         if (params.invitation.requester.id === this.user.id) {
           console.log('pushed in sent');
           params.invitation.url = buildTargetedInvitationLink(params.invitation);
+          params.invitation.apiUrl = this.buildApiUrl(params.invitation.requestee.pryvUsername, '#/sharings/' + params.invitation.accessToken);
           this.sentInvitations.push(params.invitation);
         } else {
           console.log('pushed in receieved');
           this.receivedInvitations.push(params.invitation);
         }
+      },
+      buildApiUrl(username, path) {
+        return this.pryvModel.buildApiUrl(username, path);
       },
       async checkInvitationToken(params) {
         console.info('verifying invitation token for user', this.user.username, 'for campaign', params.invitation.campaign.title);

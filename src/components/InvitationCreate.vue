@@ -92,6 +92,7 @@
     },
     methods: {
       async create() {
+        await this.pryvModel.fetchServiceInfo();
         try {
           const usersExists = await this.pryvModel.userExists({username: this.requestee.pryvUsername});
           if (! usersExists) {
@@ -133,7 +134,7 @@
           }
           this.showSnackbar({
             color: 'error',
-            text: 'Error while creating invitation: ' + msg.error
+            text: 'Error while creating invitation: ' + msg.error.details
           });
           console.error('error while creating invitation', msg);
         }
