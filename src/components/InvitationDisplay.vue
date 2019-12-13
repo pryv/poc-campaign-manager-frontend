@@ -195,16 +195,15 @@
   };
 
   function loadSettings(that) {
+    const clientDataContent = '**Requester** : ' + that.campaign.requester + '<br/>' +
+      '**Title** : ' + that.campaign.title + '<br/>' +
+      '**Description** : ' + that.campaign.description;
+    const clientData = {'app-web-auth:description': {'type': 'note/txt','content': clientDataContent}};
     return {
       disableCookies: true,
       requestingAppId: that.campaign.pryvAppId,
       requestedPermissions: that.campaign.permissions,
-      clientData: {
-        'app-web-auth:description': {
-          type: 'note/txt',
-          content: that.campaign.description
-        }
-      },
+      clientData: clientData,
       spanButtonID: 'pryv-button',
       cookiesForceDisable: true,
       callbacks: {
