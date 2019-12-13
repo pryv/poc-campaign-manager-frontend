@@ -20,7 +20,7 @@
     "flow-typed": "^2.4.0",
     "lodash": "^4.17.10",
     "marked": "^0.5.0",
-    "pryv": "^1.0.8",
+    "pryv": "^1.2.1",
     "superagent": "^3.8.3",
     "tweetnacl": "^1.0.0",
     "tweetnacl-util": "^0.15.0",

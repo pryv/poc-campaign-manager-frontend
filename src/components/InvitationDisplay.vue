@@ -199,6 +199,12 @@
       disableCookies: true,
       requestingAppId: that.campaign.pryvAppId,
       requestedPermissions: that.campaign.permissions,
+      clientData: {
+        'app-web-auth:description': {
+          type: 'note/txt',
+          content: that.campaign.description
+        }
+      },
       spanButtonID: 'pryv-button',
       cookiesForceDisable: true,
       callbacks: {
