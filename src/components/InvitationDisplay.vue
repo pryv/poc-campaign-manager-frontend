@@ -197,7 +197,7 @@
   function loadSettings(that) {
     const clientDataContent = '**Requester** : ' + that.campaign.requester + '<br/>' +
       '**Title** : ' + that.campaign.title + '<br/>' +
-      '**Description** : ' + that.campaign.description;
+      '**Description** : <br/>' + that.campaign.description;
     const clientData = {'app-web-auth:description': {'type': 'note/txt','content': clientDataContent}};
     return {
       disableCookies: true,
