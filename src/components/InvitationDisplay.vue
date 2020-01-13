@@ -140,6 +140,7 @@
       }
     },
     async created() {
+      await this.pryvModel.fetchServiceInfo();
       if (this.campaign.id == null) {
         return;
       }

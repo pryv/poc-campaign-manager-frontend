@@ -1,7 +1,7 @@
 // @flow
 
 import superagent from 'superagent';
-import pathjs from 'path';
+import url from 'url';
 
 // eslint-disable-next-line
 import config from '@/utils/config';
@@ -23,6 +23,7 @@ class Pryv {
       params = {domain: ''};
     }
     this.domain = params.domain || DEFAULT_DOMAIN;
+    console.log('new Pryv. Domain : ' + this.domain);
   };
 
   isApiUrlSet () {
@@ -40,10 +41,13 @@ class Pryv {
       return;
     }
 
+    console.log('fetching service info on ' + config.pryv.serviceInfoUrl);
     try {
       const serviceInfoRes = await superagent.get(config.pryv.serviceInfoUrl);
       this.apiUrl = serviceInfoRes.body.api || 'https://{username}.' + config.domain + '/';
       this.registerUrl = serviceInfoRes.body.register || 'https://reg.' + config.domain + '/';
+      console.log('apiUrl set to ' + this.apiUrl);
+      console.log('registerUrl set to ' + this.registerUrl);
     } catch (error) {
       console.error('Unable to reach service info at ' + config.pryv.serviceInfoUrl + ' : ' + JSON.stringify(error, null, 2));
     }
@@ -55,7 +59,7 @@ class Pryv {
       return '';
     }
 
-    return pathjs.join(this.apiUrl.replace('{username}', username), path);
+    return url.resolve(this.apiUrl.replace('{username}', username), path);
   }
 
   buildRegisterUrl (path: string) {
@@ -64,7 +68,7 @@ class Pryv {
       return '';
     }
 
-    return pathjs.join(this.registerUrl, path);
+    return url.resolve(this.registerUrl, path);
   }
 
   getBaseUrl (username: string) {
@@ -87,7 +91,9 @@ class Pryv {
   async userExists (params: {
     username: string
   }) {
-    const checkUsernameResponse = await superagent.get(this.buildRegisterUrl(params.username + '/check_username'));
+    const checkeUserUrl = this.buildRegisterUrl(params.username + '/check_username');
+    console.log('checking if user ' + params.username + ' exists on ' + checkeUserUrl);
+    const checkUsernameResponse = await superagent.get(checkeUserUrl);
     const isReserved: boolean = checkUsernameResponse.body.reserved;
     if (!isReserved) {
       return false;

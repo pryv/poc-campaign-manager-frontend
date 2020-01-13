@@ -92,6 +92,7 @@
       }
     },
     async created() {
+      await this.pryvModel.fetchServiceInfo();
       await this.getAccesses();
       await this.getCampaignData();
     },
