@@ -200,6 +200,7 @@
       '**Title** : ' + that.campaign.title + '<br/>' +
       '**Description** : <br/>' + that.campaign.description;
     const clientData = {'app-web-auth:description': {'type': 'note/txt','content': clientDataContent}};
+    console.info('clientData : ', clientData);
     return {
       disableCookies: true,
       requestingAppId: that.campaign.pryvAppId,
