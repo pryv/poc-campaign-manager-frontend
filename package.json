@@ -4,6 +4,7 @@
   "description": "VueJS web app for Pryv campaign management",
   "author": "Ilia Kebets <ilia@pryv.com>",
   "private": true,
+  "license": "BSD-3-Clause",
   "scripts": {
     "dev": "webpack-dev-server --inline --progress --config build/webpack.dev.conf.js",
     "dev2": "webpack-dev-server --host vuedevhost --inline --progress --config build/webpack.dev.conf.js --port=9001",
