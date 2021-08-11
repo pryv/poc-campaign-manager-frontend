@@ -2,6 +2,10 @@
 
 VueJS web app for Pryv campaign management
 
+| Account | Campaign | 
+| ------------------------------------------------------------ | ------------------------------------------------------------ | 
+| <img src="readme/images/account.png" alt="Account view" style="zoom:33%;" /> | <img src="readme/images/campaign.png" alt="Campaign view" style="zoom:33%;" /> |
+
 *Prerequisites*: Node v8+, Yarn v1+
 
 ## Usage
