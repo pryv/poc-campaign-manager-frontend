@@ -1,14 +1,32 @@
 # app-web-campaign-management
 
-VueJS web app for Pryv campaign management
+VueJS web app for Pryv campaign management: [camp.pryv.me](https://camp.pryv.me). Paired with its backend: [app-node-campaign-manager](https://github.com/pryv/app-node-campaign-manager).
 
-| Account | Campaign | 
-| ------------------------------------------------------------ | ------------------------------------------------------------ | 
-| <img src="readme/images/account.png" alt="Account view" style="zoom:33%;" /> | <img src="readme/images/campaign.png" alt="Campaign view" style="zoom:33%;" /> |
+## App
 
-*Prerequisites*: Node v8+, Yarn v1+
+This app allows to build campaigns to collect accesses for patient data.
+
+### Account view
+
+On the account view, one can browse the campaigns he has created and the obtained accesses.
+
+<img src="readme/images/account.png" alt="Account view" style="width:95%;" />
+
+### Create campaign view
+
+Here, the user can add a description to define the usage of the collected data and the requested streams.
+
+<img src="readme/images/campaign-create.png" alt="Campaign view" style="zoom:95%;" />
+
+### Display campaign view
+
+Once a campaign is created, it displays its data, and the patients who have [given their consent](https://api.pryv.com/guides/consent/).
+
+<img src="readme/images/campaign-display.png" alt="Campaign view" style="zoom:95%;" />
 
 ## Usage
+
+*Prerequisites*: Node v8+, Yarn v1+
 
 - Download dependencies: `yarn install`
 
