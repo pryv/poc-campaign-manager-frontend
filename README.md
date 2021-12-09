@@ -1,6 +1,6 @@
-# app-web-campaign-management
+# Campaign manager (frontend)
 
-VueJS web app for Pryv campaign management: [camp.pryv.me](https://camp.pryv.me). Paired with its backend: [app-node-campaign-manager](https://github.com/pryv/app-node-campaign-manager).
+Vue.js app for Pryv campaign management: [camp.pryv.me](https://camp.pryv.me); paired with its [backend Express.js app](https://github.com/pryv/poc-campaign-manager-backend).
 
 ## App
 
