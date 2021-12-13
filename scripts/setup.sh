@@ -24,7 +24,7 @@ then
   echo "
 Setting up 'dist' folder for publishing to GitHub pages...
 "
-  git clone https://github.com/pryv/app-web-campaign-manager.git dist && cd dist && git checkout gh-pages
+  git clone https://github.com/pryv/poc-campaign-manager-frontend.git dist && cd dist && git checkout gh-pages
 fi
 
 echo "
