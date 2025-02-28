@@ -1,3 +1,9 @@
+/**
+ * @license
+ * Copyright (C) Pryv https://pryv.com
+ * This file is part of Pryv.io and released under BSD-Clause-3 License
+ * Refer to LICENSE file
+ */
 // flow-typed signature: 022e520692cc2665bbb62f590c7e8a0d
 // flow-typed version: <<STUB>>/babel-plugin-istanbul_v^4.1.1/flow_v0.71.0
 

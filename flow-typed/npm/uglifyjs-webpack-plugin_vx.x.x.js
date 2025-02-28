@@ -1,3 +1,9 @@
+/**
+ * @license
+ * Copyright (C) Pryv https://pryv.com
+ * This file is part of Pryv.io and released under BSD-Clause-3 License
+ * Refer to LICENSE file
+ */
 // flow-typed signature: 7a2528d92a3785983727a5769c1775a9
 // flow-typed version: <<STUB>>/uglifyjs-webpack-plugin_v^1.1.1/flow_v0.71.0
 

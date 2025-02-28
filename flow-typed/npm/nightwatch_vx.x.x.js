@@ -1,3 +1,9 @@
+/**
+ * @license
+ * Copyright (C) Pryv https://pryv.com
+ * This file is part of Pryv.io and released under BSD-Clause-3 License
+ * Refer to LICENSE file
+ */
 // flow-typed signature: 6e1ae4fa34f0ea3ba387415359af7f5f
 // flow-typed version: <<STUB>>/nightwatch_v^0.9.12/flow_v0.71.0
 

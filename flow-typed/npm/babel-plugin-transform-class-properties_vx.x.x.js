@@ -1,3 +1,9 @@
+/**
+ * @license
+ * Copyright (C) Pryv https://pryv.com
+ * This file is part of Pryv.io and released under BSD-Clause-3 License
+ * Refer to LICENSE file
+ */
 // flow-typed signature: b26839abd705c305219fee62938d492b
 // flow-typed version: <<STUB>>/babel-plugin-transform-class-properties_v^6.24.1/flow_v0.71.0
 

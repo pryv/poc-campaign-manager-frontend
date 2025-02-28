@@ -1,3 +1,9 @@
+/**
+ * @license
+ * Copyright (C) Pryv https://pryv.com
+ * This file is part of Pryv.io and released under BSD-Clause-3 License
+ * Refer to LICENSE file
+ */
 // flow-typed signature: 849253e45ee0613293b29bd9b5449508
 // flow-typed version: <<STUB>>/optimize-css-assets-webpack-plugin_v^3.2.0/flow_v0.71.0
 

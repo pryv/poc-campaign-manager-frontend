@@ -1,3 +1,9 @@
+/**
+ * @license
+ * Copyright (C) Pryv https://pryv.com
+ * This file is part of Pryv.io and released under BSD-Clause-3 License
+ * Refer to LICENSE file
+ */
 // flow-typed signature: 547b172eaa2112f9587776b8f851f599
 // flow-typed version: <<STUB>>/vue-template-compiler_v^2.5.2/flow_v0.71.0
 

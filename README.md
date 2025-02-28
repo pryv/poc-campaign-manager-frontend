@@ -45,3 +45,8 @@ Once a campaign is created, it displays its data, and the patients who have [giv
 ### Known issues
 
 - When you have the following error: `Error: getaddrinfo ENOTFOUND http://localhost` upon launching the server with `yarn dev` or `yarn build`, define a new hostname pointing to `127.0.0.1` in your `/etc/hosts` file and add the `--host NEW_HOSTNAME` option in your script as it is done in the `dev2` script.  
+
+
+## License
+
+[BSD-3-Clause](LICENSE)

@@ -1,3 +1,9 @@
+/**
+ * @license
+ * Copyright (C) Pryv https://pryv.com
+ * This file is part of Pryv.io and released under BSD-Clause-3 License
+ * Refer to LICENSE file
+ */
 // flow-typed signature: 79a31d942a000e13bb2fde08b89745b8
 // flow-typed version: <<STUB>>/webpack-merge_v^4.1.0/flow_v0.71.0
 

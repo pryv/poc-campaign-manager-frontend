@@ -1,3 +1,9 @@
+/**
+ * @license
+ * Copyright (C) Pryv https://pryv.com
+ * This file is part of Pryv.io and released under BSD-Clause-3 License
+ * Refer to LICENSE file
+ */
 // flow-typed signature: 786e27ca07b7384c8b8ba8c192680fc1
 // flow-typed version: <<STUB>>/babel-plugin-transform-vue-jsx_v^3.5.0/flow_v0.71.0
 

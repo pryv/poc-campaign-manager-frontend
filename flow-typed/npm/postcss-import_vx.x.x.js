@@ -1,3 +1,9 @@
+/**
+ * @license
+ * Copyright (C) Pryv https://pryv.com
+ * This file is part of Pryv.io and released under BSD-Clause-3 License
+ * Refer to LICENSE file
+ */
 // flow-typed signature: b0381acde455a7d49f9a7b101855baec
 // flow-typed version: <<STUB>>/postcss-import_v^11.0.0/flow_v0.71.0
 

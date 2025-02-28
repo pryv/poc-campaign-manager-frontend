@@ -1,3 +1,9 @@
+/**
+ * @license
+ * Copyright (C) Pryv https://pryv.com
+ * This file is part of Pryv.io and released under BSD-Clause-3 License
+ * Refer to LICENSE file
+ */
 // flow-typed signature: 310928d087ff4f9929ecc25e82261dd6
 // flow-typed version: <<STUB>>/babel-register_v^6.22.0/flow_v0.71.0
 

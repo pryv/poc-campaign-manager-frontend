@@ -1,3 +1,9 @@
+/**
+ * @license
+ * Copyright (C) Pryv https://pryv.com
+ * This file is part of Pryv.io and released under BSD-Clause-3 License
+ * Refer to LICENSE file
+ */
 // flow-typed signature: 12b31d15bbc6eba4a963b8efc834cc63
 // flow-typed version: <<STUB>>/eslint-plugin-vue_v^4.5.0/flow_v0.71.0
 

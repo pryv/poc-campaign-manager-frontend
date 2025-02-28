@@ -1,3 +1,9 @@
+/**
+ * @license
+ * Copyright (C) Pryv https://pryv.com
+ * This file is part of Pryv.io and released under BSD-Clause-3 License
+ * Refer to LICENSE file
+ */
 // flow-typed signature: 37230ba9a083cafd01c06e368770a828
 // flow-typed version: <<STUB>>/node-notifier_v^5.1.2/flow_v0.71.0
 

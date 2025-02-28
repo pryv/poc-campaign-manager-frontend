@@ -1,3 +1,9 @@
+/**
+ * @license
+ * Copyright (C) Pryv https://pryv.com
+ * This file is part of Pryv.io and released under BSD-Clause-3 License
+ * Refer to LICENSE file
+ */
 // flow-typed signature: 0357406bb0f2df0bf0eb2e17220b90d9
 // flow-typed version: <<STUB>>/babel-helper-vue-jsx-merge-props_v^2.0.3/flow_v0.71.0
 

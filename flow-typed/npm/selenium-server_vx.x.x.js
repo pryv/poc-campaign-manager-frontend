@@ -1,3 +1,9 @@
+/**
+ * @license
+ * Copyright (C) Pryv https://pryv.com
+ * This file is part of Pryv.io and released under BSD-Clause-3 License
+ * Refer to LICENSE file
+ */
 // flow-typed signature: b9e8bc356b3e628a376474b47608c737
 // flow-typed version: <<STUB>>/selenium-server_v^3.0.1/flow_v0.71.0
 

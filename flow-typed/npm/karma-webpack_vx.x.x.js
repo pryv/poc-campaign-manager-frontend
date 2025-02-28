@@ -1,3 +1,9 @@
+/**
+ * @license
+ * Copyright (C) Pryv https://pryv.com
+ * This file is part of Pryv.io and released under BSD-Clause-3 License
+ * Refer to LICENSE file
+ */
 // flow-typed signature: 1f861c403452e50d1996d7cb6315f4bf
 // flow-typed version: <<STUB>>/karma-webpack_v^2.0.2/flow_v0.71.0
 

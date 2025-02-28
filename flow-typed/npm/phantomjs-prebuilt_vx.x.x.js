@@ -1,3 +1,9 @@
+/**
+ * @license
+ * Copyright (C) Pryv https://pryv.com
+ * This file is part of Pryv.io and released under BSD-Clause-3 License
+ * Refer to LICENSE file
+ */
 // flow-typed signature: ab28259eaf4fd2a9ca0a0ea52ea13d72
 // flow-typed version: <<STUB>>/phantomjs-prebuilt_v^2.1.14/flow_v0.71.0
 

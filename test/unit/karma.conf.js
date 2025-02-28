@@ -1,3 +1,9 @@
+/**
+ * @license
+ * Copyright (C) Pryv https://pryv.com
+ * This file is part of Pryv.io and released under BSD-Clause-3 License
+ * Refer to LICENSE file
+ */
 // This is a karma config file. For more details see
 //   http://karma-runner.github.io/0.13/config/configuration-file.html
 // we are also using it with karma-webpack

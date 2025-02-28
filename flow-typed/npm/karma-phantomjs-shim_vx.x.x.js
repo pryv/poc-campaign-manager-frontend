@@ -1,3 +1,9 @@
+/**
+ * @license
+ * Copyright (C) Pryv https://pryv.com
+ * This file is part of Pryv.io and released under BSD-Clause-3 License
+ * Refer to LICENSE file
+ */
 // flow-typed signature: 77d1453d16669ac292bf1e4fd8370ca0
 // flow-typed version: <<STUB>>/karma-phantomjs-shim_v^1.4.0/flow_v0.71.0
 

@@ -1,3 +1,9 @@
+/**
+ * @license
+ * Copyright (C) Pryv https://pryv.com
+ * This file is part of Pryv.io and released under BSD-Clause-3 License
+ * Refer to LICENSE file
+ */
 // flow-typed signature: 6003d993dd876a0bbc7771286b1bac7c
 // flow-typed version: <<STUB>>/vue-router_v^3.0.1/flow_v0.71.0
 

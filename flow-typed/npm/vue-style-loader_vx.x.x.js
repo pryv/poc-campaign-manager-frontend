@@ -1,3 +1,9 @@
+/**
+ * @license
+ * Copyright (C) Pryv https://pryv.com
+ * This file is part of Pryv.io and released under BSD-Clause-3 License
+ * Refer to LICENSE file
+ */
 // flow-typed signature: 4f30f7c55953cbf8a313d6fb4ef14a44
 // flow-typed version: <<STUB>>/vue-style-loader_v^3.0.1/flow_v0.71.0
 

@@ -1,3 +1,9 @@
+/**
+ * @license
+ * Copyright (C) Pryv https://pryv.com
+ * This file is part of Pryv.io and released under BSD-Clause-3 License
+ * Refer to LICENSE file
+ */
 // flow-typed signature: 31ff9fd4aa16fecd2c27b833de4d50d6
 // flow-typed version: <<STUB>>/webpack-bundle-analyzer_v^2.9.0/flow_v0.71.0
 

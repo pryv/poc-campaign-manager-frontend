@@ -1,3 +1,9 @@
+/**
+ * @license
+ * Copyright (C) Pryv https://pryv.com
+ * This file is part of Pryv.io and released under BSD-Clause-3 License
+ * Refer to LICENSE file
+ */
 // flow-typed signature: a77ffb9bf2f23ff07e1e1282e69d4bba
 // flow-typed version: <<STUB>>/inject-loader_v^3.0.0/flow_v0.71.0
 

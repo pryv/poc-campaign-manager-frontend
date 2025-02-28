@@ -1,23 +1,30 @@
 {
   "name": "app-web-campaign-management",
   "version": "1.0.0",
-  "description": "VueJS web app for Pryv campaign management",
-  "author": "Ilia Kebets <ilia@pryv.com>",
   "private": true,
+  "description": "VueJS web app for Pryv campaign management",
+  "homepage": "https://pryv.com",
   "license": "BSD-3-Clause",
+  "author": "Pryv <info@pryv.com> (https://pryv.com)",
   "scripts": {
+    "build": "node build/build.js && cp -R dist/ gh-pages/",
     "dev": "webpack-dev-server --inline --progress --config build/webpack.dev.conf.js",
     "dev2": "webpack-dev-server --host vuedevhost --inline --progress --config build/webpack.dev.conf.js --port=9001",
-    "start": "npm run dev",
-    "setup": "./scripts/setup.sh",
-    "upload": "./scripts/upload.sh",
-    "unit": "cross-env BABEL_ENV=test karma start test/unit/karma.conf.js --single-run",
     "e2e": "node test/e2e/runner.js",
-    "test": "npm run unit && npm run e2e",
+    "flow:deps": "./node_modules/flow-typed/dist/cli.js install",
+    "license": "source-licenser --config-file .licenser.yml ./",
     "lint": "eslint --ext .js,.vue src test/unit test/e2e/specs",
-    "build": "node build/build.js && cp -R dist/ gh-pages/",
-    "flow:deps": "./node_modules/flow-typed/dist/cli.js install"
+    "setup": "./scripts/setup.sh",
+    "start": "npm run dev",
+    "test": "npm run unit && npm run e2e",
+    "unit": "cross-env BABEL_ENV=test karma start test/unit/karma.conf.js --single-run",
+    "upload": "./scripts/upload.sh"
   },
+  "browserslist": [
+    "> 1%",
+    "last 2 versions",
+    "not ie <= 8"
+  ],
   "dependencies": {
     "fast-sha256": "^1.1.0",
     "flow-typed": "^2.4.0",
@@ -100,6 +107,7 @@
     "shelljs": "^0.7.6",
     "sinon": "^4.0.0",
     "sinon-chai": "^2.8.0",
+    "source-licenser": "^2.0.5",
     "uglifyjs-webpack-plugin": "^1.1.1",
     "url-loader": "^0.5.8",
     "vue-loader": "^13.3.0",
@@ -113,10 +121,5 @@
   "engines": {
     "node": ">= 6.0.0",
     "npm": ">= 3.0.0"
-  },
-  "browserslist": [
-    "> 1%",
-    "last 2 versions",
-    "not ie <= 8"
-  ]
+  }
 }

@@ -1,3 +1,9 @@
+/**
+ * @license
+ * Copyright (C) Pryv https://pryv.com
+ * This file is part of Pryv.io and released under BSD-Clause-3 License
+ * Refer to LICENSE file
+ */
 // flow-typed signature: fa3c606512fc02ec2425d4d994956e93
 // flow-typed version: <<STUB>>/karma-phantomjs-launcher_v^1.0.2/flow_v0.71.0
 

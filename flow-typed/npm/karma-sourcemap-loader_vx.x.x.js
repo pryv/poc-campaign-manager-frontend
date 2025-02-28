@@ -1,3 +1,9 @@
+/**
+ * @license
+ * Copyright (C) Pryv https://pryv.com
+ * This file is part of Pryv.io and released under BSD-Clause-3 License
+ * Refer to LICENSE file
+ */
 // flow-typed signature: 9978680cbd072b356c7914d28a4c3dbd
 // flow-typed version: <<STUB>>/karma-sourcemap-loader_v^0.3.7/flow_v0.71.0
 

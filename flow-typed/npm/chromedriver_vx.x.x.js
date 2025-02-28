@@ -1,3 +1,9 @@
+/**
+ * @license
+ * Copyright (C) Pryv https://pryv.com
+ * This file is part of Pryv.io and released under BSD-Clause-3 License
+ * Refer to LICENSE file
+ */
 // flow-typed signature: 1ea2c68b7c69c22f9c9242fea859d0bb
 // flow-typed version: <<STUB>>/chromedriver_v^2.27.2/flow_v0.71.0
 

@@ -1,3 +1,9 @@
+/**
+ * @license
+ * Copyright (C) Pryv https://pryv.com
+ * This file is part of Pryv.io and released under BSD-Clause-3 License
+ * Refer to LICENSE file
+ */
 // flow-typed signature: 4d988ff863cc06ad31bf41f5447b62d3
 // flow-typed version: <<STUB>>/karma-coverage_v^1.1.1/flow_v0.71.0
 
